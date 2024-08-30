@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import EmptyState from "src/components/ui/EmptyState";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "components/UI/Tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "components/ui/Tabs";
 import { Dropdown, DropdownItem } from "flowbite-react";
 import {
   CartesianGrid,
