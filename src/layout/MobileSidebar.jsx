@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import sideMenu from "src/data/sideBarData";
+
 import { useState } from "react";
 import LogoWhite from "src/assets/images/logo.svg";
 import DoubleArrown from "src/assets/images/left-double.svg";
