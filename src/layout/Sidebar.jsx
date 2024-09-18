@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import sideMenu from "src/data/sideBarData";
+
 import { useState } from "react";
-import LogoWhite from "src/assets/images/logo.svg";
+import LogoWhite from "src/assets/images/bookacrib-logo.svg";
 import DoubleArrown from "src/assets/images/left-double.svg";
 import Avatar from "src/assets/images/Avatar.png";
 import classNames from "classnames";
@@ -15,6 +15,7 @@ import { getBasePath } from "src/lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { sidedata } from "../data/sideBarData";
+import { AvatarIcon, SettingsIcon } from "../assets/SvgIcons";
 const Sidebar = ({
   openSideMenu,
   openMenu,
@@ -80,14 +81,14 @@ const Sidebar = ({
         aria-label="Sidebar"
       >
         <div
-          className="relative h-full px-3  overflow-y-auto bg-gray-100 "
+          className="relative h-full px-3  overflow-y-auto bg-white "
           onMouseEnter={() => setOpenMenu(false)}
           onMouseLeave={() => setOpenMenu(true)}
         >
-          <div className=" sticky top-0 w-full z-40 bg-gray-100 pt-2">
+          <div className=" sticky top-0 w-full z-40 bg-white pt-2">
             <div
               className={classNames(
-                "   flex items-center justify-between bg-gray-100  py-6"
+                "   flex items-center justify-between bg-white  py-6"
                 // {
                 //   " px-4": !openMenu && clickOpenSideBar === false,
                 // }
@@ -269,162 +270,86 @@ const Sidebar = ({
                       </AnimatePresence>
                     )}
                   </div>
-                  // <div>
-                  //   <Link to={item.href} onClick={() => toggleSubmenu(index)}>
-                  //     <div
-                  //       className={classNames(
-                  //         "flex items-center p-2 rounded-lg  hover:text-primary-600 group text-base  transition duration-75 hover:bg-secondary",
-                  //         {
-                  //           "py-4 w-full":
-                  //             !openMenu || clickOpenSideBar === true,
-                  //         },
-                  //         {
-                  //           "bg-secondary text-primary-600":
-                  //             getBasePath(currentPath) === item.href,
-                  //         },
-                  //         {
-                  //           "text-secondary":
-                  //             getBasePath(currentPath) !== item.href,
-                  //         }
-                  //       )}
-                  //     >
-                  //       {item.icon}
-                  //       <span
-                  //         className={classNames(
-                  //           {
-                  //             hidden:
-                  //               openMenu === true && clickOpenSideBar === false,
-                  //           },
-                  //           {
-                  //             "group-hover:text-primary-600  ":
-                  //               openMenu === false,
-                  //           },
-                  //           "flex-1 ms-3 text-left  whitespace-nowrap group-hover:font-medium",
-                  //           {
-                  //             "text-primary-600 font-medium":
-                  //               getBasePath(currentPath) === item.href,
-                  //           },
-                  //           {
-                  //             "text-white font-normal":
-                  //               getBasePath(currentPath) !== item.href,
-                  //           }
-                  //         )}
-                  //       >
-                  //         {item.title}
-                  //       </span>
-
-                  //       <span
-                  //         className={classNames({
-                  //           hidden:
-                  //             openMenu === true && clickOpenSideBar === false,
-                  //         })}
-                  //       >
-                  //         {item.child && (
-                  //           <svg
-                  //             width="20"
-                  //             height="20"
-                  //             viewBox="0 0 20 20"
-                  //             fill="none"
-                  //             xmlns="http://www.w3.org/2000/svg"
-                  //             className={` transition-all duration-300 ${
-                  //               activeSubmenu === index ? "rotate-180" : ""
-                  //             }`}
-                  //           >
-                  //             <path
-                  //               d="M5 7.5L10 12.5L15 7.5"
-                  //               stroke="currentColor"
-                  //               strokeWidth="1.66667"
-                  //               strokeLinecap="round"
-                  //               strokeLinejoin="round"
-                  //             />
-                  //           </svg>
-                  //         )}
-                  //       </span>
-                  //     </div>
-                  //   </Link>
-
-                  //   {item.child && (
-                  //     <div
-                  //       className={`${
-                  //         activeSubmenu === index ? "block" : "hidden"
-                  //       }`}
-                  //     >
-                  //       {item.child.map((child, childIndex) => (
-                  //         <div key={childIndex}>
-                  //           <Link
-                  //             to={child.href}
-                  //             onClick={() => toggleMultiMenu(childIndex)}
-                  //             className={`flex items-center px-4 py-2 text-sm ms-3 rounded-md my-2 text-gray-100 hover:bg-gray-700 ${
-                  //               location.pathname === child.href
-                  //                 ? "bg-gray-700"
-                  //                 : ""
-                  //             }`}
-                  //           >
-                  //             {child.icon}
-                  //             <span className="flex-1 ms-3 text-left group-hover:font-medium">
-                  //               {child.title}
-                  //             </span>
-                  //           </Link>
-                  //           {child.nested && (
-                  //             <div
-                  //               className={`${
-                  //                 activeMultiMenu === childIndex
-                  //                   ? "block"
-                  //                   : "hidden"
-                  //               }`}
-                  //             >
-                  //               {child.nested.map((nested, nestedIndex) => (
-                  //                 <Link
-                  //                   key={nestedIndex}
-                  //                   to={nested.href}
-                  //                   className={`block px-4  rounded-md py-2 ms-8 text-sm font-bold text-gray-100 hover:bg-gray-700 ${
-                  //                     location.pathname === nested.href
-                  //                       ? "bg-gray-700"
-                  //                       : ""
-                  //                   }`}
-                  //                 >
-                  //                   <span>{nested.title}</span>
-                  //                 </Link>
-                  //               ))}
-                  //             </div>
-                  //           )}
-
-                  //           {child.child && (
-                  //             <div
-                  //               className={`${
-                  //                 activeMultiMenu === childIndex
-                  //                   ? "block"
-                  //                   : "hidden"
-                  //               }`}
-                  //             >
-                  //               {child.child.map(
-                  //                 (grandChild, grandChildIndex) => (
-                  //                   <Link
-                  //                     key={grandChildIndex}
-                  //                     to={grandChild.href}
-                  //                     className={`block pl-8 pr-4 py-2 text-sm font-bold text-gray-100 hover:bg-gray-700 ${
-                  //                       location.pathname === grandChild.href
-                  //                         ? "bg-gray-700"
-                  //                         : ""
-                  //                     }`}
-                  //                   >
-                  //                     <span>{grandChild.title}</span>
-                  //                   </Link>
-                  //                 )
-                  //               )}
-                  //             </div>
-                  //           )}
-                  //         </div>
-                  //       ))}
-                  //     </div>
-                  //   )}
-                  // </div>
                 )}
               </div>
             ))}
+
+            <Link to="">
+              <div
+                className={classNames(
+                  "flex items-center p-2 rounded-lg hover:text-primary-800 group text-base transition duration-75 hover:bg-primary-100",
+                  {
+                    "py-4 w-full": !openMenu || clickOpenSideBar === true,
+                    "bg-primary-100 text-primary-800":
+                      getBasePath(currentPath) === "logout",
+                    "text-tertiary-500": getBasePath(currentPath) !== "logout",
+                  }
+                )}
+              >
+                <AvatarIcon />
+                <span
+                  className={classNames(
+                    {
+                      hidden: openMenu === true && clickOpenSideBar === false,
+                    },
+                    {
+                      "group-hover:text-primary-800": openMenu === false,
+                    },
+                    "flex-1 ms-3 text-left whitespace-nowrap group-hover:font-medium",
+                    {
+                      "text-primary-800 font-medium":
+                        getBasePath(currentPath) === "logout",
+                    },
+                    {
+                      "text-tertiary-800 font-normal":
+                        getBasePath(currentPath) !== "logout",
+                    }
+                  )}
+                >
+                  Profile
+                </span>
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                className={classNames(
+                  "flex items-center p-2 rounded-lg hover:text-primary-800 group text-base transition duration-75 hover:bg-primary-100",
+                  {
+                    "py-4 w-full": !openMenu || clickOpenSideBar === true,
+                    "bg-primary-100 text-primary-800":
+                      getBasePath(currentPath) === "logout",
+                    "text-primary-800": getBasePath(currentPath) !== "logout",
+                  }
+                )}
+              >
+                <LogOutIcon />
+                <span
+                  className={classNames(
+                    {
+                      hidden: openMenu === true && clickOpenSideBar === false,
+                    },
+                    {
+                      "group-hover:text-primary-800": openMenu === false,
+                    },
+                    "flex-1 ms-3 text-left whitespace-nowrap group-hover:font-medium",
+                    {
+                      "text-primary-800 font-medium":
+                        getBasePath(currentPath) === "logout",
+                    },
+                    {
+                      "text-primary-800 font-normal":
+                        getBasePath(currentPath) !== "logout",
+                    }
+                  )}
+                >
+                  Logout
+                </span>
+              </div>
+            </Link>
+            <div className="flex items-center gap-4 pb-10"></div>
           </div>
 
-          <div className="flex items-start justify-between py-6 my-6   border-t border-white/20">
+          {/* <div className="flex items-start justify-between py-6 my-6   border-t border-white/20">
             <div className="flex items-center gap-4">
               <img
                 className={classNames(" rounded-full w-10 h-10")}
@@ -450,7 +375,7 @@ const Sidebar = ({
             >
               <LogOutIcon />
             </div>
-          </div>
+          </div> */}
         </div>
       </motion.aside>
     </div>
