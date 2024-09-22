@@ -16,12 +16,12 @@ const TopSelling = () => {
   // };
 
   return (
-    <div className="px-4">
-      <div className="nc-Section-Heading relative flex flex-row items-center justify-between mb-6 lg:mb-8 text-neutral-800 dark:text-neutral-50">
+    <div className="px-4 max-w-7xl mx-auto pt-6">
+      <div className=" relative flex items-center justify-between mb-4  text-neutral-800 dark:text-neutral-50">
         <div className="">
-          <h2 className=" text-2xl lg:text-4xl font-semibold">Top Selling</h2>
+          <h2 className="text-lg lg:text-xl  font-semibold">Available Rooms</h2>
         </div>
-        <div className="mt-4 flex justify-end sm:ms-2 sm:mt-0 flex-shrink-0">
+        <div className="text-sm lg:text-base flex justify-end sm:ms-2 sm:mt-0 flex-shrink-0">
           <div className=" relative flex items-center text-slate-600 cursor-pointer dark:text-slate-400 ">
             <p>View more</p>
             <button
@@ -56,9 +56,9 @@ const TopSelling = () => {
         </div>
       </div>
 
-      <div className=" grid grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-3 xl:grid-cols-4 ">
+      <div className=" grid grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-3 ">
         {productData
-          .slice(0, 8)
+          .slice(0, 6)
           .map(({ image, title, discount, category, price }, index) => (
             <ProductCard
               key={index}

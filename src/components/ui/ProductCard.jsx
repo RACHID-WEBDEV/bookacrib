@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import classNames from "classnames";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "../forms/Button";
 
 const ProductCard = ({ image, title, discount, category, price }) => {
   //   const [favorite, setFavorite] = useState(0);
@@ -15,22 +17,21 @@ const ProductCard = ({ image, title, discount, category, price }) => {
     // }
   };
   return (
-    <div className=" relative flex flex-col bg-transparent  border border-gray-100 rounded-lg ">
-      <a className="absolute inset-0" href="/product-detail" />
-      <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
+    <div className=" relative flex lg:flex-col bg-transparent  border border-gray-100 rounded-lg ">
+      {/* <a className="absolute inset-0" /> */}
+      <div className="w-[35%] lg:w-full relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-l-xl lg:rounded-t-xl overflow-hidden z-1 group">
         <a className="block relative" href="#">
-          <div className="flex overflow-hidden w-full h-80">
+          <div className="flex overflow-hidden lg:w-full w-32 h-[132px] lg:h-64">
             <img
               alt="product"
               className="object-cover w-full h-full drop-shadow-xl transition-transform duration-[1600ms]  group-hover:scale-110 scale-100"
-              sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
               src={image}
             />
           </div>
           <div className=" absolute w-full h-full inset-0  bg-black/20"></div>
         </a>
         {discount && (
-          <div className="nc-shadow-lg rounded-full flex items-center justify-center absolute top-3 start-3 px-2.5 py-1.5 text-xs bg-gray-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300">
+          <div className="nc-shadow-lg hidden rounded-full lg:flex items-center justify-center absolute top-3 start-3 px-2.5 py-1.5 text-xs bg-gray-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300">
             <svg
               className="w-3.5 h-3.5"
               viewBox="0 0 24 24"
@@ -69,7 +70,7 @@ const ProductCard = ({ image, title, discount, category, price }) => {
             <span className="ms-1 leading-none capitalize">{discount}</span>
           </div>
         )}
-        <button
+        {/* <button
           onClick={toggleFavorite}
           className={classNames(
             "w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 dark:bg-slate-900 text-neutral-700 dark:text-slate-200 nc-shadow-lg absolute top-3 end-3 z-10",
@@ -87,9 +88,9 @@ const ProductCard = ({ image, title, discount, category, price }) => {
               strokeLinejoin="round"
             />
           </svg>
-        </button>
+        </button> */}
         <div className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-          <button className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-xs py-2 px-4  ttnc-ButtonPrimary disabled:bg-opacity-90 bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 text-slate-50 dark:text-slate-800 shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0">
+          {/* <button className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors text-xs py-2 px-4  ttnc-ButtonPrimary disabled:bg-opacity-90 bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 text-slate-50 dark:text-slate-800 shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0">
             <svg className="w-3.5 h-3.5 mb-0.5" viewBox="0 0 9 9" fill="none">
               <path
                 d="M2.99997 4.125C3.20708 4.125 3.37497 4.29289 3.37497 4.5C3.37497 5.12132 3.87865 5.625 4.49997 5.625C5.12129 5.625 5.62497 5.12132 5.62497 4.5C5.62497 4.29289 5.79286 4.125 5.99997 4.125C6.20708 4.125 6.37497 4.29289 6.37497 4.5C6.37497 5.53553 5.5355 6.375 4.49997 6.375C3.46444 6.375 2.62497 5.53553 2.62497 4.5C2.62497 4.29289 2.79286 4.125 2.99997 4.125Z"
@@ -103,7 +104,7 @@ const ProductCard = ({ image, title, discount, category, price }) => {
               />
             </svg>
             <span className="ms-1">Add to cart</span>
-          </button>
+          </button> */}
           <button className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full  text-xs py-2 px-4  text-slate-700 dark:bg-slate-900 dark:text-slate-300  ms-1.5 bg-white hover:!bg-gray-100 hover:text-slate-900 transition-colors shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -125,40 +126,62 @@ const ProductCard = ({ image, title, discount, category, price }) => {
           </button>
         </div>
       </div>
-      <div className="space-y-4 px-2.5 pt-5 pb-2.5">
+      <div className="w-[65%] lg:w-full space-y-7 lg:space-y-4 px-2.5 py-2.5 lg:pt-5 lg:pb-6">
         <div>
-          <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
-            {title}
-          </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 ">
+          <div className=" flex items-center w-full justify-between gap-2">
+            <div>
+              <Link to="">
+                <h2 className="text-base font-semibold transition-colors w-full">
+                  {title}
+                </h2>
+              </Link>
+              <p className="text-xs lg:hidden text-slate-500 dark:text-slate-400 lg:mt-1 ">
+                {category}
+              </p>
+            </div>
+            <div className="lg:w-[10%]">
+              <button
+                onClick={toggleFavorite}
+                className={classNames(
+                  "w-10 h-10 flex items-center justify-center  cursor-pointer rounded-full bg-gray-100  text-neutral-700 ",
+                  { "text-red-700": favorite === true },
+                  { "text-gray-600 ": favorite === false }
+                )}
+              >
+                <svg
+                  className="w-5 h-5  fill-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12.62 20.81C12.28 20.93 11.72 20.93 11.38 20.81C8.48 19.82 2 15.69 2 8.68998C2 5.59998 4.49 3.09998 7.56 3.09998C9.38 3.09998 10.99 3.97998 12 5.33998C13.01 3.97998 14.63 3.09998 16.44 3.09998C19.51 3.09998 22 5.59998 22 8.68998C22 15.69 15.52 19.82 12.62 20.81Z"
+                    stroke="currentColor"
+                    fill={favorite === false ? "none" : "currentColor"}
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p className="hidden lg:flex text-sm text-slate-500 dark:text-slate-400 lg:mt-1 ">
             {category}
           </p>
         </div>
         <div className="flex justify-between items-end ">
           <div className="">
-            <div className="flex items-center border-2 border-green-500 rounded-lg py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium">
-              <span className="text-green-500 !leading-none">₦{price}</span>
+            <div className="flex flex-col lg:flex-row lg:items-center gap-1.5 text-sm text-gray-500 ">
+              <span className="text-gray-800 font-semibold text-base !leading-none">
+                NGN{price}
+              </span>
+              <span className="hidden lg:flex">|</span>
+              <span className="">Per night</span>
             </div>
           </div>
-          {/* <div className="flex items-center mb-0.5">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-              data-slot="icon"
-              className="w-5 h-5 pb-[1px] text-amber-400"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
-              4.9 (98 reviews)
-            </span>
-          </div> */}
+          <div className="flex items-center">
+            <Button size="xs">Book</Button>
+          </div>
         </div>
       </div>
     </div>

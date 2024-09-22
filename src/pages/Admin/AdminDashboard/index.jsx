@@ -1,28 +1,32 @@
+/* eslint-disable no-unused-vars */
 import { Dropdown, DropdownItem } from "flowbite-react";
 import StatisticsChart from "./StatisticsChart";
 import { ArrowDownIcon } from "../../../assets/SvgIcons";
 import UserDeviceReport from "./user-device-report";
+import TopFeatures from "./TopFeatures";
 
 const AdminDashboard = () => {
   return (
     <div className="p-4 ">
       <div className=" flex items-center justify-between ">
         <div className="pb-4 pt-1">
-          <h1 className=" text-xl font-semibold text-gray-900 pb-1.5">Home</h1>
+          <h1 className=" text-xl font-semibold text-gray-900 pb-1.5">
+            Overview
+          </h1>
           <h5 className="text-gray-500 text-sm font-normal">
-            Overview of the sales stats, analytics, Recent orders, Customer
-            activities, Top-Selling Products, etc
+            Overview of the sales stats, analytics, Recent bookings, Customer
+            activities etc
           </h5>
         </div>
         <div className="flex items-center gap-3"></div>
       </div>
-
+      <TopFeatures />
       <div className=" grid grid-cols-3 gap-5">
         <div className=" col-span-2">
           <StatisticsChart />
         </div>
         <div className="w-full space-y-6 ">
-          <div className="">
+          {/* <div className="">
             <div className="border border-gray-200 rounded-xl  ">
               <div className="flex items-center justify-between p-4 py-5 rounded-t-xl border-b bg-white">
                 <div className=" flex items-center gap-2">
@@ -100,17 +104,17 @@ const AdminDashboard = () => {
                 <p className="text-gray-900 font-medium ">₦0.00</p>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="">
             <div className="border border-gray-200 rounded-xl  ">
               <div className="flex items-center justify-between p-4 py-5 rounded-t-xl border-b bg-white">
                 <div className=" flex items-center gap-2">
-                  <div className="font-medium text-gray-900 font-lg">
-                    Traffic
+                  <div className="font-medium text-gray-900 text-lg">
+                    Statistics
                   </div>
                 </div>
-                <Dropdown
+                {/* <Dropdown
                   dismissOnClick={true}
                   inline
                   arrowIcon={false}
@@ -147,7 +151,7 @@ const AdminDashboard = () => {
                       4 Weeks
                     </span>
                   </DropdownItem>
-                </Dropdown>
+                </Dropdown> */}
               </div>
 
               <div className="py-8">
@@ -156,7 +160,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="">
+          {/* <div className="">
             <div className="border border-gray-200 rounded-xl  ">
               <div className="flex items-center justify-between p-4 py-5 rounded-t-xl border-b bg-white">
                 <div className=" flex items-center gap-2">
@@ -251,7 +255,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

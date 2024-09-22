@@ -1,9 +1,9 @@
-import PRODUCTIMAGE1 from "src/assets/images/product/product-1.png";
-import PRODUCTIMAGE2 from "src/assets/images/product/product-2.png";
-import PRODUCTIMAGE3 from "src/assets/images/product/product-3.png";
-import PRODUCTIMAGE4 from "src/assets/images/product/product-4.png";
-import PRODUCTIMAGE5 from "src/assets/images/product/product-5.png";
-import PRODUCTIMAGE6 from "src/assets/images/product/product-6.png";
+import PRODUCTIMAGE1 from "src/assets/images/Rooms/room-1.png";
+import PRODUCTIMAGE2 from "src/assets/images/Rooms/room-2.png";
+import PRODUCTIMAGE3 from "src/assets/images/Rooms/room-3.png";
+import PRODUCTIMAGE4 from "src/assets/images/Rooms/room-4.png";
+import PRODUCTIMAGE5 from "src/assets/images/Rooms/room-5.png";
+import PRODUCTIMAGE6 from "src/assets/images/Rooms/room-6.png";
 import PRODUCTIMAGE7 from "src/assets/images/product/product-7.png";
 import PRODUCTIMAGE8 from "src/assets/images/product/product-8.png";
 import PRODUCTIMAGE9 from "src/assets/images/product/product-9.png";
@@ -25,56 +25,56 @@ import PRODUCTIMAGE24 from "src/assets/images/product/product-24.png";
 
 const productData = [
   {
-    title: "Women Leather Handbag Shoulder Bag",
+    title: "Lorriz Hotel ",
     image: PRODUCTIMAGE1,
-    price: "10,000",
-    category: "Shoe&Bag ",
+    price: "20,000",
+    category: "Victoria Island, Lagos ",
     discount: "20% Discount",
     description:
       "Fashion is a form of self-expression and autonomy at a particular period and place and in a specific context, of clothing, footwear, lifestyle, accessories, makeup, hairstyle, and body posture.",
   },
   {
-    title: "Utility Weight Benches ",
+    title: "Anthony Motel",
     image: PRODUCTIMAGE2,
     price: "10,000",
-    category: "Sports ",
+    category: "Ikoyi, Lagos ",
     discount: "",
     description:
       "Fashion is a form of self-expression and autonomy at a particular period and place and in a specific context, of clothing, footwear, lifestyle, accessories, makeup, hairstyle, and body posture.",
   },
   {
-    title: "Home Rotary Slicer Cheese Shredder",
+    title: "Capital Lodge",
     image: PRODUCTIMAGE3,
-    price: "10,000",
-    category: "Shoe&Bag ",
+    price: "15,000",
+    category: "Ikeja,Lagos ",
     discount: "",
     description:
       "Fashion is a form of self-expression and autonomy at a particular period and place and in a specific context, of clothing, footwear, lifestyle, accessories, makeup, hairstyle, and body posture.",
   },
   {
-    title: "Cushioned Kitchen Mat 2 PCS",
+    title: "Suzzy Apartment",
     image: PRODUCTIMAGE4,
-    price: "10,000",
-    category: "Shoe&Bag ",
-    discount: "30% Discount",
+    price: "25,000",
+    category: "Lekki Phase 1, Lagos ",
+    discount: "5% Discount",
     description:
       "Fashion is a form of self-expression and autonomy at a particular period and place and in a specific context, of clothing, footwear, lifestyle, accessories, makeup, hairstyle, and body posture.",
   },
   {
-    title: "Triathlon Suit Men Swim Mens Autumn ",
+    title: "Swiss Hotel ",
     image: PRODUCTIMAGE5,
     price: "10,000",
-    category: "Machine ",
+    category: "Ikate, Lagos ",
     discount: "",
     description:
       "Fashion is a form of self-expression and autonomy at a particular period and place and in a specific context, of clothing, footwear, lifestyle, accessories, makeup, hairstyle, and body posture.",
   },
   {
-    title: "Diffusers for Essential Oils Large Room",
+    title: "P. Villa Hotel",
     image: PRODUCTIMAGE6,
     price: "10,000",
-    category: "Eletronic ",
-    discount: "10% Off",
+    category: "Ajah, Lagos ",
+    discount: "10% OFF",
     description:
       "Fashion is a form of self-expression and autonomy at a particular period and place and in a specific context, of clothing, footwear, lifestyle, accessories, makeup, hairstyle, and body posture.",
   },

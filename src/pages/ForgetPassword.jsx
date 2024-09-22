@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import LogoWhite from "../components/shared/Logo/LogoWhite";
-import { SignUpSchema } from "../schema/authSchema";
+import { ForgetPasswordSchema } from "../schema/authSchema";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "../components/forms/Input";
@@ -12,7 +12,7 @@ import HookForm from "../components/forms/Form";
 import { loginThunk } from "../Redux/auth/authThunk";
 import LoadingSpinner from "../components/Loading/LoadingSpinner";
 
-const Register = () => {
+const ForgetPassword = () => {
   const dispatch = useDispatch();
   const { error, loading } = useSelector((state) => state.auth);
 
@@ -31,49 +31,18 @@ const Register = () => {
           </div>
           <div className=" border bg-gray-50 dark:border-gray-700 dark:bg-gray-800 px-4 lg:px-6 py-8 sm:py-10">
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
-              Sign Up
+              Forgot password?
             </h3>
-            <h3 className="text-base pt-3 text-gray-500 ">Welcome Back!</h3>
+            <h3 className="text-base pt-3 text-gray-500 ">
+              No worries, we’ll send you reset instructions.
+            </h3>
 
             <div className="max-w-lg pt-6">
-              <HookForm onSubmit={onSubmit} schema={SignUpSchema}>
-                <div className="grid lg:grid-cols-2 lg:gap-3 w-full ">
-                  <div className="">
-                    <Input
-                      name="first_name"
-                      // label="First Name"
-                      placeholder="First name"
-                    />
-                  </div>
-                  <div className="">
-                    <Input
-                      name="last_name"
-                      // label="Last Name"
-                      placeholder="Last name"
-                    />
-                  </div>
-                </div>
+              <HookForm onSubmit={onSubmit} schema={ForgetPasswordSchema}>
                 <Input
                   name="email"
                   // label="Email Address"
                   placeholder="Enter your email"
-                />
-                <Input
-                  name="phone"
-                  // label="Email Address"
-                  placeholder="Phone Number"
-                />
-                <Input
-                  name="password"
-                  // label="Password"
-                  type="password"
-                  placeholder="Password"
-                />
-                <Input
-                  name="confirmPassword"
-                  // label="Password"
-                  type="password"
-                  placeholder="Confirm Password"
                 />
 
                 <Button
@@ -88,16 +57,20 @@ const Register = () => {
                       <span>Loading...</span>
                     </div>
                   ) : (
-                    "Sign Up"
+                    "Reset Password"
                   )}
                 </Button>
               </HookForm>
 
-              <p className="text-right text-gray-600 mt-4">
-                Already have an account?{" "}
-                <Link to="/login" className=" text-primary-700 font-medium">
-                  Login
-                </Link>
+              <p className=" text-gray-600 mt-4">
+                If you don&apos;t receive an email,{" "}
+                <Link
+                  to="/resend-verification-link"
+                  className=" text-primary-700 font-medium"
+                >
+                  Resend Email
+                </Link>{" "}
+                check your spam folder or contact support
               </p>
             </div>
           </div>
@@ -107,4 +80,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ForgetPassword;

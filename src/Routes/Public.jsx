@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading/Loading";
-
+import Footer from "../components/ui/Footer";
+import Header from "../components/ui/Header";
 const Public = () => {
   // const navigate = useNavigate();
   // Explicitly define the type of 'state' using the RootState interface
@@ -51,7 +52,13 @@ const Public = () => {
 
   // Show outlet if authenticated, otherwise redirect to login
   // return !isAuthenticated ? <Outlet /> : null;
-  return <Outlet />;
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
+  );
 };
 
 export default Public;

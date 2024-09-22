@@ -25,11 +25,11 @@ export const ForgetPasswordSchema = yup
 
 export const SignUpSchema = yup
   .object({
-    firstname: yup
+    first_name: yup
       .string()
       .required("Firstname is required")
       .min(3, "Minimum 3 characters length"),
-    lastname: yup
+    last_name: yup
       .string()
       .required("Lastname is required")
       .min(3, "Minimum 3 characters length"),
@@ -37,13 +37,24 @@ export const SignUpSchema = yup
       .string()
       .email("Kindly provide a valid email address")
       .required("Email is required"),
+    phone: yup
+      .string()
+      .required("Phone number is required")
+      .matches(
+        /^[0-9]{10,15}$/,
+        "Phone number must be between 10 to 15 digits"
+      ),
     password: yup
       .string()
       .required("password is required")
       .min(8, "Must be at least 8 characters."),
-    acceptTerms: yup
-      .boolean()
-      .oneOf([true], "Must Accept Terms and Conditions"),
+    confirmPassword: yup
+      .string()
+      .required("Confirm password is required")
+      .oneOf([yup.ref("password")], "Password's not match"),
+    // acceptTerms: yup
+    //   .boolean()
+    //   .oneOf([true], "Must Accept Terms and Conditions"),
   })
   .required();
 
@@ -53,7 +64,7 @@ export const ResetPasswordSchema = yup
       .string()
       .required("Must contain one special character")
       .min(8, "Must be at least 8 characters"),
-    confirmPassword: yup
+    confirm_password: yup
       .string()
       .required("Confirm password is required")
       .oneOf([yup.ref("password")], "Password's not match"),

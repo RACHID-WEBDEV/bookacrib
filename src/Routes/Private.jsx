@@ -32,7 +32,8 @@ const Private = () => {
   return (
     // Show outlet if authenticated, otherwise redirect to login
     // isAuthenticated && isAuthorised ? <Outlet /> : navigate("/login")
-    <>{isAuthenticated ? <Outlet /> : navigate("/login")}</>
+    // <>{isAuthenticated ? <Outlet /> : navigate("/login")}</>
+    <Outlet />
   );
 };
 

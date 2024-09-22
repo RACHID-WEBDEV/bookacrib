@@ -1,10 +1,11 @@
+import classNames from "classnames";
 import PropTypes from "prop-types";
 
 const Checkbox = ({
   id,
   name,
   checked,
-  onChange,
+  setChecked,
   label,
   className,
   labelClassName,
@@ -17,11 +18,18 @@ const Checkbox = ({
           name={name}
           type="checkbox"
           checked={checked}
-          onChange={onChange}
-          className="absolute opacity-0 cursor-pointer"
+          onChange={() => {
+            setChecked((prevChecked) => !prevChecked);
+          }}
+          className={classNames(
+            "absolute opacity-0 left-0 w-6 h-6 cursor-pointer",
+            {
+              "opacity-0": checked,
+            }
+          )}
         />
         <div
-          className={`w-6 h-6 rounded border-2 cursor-pointer border-slate-400 dark:border-slate-700 ${
+          className={`w-6 h-6 rounded border  border-slate-400 dark:border-slate-700 ${
             checked ? "bg-white" : "bg-transparent"
           } flex items-center justify-center transition duration-300`}
         >
@@ -76,6 +84,7 @@ Checkbox.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
+  setChecked: PropTypes.any.isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   className: PropTypes.string,

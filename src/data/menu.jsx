@@ -1,37 +1,30 @@
 export const NAVIGATION = [
   {
     id: 1,
-    href: "/all",
-    name: "All",
+    href: "/",
+    name: "Home",
   },
   {
     id: 2,
-    href: "/daily-specials",
-    name: "Daily Specials",
+    href: "/",
+    name: "Car Rental",
   },
   {
     id: 3,
-    href: "/limited-time-offers",
-    name: "Limited-Time Offers",
+    href: "/",
+    name: "Airport Taxis",
   },
 
   {
     id: 4,
-    href: "/clearance",
-    name: "Clearance",
+    href: "/",
+    name: "Property for Rent",
   },
-  {
-    id: 5,
-    href: "/seasonal-promotions",
-    name: "Seasonal Promotions",
-    //   type: "megaMenu",
-    //   children: MEGAMENU_TEMPLATES,
-  },
-  //   {
-  //     id: ncNanoId(),
-  //     href: "/search",
-  //     name: "Explore",
-  //     type: "dropdown",
-  //     children: OTHER_PAGE_CHILD,
-  //   },
+  // {
+  //   id: 5,
+  //   href: "/seasonal-promotions",
+  //   name: "Seasonal Promotions",
+  //   //   type: "megaMenu",
+  //   //   children: MEGAMENU_TEMPLATES,
+  // },
 ];

@@ -144,7 +144,7 @@ const StatisticsChart = ({ height = 320 }) => {
     <div>
       <div className="rounded-xl  bg-white text-gray-600 shadow-shadow-xs py-10 relative">
         <h2 className="text-lg text-gray-900 font-semibold pl-4 pb-4">
-          Statistics
+          Bookings
         </h2>
         <hr className="text-gray-200" />
         <div className="pt-1">
@@ -277,7 +277,7 @@ const StatisticsChart = ({ height = 320 }) => {
                     <Tooltip content={<CustomTooltip />} />
                     <Bar
                       dataKey="total_revenue"
-                      fill="#CC0758"
+                      fill="#56CCF2"
                       className="rounded-xl"
                     />
                     {/* <Bar dataKey="project_cost" fill="#1D1DBA" fillOpacity={0.3} /> */}

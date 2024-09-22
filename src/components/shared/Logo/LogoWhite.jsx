@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import logo from "src/assets/images/bookacrib-logo.svg";
+import logo from "src/assets/images/bookacrib-logo-white.svg";
 
 import { Link } from "react-router-dom";
 
-const Logo = ({ className }) => {
+const LogoWhite = ({ className }) => {
   return (
     <Link to="/" className={` ${className}`}>
       <img
@@ -16,4 +16,4 @@ const Logo = ({ className }) => {
   );
 };
 
-export default Logo;
+export default LogoWhite;

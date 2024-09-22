@@ -72,10 +72,10 @@ export const styles = {
     outline_btn: {
       active: {
         [COLOR.PRIMARY]: [
-          "text-primary-600",
+          "text-primary-700",
           "bg-neutral-white",
           "border-[1.5px]",
-          "border-primary-600",
+          "border-primary-700",
         ],
         [COLOR.PRIMARY_ALT]: [
           "bg-neutral-white",

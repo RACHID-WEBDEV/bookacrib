@@ -1,9 +1,12 @@
 // import { Link } from "react-router-dom";
 // import { NAVIGATION } from "../../data/menu";
-// import Logo from "../shared/Logo/Logo";
+import Logo from "src/assets/images/bookacrib-logo.svg";
 // import { CartsIcon, SearchIcon, UsersIcon } from "../../assets/SvgIcons";
 import classNames from "classnames";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { NAVIGATION } from "../../data/menu";
+import { Button } from "../forms/Button/Button";
 // import SearchBar from "./SearchBar";
 // import classNames from "classnames";
 // import CartMenu from "./CartMenu";
@@ -39,7 +42,7 @@ const Header = () => {
   // const { isAuthenticated } = useSelector((state) => state.auth);
   return (
     <header>
-      <nav className="fixed z-10 w-full dark:bg-gray-900/70 bg-white md:absolute md:bg-transparent">
+      <nav className="fixed z-50 w-full dark:bg-gray-900/70 bg-white  md:bg-[#fff]">
         <div className="container m-auto px-2 md:px-12 lg:px-7">
           <div className="flex flex-wrap items-center justify-between py-2 gap-6 md:py-4 md:gap-0 relative">
             <input
@@ -48,20 +51,22 @@ const Header = () => {
               id="toggle_nav"
               className="hidden peer"
             />
-            <div className="w-full px-6 flex justify-between lg:w-max md:px-0">
-              <a
+            <div className="w-full px-4 lg:px-6 flex justify-between lg:w-max md:px-0">
+              <Link
+                to="/"
                 href="#"
                 aria-label="logo"
                 className="flex space-x-2 items-center"
               >
-                <div aria-hidden="true" className="flex space-x-1">
+                <img src={Logo} alt="logo" className="w-[160px] lg:w-[220px]" />
+                {/* <div aria-hidden="true" className="flex space-x-1">
                   <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-white" />
                   <div className="h-6 w-2 bg-primary" />
                 </div>
                 <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                  Arceelus
-                </span>
-              </a>
+                  Bookacrib
+                </span> */}
+              </Link>
               <div
                 onClick={toggleOpenMenu}
                 className="flex items-center lg:hidden max-h-10"
@@ -101,7 +106,7 @@ const Header = () => {
               gap-6 p-6 rounded-xl 
               bg-white shadow-md lg:shadow-none dark:bg-gray-900 lg:gap-0 
               lg:p-0  
-              lg:bg-transparent lg:w-7/12"
+              lg:bg-transparent lg:w-8/12 xl:w-7/12"
             >
               <div className="text-gray-600 dark:text-gray-300 lg:pr-4 lg:w-auto w-full lg:pt-0">
                 <ul
@@ -112,15 +117,17 @@ const Header = () => {
                       lg:flex-row
                       gap-6 lg:gap-0"
                 >
-                  <li>
-                    <a
-                      href="#"
-                      className="block md:px-4 transition hover:text-primary"
-                    >
-                      <span>Home</span>
-                    </a>
-                  </li>
-                  <li>
+                  {NAVIGATION.map((item, index) => (
+                    <li key={index}>
+                      <Link
+                        to={item.href}
+                        className="block md:px-4 cursor-pointer transition hover:text-primary-800"
+                      >
+                        <span>{item.name}</span>
+                      </Link>
+                    </li>
+                  ))}
+                  {/* <li>
                     <a
                       href="#"
                       className="block md:px-4 transition hover:text-primary"
@@ -135,18 +142,20 @@ const Header = () => {
                     >
                       <span>Services</span>
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
-              <div>
-                <a
-                  href="#"
-                  className="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-primary-500 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
-                >
-                  <span className="relative text-sm font-semibold text-white dark:text-dark">
-                    Get Started
-                  </span>
-                </a>
+              <div className=" flex flex-col lg:flex-row items-center gap-3">
+                <Link to="/sign-up">
+                  <Button className="w-full justify-center lg:w-max" size="sm">
+                    Sign Up
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button className="w-full justify-center lg:w-max" size="sm">
+                    Login
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
