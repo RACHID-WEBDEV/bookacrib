@@ -9,7 +9,7 @@ import HookForm from "../components/forms/Form";
 // import { GoogleIcon, Facebook } from "../assets/SvgIcons";
 // import toast from "react-hot-toast";
 import { loginThunk } from "../Redux/auth/authThunk";
-import LoadingSpinner from "../components/Loading/LoadingSpinner";
+import SmallSpinner from "../components/Loading/SmallSpinner";
 import { useEffect } from "react";
 const Login = () => {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const Login = () => {
   const onSubmit = (data) => {
     // alert(JSON.stringify(data));
     dispatch(loginThunk(data));
-    navigate("/dashboard");
+    // navigate("/dashboard");
   };
   return (
     <div className="m-auto pt-4 lg:pt-20 xl:container px-1 lg:px-12 sm:px-0 mx-auto">
@@ -86,7 +86,7 @@ const Login = () => {
                 >
                   {loading ? (
                     <div className="inline-flex items-center gap-3">
-                      <LoadingSpinner />
+                      <SmallSpinner />
                       <span>Loading...</span>
                     </div>
                   ) : (
