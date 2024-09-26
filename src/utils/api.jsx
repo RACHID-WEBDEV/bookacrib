@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 // Define base URL
-const baseURL = "https://phplaravel-1321641-4830599.cloudwaysapps.com/api/";
+const baseURL = "https://phplaravel-1332551-4877980.cloudwaysapps.com/api";
 // Create an Axios instance with default configurations
 const axiosInstance = axios.create({
   baseURL,
@@ -11,11 +11,13 @@ const axiosInstance = axios.create({
 // Add request interceptor to add token to headers
 axiosInstance.interceptors.request.use(
   async (config) => {
-    const token = Cookies.get("admin_token");
-    const userToken = Cookies.get("user_token");
+    const bookacrib_token = Cookies.get("bookacrib_admin_token");
+    const bookacrib_userToken = Cookies.get("bookacrib_user_token");
     // console.log("token given", userToken);
-    if (token || userToken) {
-      config.headers.Authorization = `Bearer ${token || userToken}`;
+    if (bookacrib_token || bookacrib_userToken) {
+      config.headers.Authorization = `Bearer ${
+        bookacrib_token || bookacrib_userToken
+      }`;
     }
     return config;
   },
