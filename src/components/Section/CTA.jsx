@@ -1,4 +1,4 @@
-import BusinessAds from "src/assets/images/Rooms/bussiness-ads-banner.png";
+import BusinessAds from "src/assets/images/Rooms/ads.png";
 import { Button } from "../forms/Button";
 const Cta = () => {
   return (
