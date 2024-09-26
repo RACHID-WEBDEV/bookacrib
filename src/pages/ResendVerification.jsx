@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoWhite from "../components/shared/Logo/LogoWhite";
 import { ForgetPasswordSchema } from "../schema/authSchema";
 
@@ -8,20 +8,35 @@ import { Input } from "../components/forms/Input";
 import { Button } from "../components/forms/Button";
 import HookForm from "../components/forms/Form";
 
-// import toast from "react-hot-toast";
-import { loginThunk } from "../Redux/auth/authThunk";
-import LoadingSpinner from "../components/Loading/LoadingSpinner";
+import toast from "react-hot-toast";
+import { resendVerificationThunk } from "../Redux/auth/authThunk";
+import SmallSpinner from "../components/Loading/SmallSpinner";
 
 const ResendVerification = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { error, loading } = useSelector((state) => state.auth);
 
   console.log(error);
-  // toast.error(error);
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    // dispatch(loginThunk(data));
+  const onSubmit = async (data) => {
+    try {
+      const result = await dispatch(resendVerificationThunk(data)).unwrap();
+      console.log("forgetpassword", result);
+      if (result.status >= 200 && result.status <= 300) {
+        navigate("/");
+      }
+    } catch (error) {
+      if (error?.status >= 400 && error?.status <= 499) {
+        // const errorMessages = Object.values(error?.errors).flat().join(", ");
+        toast.error(error.message, { duration: 6000 });
+      }
+    }
   };
+  // toast.error(error);
+  // const onSubmit = (data) => {
+  //   alert(JSON.stringify(data));
+  //   // dispatch(loginThunk(data));
+  // };
   return (
     <div className="m-auto pt-4 lg:pt-20 xl:container px-1 lg:px-12 sm:px-0 mx-auto">
       <div className="mx-auto h-full max-w-lg">
@@ -54,7 +69,7 @@ const ResendVerification = () => {
                 >
                   {loading ? (
                     <div className="inline-flex items-center gap-3">
-                      <LoadingSpinner />
+                      <SmallSpinner />
                       <span>Loading...</span>
                     </div>
                   ) : (
