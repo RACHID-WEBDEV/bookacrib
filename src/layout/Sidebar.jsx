@@ -4,18 +4,19 @@
 import { useState } from "react";
 import LogoWhite from "src/assets/images/bookacrib-logo.svg";
 import DoubleArrown from "src/assets/images/left-double.svg";
-import Avatar from "src/assets/images/Avatar.png";
+// import Avatar from "src/assets/images/Avatar.png";
 import classNames from "classnames";
 import { LogOutIcon } from "src/assets/SvgIcons";
 import { Link, useLocation } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
-// import { RootState } from "src/functions/Redux/rootReducer";
-// import { logoutThunk } from "src/functions/Redux/auth/authThunk";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutThunk } from "src/Redux/auth/authThunk";
 import { getBasePath } from "src/lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { sidedata } from "../data/sideBarData";
 import { AvatarIcon, SettingsIcon } from "../assets/SvgIcons";
+import { getNameInitials } from "../lib/constants";
+
 const Sidebar = ({
   openSideMenu,
   openMenu,
@@ -31,17 +32,17 @@ const Sidebar = ({
     setOpen(index === open ? null : index);
   };
 
-  // const { currentUser } = useSelector((state: RootState) => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
 
   const location = useLocation();
   const currentPath = location.pathname;
   // console.log("first path: ", currentPath);
   // console.log("get base url: ", getBasePath(currentPath));
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    // dispatch(logoutThunk());
+    dispatch(logoutThunk());
   };
 
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -277,7 +278,7 @@ const Sidebar = ({
             <Link to="">
               <div
                 className={classNames(
-                  "flex items-center p-2 rounded-lg hover:text-primary-800 group text-base transition duration-75 hover:bg-primary-100",
+                  "flex items-center py-2 pl-1 rounded-lg hover:text-primary-800 group text-base transition duration-75 hover:bg-primary-100",
                   {
                     "py-4 w-full": !openMenu || clickOpenSideBar === true,
                     "bg-primary-100 text-primary-800":
@@ -286,7 +287,26 @@ const Sidebar = ({
                   }
                 )}
               >
-                <AvatarIcon />
+                <button className="flex rounded-full cursor-pointer">
+                  {currentUser?.picture === null ? (
+                    <div>
+                      <span className="sr-only">Open user menu</span>
+                      <div className="relative inline-flex items-center justify-center w-10 h-10  cursor-pointer overflow-hidden bg-gray-200 rounded-full ">
+                        <span className="font-medium text-gray-600 uppercase text-sm ">
+                          {getNameInitials(currentUser?.last_name)}
+                          {getNameInitials(currentUser?.first_name)}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={currentUser?.picture}
+                      alt="user photo"
+                    />
+                  )}
+                </button>
+                {/* <AvatarIcon /> */}
                 <span
                   className={classNames(
                     {
@@ -310,15 +330,15 @@ const Sidebar = ({
                 </span>
               </div>
             </Link>
-            <Link to="">
+            <Link to="" onClick={handleLogout}>
               <div
                 className={classNames(
-                  "flex items-center p-2 rounded-lg hover:text-primary-800 group text-base transition duration-75 hover:bg-primary-100",
+                  "flex items-center p-2 rounded-lg hover:text-red-800 group text-base transition duration-75 hover:bg-primary-100",
                   {
                     "py-4 w-full": !openMenu || clickOpenSideBar === true,
-                    "bg-primary-100 text-primary-800":
+                    "bg-red-100 text-red-700":
                       getBasePath(currentPath) === "logout",
-                    "text-primary-800": getBasePath(currentPath) !== "logout",
+                    "text-red-700": getBasePath(currentPath) !== "logout",
                   }
                 )}
               >
@@ -329,15 +349,15 @@ const Sidebar = ({
                       hidden: openMenu === true && clickOpenSideBar === false,
                     },
                     {
-                      "group-hover:text-primary-800": openMenu === false,
+                      "group-hover:text-red-700": openMenu === false,
                     },
                     "flex-1 ms-3 text-left whitespace-nowrap group-hover:font-medium",
                     {
-                      "text-primary-800 font-medium":
+                      "text-red-700 font-medium":
                         getBasePath(currentPath) === "logout",
                     },
                     {
-                      "text-primary-800 font-normal":
+                      "text-red-700 font-normal":
                         getBasePath(currentPath) !== "logout",
                     }
                   )}
