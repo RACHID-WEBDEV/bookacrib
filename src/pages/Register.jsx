@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoWhite from "../components/shared/Logo/LogoWhite";
 import { SignUpSchema } from "../schema/authSchema";
 
@@ -8,19 +7,33 @@ import { Input } from "../components/forms/Input";
 import { Button } from "../components/forms/Button";
 import HookForm from "../components/forms/Form";
 
-// import toast from "react-hot-toast";
-import { loginThunk } from "../Redux/auth/authThunk";
-import LoadingSpinner from "../components/Loading/LoadingSpinner";
+import toast from "react-hot-toast";
+import { signupThunk } from "../Redux/auth/authThunk";
+import SmallSpinner from "../components/Loading/SmallSpinner";
 
 const Register = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error, loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
 
-  console.log(error);
+  // console.log(error);
   // toast.error(error);
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    // dispatch(loginThunk(data));
+  const onSubmit = async (data) => {
+    try {
+      const result = await dispatch(signupThunk(data)).unwrap();
+
+      if (result.status >= 200 && result.status <= 300) {
+        navigate("/login");
+      }
+    } catch (error) {
+      if (error?.status >= 400 && error?.status <= 499) {
+        const errorMessages = Object.values(error?.errors).flat().join(", ");
+        toast.error(errorMessages, { duration: 6000 });
+      }
+    }
+    // alert(JSON.stringify(data));
+    // dispatch(signupThunk(data));
+    // navigate("/login");
   };
   return (
     <div className="m-auto pt-4 lg:pt-20 xl:container px-1 lg:px-12 sm:px-0 mx-auto">
@@ -33,7 +46,10 @@ const Register = () => {
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
               Sign Up
             </h3>
-            <h3 className="text-base pt-3 text-gray-500 ">Welcome Back!</h3>
+            <h3 className="text-base pt-3 text-gray-500 ">
+              Create your account in seconds! Fill out the form below to get
+              started with Bookacrib.
+            </h3>
 
             <div className="max-w-lg pt-6">
               <HookForm onSubmit={onSubmit} schema={SignUpSchema}>
@@ -59,7 +75,7 @@ const Register = () => {
                   placeholder="Enter your email"
                 />
                 <Input
-                  name="phone"
+                  name="phone_number"
                   // label="Email Address"
                   placeholder="Phone Number"
                 />
@@ -70,7 +86,7 @@ const Register = () => {
                   placeholder="Password"
                 />
                 <Input
-                  name="confirmPassword"
+                  name="password_confirmation"
                   // label="Password"
                   type="password"
                   placeholder="Confirm Password"
@@ -84,7 +100,7 @@ const Register = () => {
                 >
                   {loading ? (
                     <div className="inline-flex items-center gap-3">
-                      <LoadingSpinner />
+                      <SmallSpinner />
                       <span>Loading...</span>
                     </div>
                   ) : (
