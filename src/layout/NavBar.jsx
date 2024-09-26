@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import UserMenu from "./UserMenu";
-import UserAvatar from "src/assets/images/Avatar.png";
+// import UserAvatar from "src/assets/images/Avatar.png";
 import {
   MessageIcon,
   NotificationIcon,
@@ -10,10 +10,12 @@ import {
 import MobileSidebar from "./MobileSidebar";
 import { motion } from "framer-motion";
 import { useAnimation } from "framer-motion";
+import { useSelector } from "react-redux";
+import { getNameInitials } from "../lib/constants";
 
 const NavBar = ({ toggleSideBar, openSideMenu }) => {
   const [showUserMenu, setShowUserMenu] = React.useState(false);
-
+  const { currentUser } = useSelector((state) => state.auth);
   function toggleUserMenu() {
     setShowUserMenu(!showUserMenu);
   }
@@ -106,12 +108,23 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
               onClick={toggleUserMenu}
               className="flex rounded-full cursor-pointer"
             >
-              <span className="sr-only">Open user menu</span>
-              <img
-                className="w-12 h-12 rounded-full"
-                src={UserAvatar}
-                alt="user photo"
-              />
+              {currentUser?.picture === null ? (
+                <div>
+                  <span className="sr-only">Open user menu</span>
+                  <div className="relative inline-flex items-center justify-center w-12 h-12  cursor-pointer overflow-hidden bg-gray-200 rounded-full ">
+                    <span className="font-medium text-gray-600 uppercase text-base ">
+                      {getNameInitials(currentUser?.last_name)}
+                      {getNameInitials(currentUser?.first_name)}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <img
+                  className="w-12 h-12 rounded-full"
+                  src={currentUser?.picture}
+                  alt="user photo"
+                />
+              )}
             </button>
           </div>
 
