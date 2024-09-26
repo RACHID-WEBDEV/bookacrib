@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import LogoWhite from "../components/shared/Logo/LogoWhite";
 import { ResetPasswordSchema } from "../schema/authSchema";
 
@@ -8,20 +8,53 @@ import { Input } from "../components/forms/Input";
 import { Button } from "../components/forms/Button";
 import HookForm from "../components/forms/Form";
 
-// import toast from "react-hot-toast";
-import { loginThunk } from "../Redux/auth/authThunk";
-import LoadingSpinner from "../components/Loading/LoadingSpinner";
+import toast from "react-hot-toast";
+import { loginThunk, resetPasswordThunk } from "../Redux/auth/authThunk";
+import SmallSpinner from "../components/Loading/SmallSpinner";
 
 const ResetPassword = () => {
   const dispatch = useDispatch();
   const { error, loading } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const token = searchParams.get("ts");
+
+  // const userdata = useMemo(
+  //   () => ({
+  //     email: userEmail,
+  //     verification_token: token,
+  //   }),
+  //   [userEmail, token]
+  // );
 
   console.log(error);
   // toast.error(error);
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    // dispatch(loginThunk(data));
+  const onSubmit = async (data) => {
+    const filteredFormData = {
+      token: token,
+      password: data?.password,
+      password_confirmation: data?.password_confirmation,
+    };
+    console.log("reset form data:", filteredFormData);
+    try {
+      const result = await dispatch(
+        resetPasswordThunk(filteredFormData)
+      ).unwrap();
+      console.log("reset password", result);
+      if (result.status >= 200 && result.status <= 300) {
+        navigate("/login");
+      }
+    } catch (error) {
+      if (error?.status >= 400 && error?.status <= 499) {
+        // const errorMessages = Object.values(error?.errors).flat().join(", ");
+        toast.error(error.message, { duration: 6000 });
+      }
+    }
   };
+  // alert(JSON.stringify(data));
+  // dispatch(loginThunk(data));
+
   return (
     <div className="m-auto pt-4 lg:pt-20 xl:container px-1 lg:px-12 sm:px-0 mx-auto">
       <div className="mx-auto h-full max-w-lg">
@@ -46,7 +79,7 @@ const ResetPassword = () => {
                   placeholder="Password"
                 />
                 <Input
-                  name="confirm_password"
+                  name="password_confirmation"
                   // label="Password"
                   type="password"
                   placeholder="Confirm Password"
@@ -60,7 +93,7 @@ const ResetPassword = () => {
                 >
                   {loading ? (
                     <div className="inline-flex items-center gap-3">
-                      <LoadingSpinner />
+                      <SmallSpinner />
                       <span>Loading...</span>
                     </div>
                   ) : (
