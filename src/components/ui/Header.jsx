@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { NAVIGATION } from "../../data/menu";
 import { Button } from "../forms/Button/Button";
+import { useSelector } from "react-redux";
 // import SearchBar from "./SearchBar";
 // import classNames from "classnames";
 // import CartMenu from "./CartMenu";
@@ -40,6 +41,11 @@ const Header = () => {
   const toggleOpenMenu = () => setOpenMenu(!openMenu);
 
   // const { isAuthenticated } = useSelector((state) => state.auth);
+
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  // const isAuthorised = currentUser?.role.id;
+
+  // console.log("isAuthenticated now:", isAuthenticated);
   return (
     <header>
       <nav className="fixed z-50 w-full dark:bg-gray-900/70 bg-white  md:bg-[#fff]">
@@ -145,18 +151,32 @@ const Header = () => {
                   </li> */}
                 </ul>
               </div>
-              <div className=" flex flex-col lg:flex-row items-center gap-3">
-                <Link to="/sign-up">
+              {isAuthenticated ? (
+                <Link to="/admin/dashboard">
                   <Button className="w-full justify-center lg:w-max" size="sm">
-                    Sign Up
+                    Go to Dashboard →
                   </Button>
                 </Link>
-                <Link to="/login">
-                  <Button className="w-full justify-center lg:w-max" size="sm">
-                    Login
-                  </Button>
-                </Link>
-              </div>
+              ) : (
+                <div className=" flex flex-col lg:flex-row items-center gap-3">
+                  <Link to="/sign-up">
+                    <Button
+                      className="w-full justify-center lg:w-max"
+                      size="sm"
+                    >
+                      Sign Up
+                    </Button>
+                  </Link>
+                  <Link to="/login">
+                    <Button
+                      className="w-full justify-center lg:w-max"
+                      size="sm"
+                    >
+                      Login
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
