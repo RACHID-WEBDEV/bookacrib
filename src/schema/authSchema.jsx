@@ -37,7 +37,7 @@ export const SignUpSchema = yup
       .string()
       .email("Kindly provide a valid email address")
       .required("Email is required"),
-    phone: yup
+    phone_number: yup
       .string()
       .required("Phone number is required")
       .matches(
@@ -48,7 +48,7 @@ export const SignUpSchema = yup
       .string()
       .required("password is required")
       .min(8, "Must be at least 8 characters."),
-    confirmPassword: yup
+    password_confirmation: yup
       .string()
       .required("Confirm password is required")
       .oneOf([yup.ref("password")], "Password's not match"),
@@ -64,7 +64,7 @@ export const ResetPasswordSchema = yup
       .string()
       .required("Must contain one special character")
       .min(8, "Must be at least 8 characters"),
-    confirm_password: yup
+    password_confirmation: yup
       .string()
       .required("Confirm password is required")
       .oneOf([yup.ref("password")], "Password's not match"),
