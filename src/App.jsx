@@ -14,6 +14,7 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ResendVerification from "./pages/ResendVerification";
+import VerifyUser from "./pages/VerifyUser";
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/user/reset-password" element={<ResetPassword />} />
+          <Route path="/user/account/verify" element={<VerifyUser />} />
           <Route
             path="/resend-verification-link"
             element={<ResendVerification />}
