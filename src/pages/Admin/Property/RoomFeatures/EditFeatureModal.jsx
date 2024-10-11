@@ -116,7 +116,7 @@ const EditFeatureModal = ({ setOpenModal, featureData }) => {
               <div className=" max-h-[560px] overflow-y-scroll">
                 <ScrollArea className="h-full">
                   <div className="p-5">
-                    <div className="pr-6">
+                    <div className="lg:pr-6">
                       <div className="lg:w-full">
                         <Input
                           name="name"
