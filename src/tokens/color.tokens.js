@@ -88,4 +88,7 @@ module.exports = {
     white: "#ffffff",
     black: "#000000",
   },
+  dark: {
+    100: "#373F41",
+  },
 };
