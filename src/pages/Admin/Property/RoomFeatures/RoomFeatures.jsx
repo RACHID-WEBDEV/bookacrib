@@ -13,6 +13,8 @@ import {
   EditIcon,
   EyeIconBold,
   PlusIcon,
+  SearchIcon,
+  XIconSmall,
 } from "../../../../assets/SvgIcons";
 import ErrorStatus from "../../../../components/forms/ErrorStatus";
 import EditFeatureModal from "./EditFeatureModal";
@@ -32,16 +34,44 @@ const RoomFeatures = () => {
   const { features, feature, loading, error } = useSelector(
     (state) => state.features
   );
-  const fetchFeatureHandler = (url) => {
-    dispatch(fetchFeatures(url));
+  //   const fetchFeatureHandler = (url) => {
+  //     dispatch(fetchFeatures(url));
+  //   };
+
+  //   useEffect(() => {
+  //     fetchFeatureHandler(
+  //       "bookacrib-api-routes/v1/features/list-features?limit=10"
+  //     );
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   }, [dispatch]);
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const fetchFeatureHandler = (url, search) => {
+    let fetchUrl = url;
+    if (search) {
+      fetchUrl += `?q=${search}`;
+    }
+    dispatch(fetchFeatures(fetchUrl));
   };
 
   useEffect(() => {
-    fetchFeatureHandler(
-      "bookacrib-api-routes/v1/features/list-features?limit=10"
-    );
+    fetchFeatureHandler("bookacrib-api-routes/v1/features/list-features");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
+
+  useEffect(() => {
+    const fetchSearchUsers = async () => {
+      if (searchQuery.length >= 2) {
+        fetchFeatureHandler(
+          "bookacrib-api-routes/v1/features/list-features",
+          searchQuery
+        );
+      }
+    };
+    fetchSearchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
 
   const handlePaginate = (url) => {
     if (url) {
@@ -122,13 +152,79 @@ const RoomFeatures = () => {
               Manage list of the features available
             </p>
           </div>
-          <Button
+
+          {/* <Button
             onClick={() => setOpenRoleModal(true)}
             size="sm"
             leftIcon={<PlusIcon />}
           >
             Add New Feature
-          </Button>
+          </Button> */}
+        </div>
+
+        <div className="p-3 border border-gray-300 rounded-md mt-2">
+          <div className=" flex items-center justify-between gap-4 flex-wrap ">
+            <div className=" lg:w-[65%]">
+              <form className="">
+                <label
+                  htmlFor="default-search"
+                  className="mb-2 text-sm font-medium text-gray-900 sr-only "
+                >
+                  Search
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <SearchIcon />
+                  </div>
+
+                  <input
+                    type="text"
+                    id="default-search"
+                    className="block w-full px-4 py-3 ps-10 text-sm text-gray-900 font-Inter rounded-md bg-gray-100 outline-none  "
+                    placeholder="Search features..."
+                    value={searchQuery}
+                    onChange={(e) => {
+                      const search = e.target.value;
+                      setSearchQuery(search);
+                    }}
+                  />
+                  {searchQuery.length >= 2 && (
+                    <div
+                      onClick={() => {
+                        setSearchQuery("");
+                        fetchFeatureHandler(
+                          "bookacrib-api-routes/v1/features/list-features"
+                        );
+                      }}
+                      className="absolute inset-y-0 end-2 flex items-center ps-3 cursor-pointer"
+                    >
+                      <XIconSmall />
+                    </div>
+                  )}
+                </div>
+              </form>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className=" hidden lg:flex">
+                <Button
+                  onClick={() => setOpenRoleModal(true)}
+                  size="sm"
+                  leftIcon={<PlusIcon />}
+                >
+                  Add New Feature
+                </Button>
+              </div>
+              <div className="lg:hidden">
+                <Button
+                  onClick={() => setOpenRoleModal(true)}
+                  size="sm"
+                  leftIcon={<PlusIcon />}
+                >
+                  Add
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -171,6 +267,17 @@ const RoomFeatures = () => {
                         <p className="text-2xl font-medium font-gray-600">
                           No Feature Found
                         </p>
+                        <Button
+                          className="w-48 justify-center"
+                          onClick={() => {
+                            setSearchQuery("");
+                            fetchFeatureHandler(
+                              "bookacrib-api-routes/v1/features/list-features"
+                            );
+                          }}
+                        >
+                          Go Back
+                        </Button>
                       </div>
                     </td>
                   </tr>
