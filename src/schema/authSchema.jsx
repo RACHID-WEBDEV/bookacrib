@@ -93,3 +93,16 @@ export const PickUpCenterSchema = yup
       ),
   })
   .required();
+
+export const FeatureSchema = yup
+  .object({
+    name: yup.string().required("Feature Name is required"),
+    price: yup.string().required("Feature Price is required"),
+  })
+  .required();
+
+export const RoomSchema = yup
+  .object({
+    name: yup.string().required("Feature Name is required"),
+  })
+  .required();
