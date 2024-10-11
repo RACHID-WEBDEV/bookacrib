@@ -1845,6 +1845,23 @@ export const TransactionsIcon = (props) => {
   );
 };
 
+export const PropertyIcon = (props) => {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      {...props}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1.5 18.5V14L2.176 13.816C8.60786 12.0618 15.3921 12.0618 21.824 13.816L22.5 14V18.5M1.5 18.5C1.5 18.5 1.5 21.5 0 21.5M1.5 18.5H22.5M22.5 18.5C22.5 18.5 22.5 21.5 24 21.5M3.5 11C3.5 9.011 3.203 7.034 2.618 5.133L2.5 4.75V4.5H21.5V4.75L21.382 5.133C20.7972 7.03377 20.4999 9.0113 20.5 11M12 7.5H6.5V11M12 7.5V11M12 7.5H17.5V11"
+        stroke="currentColor"
+      />
+    </svg>
+  );
+};
 export const PropertyForRentIcon = (props) => {
   return (
     <svg
@@ -2081,4 +2098,50 @@ export const ProgressIcon = (props) => {
       />
     </svg>
   );
+};
+
+export const HomeIcon2 = (props) => {
+  return (
+    <svg
+      width="44"
+      height="44"
+      {...props}
+      viewBox="0 0 44 44"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M17.2855 37.7176V22.0033H26.7141V37.7176M7.85693 17.2891L21.9998 6.28906L36.1426 17.2891V34.5748C36.1426 35.4083 35.8115 36.2077 35.2221 36.7971C34.6327 37.3865 33.8333 37.7176 32.9998 37.7176H10.9998C10.1663 37.7176 9.36685 37.3865 8.77745 36.7971C8.18805 36.2077 7.85693 35.4083 7.85693 34.5748V17.2891Z"
+        // stroke="#373F41"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const CheckSquareIcon = (props) => {
+  return (
+    <svg
+      width="33"
+      height="32"
+      {...props}
+      viewBox="0 0 33 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.0952 14.8538L15.5238 18.2824L26.9523 6.85379M25.8095 15.9967V23.9967C25.8095 24.6029 25.5687 25.1842 25.14 25.6129C24.7113 26.0416 24.13 26.2824 23.5238 26.2824H7.52375C6.91754 26.2824 6.33616 26.0416 5.90751 25.6129C5.47885 25.1842 5.23804 24.6029 5.23804 23.9967V7.99665C5.23804 7.39044 5.47885 6.80906 5.90751 6.38041C6.33616 5.95175 6.91754 5.71094 7.52375 5.71094H20.0952"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+import emptyRoom from "src/assets/images/Empty folder.svg";
+
+export const EmptyImage = () => {
+  return <img src={emptyRoom} className=" " alt="empty state" />;
 };

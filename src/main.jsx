@@ -10,11 +10,13 @@ import store from "./Redux/store";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
+import ScrollToTop from "./ScrollToTop.jsx";
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
   <Provider store={store}>
     <BrowserRouter>
+      <ScrollToTop />
       <App />
       <Toaster />
     </BrowserRouter>
