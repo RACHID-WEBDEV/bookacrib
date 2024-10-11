@@ -32,8 +32,8 @@ export const styles = {
         ],
         [COLOR.PRIMARY_ALT]: [
           "border-transparent",
-          "bg-primary-50",
-          "text-primary-600",
+          "bg-[#F5F5F5]",
+          "text-gray-800",
         ],
         [COLOR.GRAY]: [
           "border-transparent",
@@ -58,11 +58,8 @@ export const styles = {
         ],
       },
       hover: {
-        [COLOR.PRIMARY]: ["hover:bg-primary-900"],
-        [COLOR.PRIMARY_ALT]: [
-          "hover:bg-primary-600",
-          "hover:text-neutral-white",
-        ],
+        [COLOR.PRIMARY]: ["hover:bg-dark-100"],
+        [COLOR.PRIMARY_ALT]: ["hover:bg-dark-100", "hover:text-neutral-white"],
         [COLOR.GRAY]: ["hover:bg-gray-900"],
         [COLOR.SUCCESS]: ["hover:bg-success-800"],
         [COLOR.ERROR]: ["hover:bg-error-800"],
