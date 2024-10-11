@@ -1,4 +1,4 @@
-import Logo from "src/assets/images/logo.svg";
+import Logo from "src/assets/images/bookacrib-logo.svg";
 
 const Loading = () => {
   return (
