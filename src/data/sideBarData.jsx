@@ -29,89 +29,100 @@ import {
   AdvertsIcon,
   NotifcationActiveIcon,
   AvatarIcon,
+  PropertyIcon,
 } from "../assets/SvgIcons";
 
 export const sidedata = [
   {
     title: "Overview",
     icon: <OverViewIcon />,
-    href: "/dashboard",
+    href: "/admin/dashboard",
     child: [
       // {
       //   title: "Admin Home",
       //   icon: <SettingsIcon />,
-      //   href: "/dashboard/home-admin",
+      //   href: "/admin/dashboard/home-admin",
       // },
       // {
       //   title: "Order Home",
       //   icon: <HomeIcon />,
-      //   href: "/dashboard/order-home",
+      //   href: "/admin/dashboard/order-home",
       // },
       // {
       //   title: "Sales Home",
       //   icon: <HomeIcon />,
-      //   href: "/dashboard/home-sales",
+      //   href: "/admin/dashboard/home-sales",
       // },
     ],
   },
   {
     title: "Transactions",
     icon: <TransactionsIcon />,
-    href: "/orders-management",
+    href: "/admin/transactions",
     child: [
       {
         title: "Orders List",
         icon: <DotIcon />,
-        href: "/orders-management/orders-list",
+        href: "/admin/order-list",
       },
     ],
   },
 
   {
-    title: "Property for Rent",
-    icon: <PropertyForRentIcon />,
-    // href: "/property-for-rent",
+    title: "Property",
+    icon: <PropertyIcon />,
+    href: "/admin/property",
     child: [
       {
         title: "Add property",
         icon: <DotIcon />,
-        href: "/add-property",
+        href: "/admin/property/add-property",
       },
       {
         title: "Approve property",
         icon: <DotIcon />,
-        href: "/approve-property",
+        href: "/admin/property/approve-property",
+      },
+      {
+        title: "Features",
+        icon: <DotIcon />,
+        href: "/admin/property/features",
+      },
+      {
+        title: "Room Type",
+        icon: <DotIcon />,
+        href: "/admin/property/room-types",
       },
       {
         title: "Property for Rent",
         icon: <DotIcon />,
-        href: "Property for Rent",
+        href: "/admin/property/property-for-Rent",
       },
     ],
   },
   {
     title: "Customers",
     icon: <CustomerIcon />,
-    // href: "",
+    // href: "/admin",
     child: [],
   },
   {
     title: "Reports",
     icon: <ReportIcon />,
-    // href: "",
+    // href: "/admin",
     child: [],
   },
 
   {
     title: "Adverts",
     icon: <AdvertsIcon />,
-    // href: "",
+    // href: "/admin",
     child: [],
   },
   {
     title: "Admin ",
     icon: <PropertyForRentIcon />,
-    // href: "",
+    // href: "/admin",
     child: [],
   },
   {
@@ -126,7 +137,7 @@ export const sidedata = [
       {
         title: "Hero Icons",
         icon: <SettingsIcon />,
-        href: "/icons-iconify",
+        href: "/admin/icons-iconify",
       },
     ],
   },
@@ -143,7 +154,7 @@ export const sidedata = [
   //     {
   //       title: "Level 1.1",
   //       icon: <AuditTrailIcon />,
-  //       href: "#",
+  //       href: "/admin#",
   //     },
   //     {
   //       title: "Level 2",
@@ -151,22 +162,22 @@ export const sidedata = [
   //       nested: [
   //         {
   //           title: "Level-2.1",
-  //           href: "#",
+  //           href: "/admin#",
   //         },
   //         {
   //           title: "Level 2.2",
-  //           href: "#",
+  //           href: "/admin#",
   //         },
   //         {
   //           title: "Level 3",
   //           child: [
   //             {
   //               title: "Level 3.1",
-  //               href: "#",
+  //               href: "/admin#",
   //             },
   //             {
   //               title: "Level 3.2",
-  //               href: "#",
+  //               href: "/admin#",
   //             },
   //           ],
   //         },
