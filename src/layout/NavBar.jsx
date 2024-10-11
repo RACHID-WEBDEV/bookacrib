@@ -31,7 +31,7 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
   }, [openSideMenu, controls]);
 
   return (
-    <div className="w-full pl-4 lg:pl-[330px] bg-white py-2 fixed top-0 right-0 z-30 border-b border-[#E4E7EC]">
+    <div className="w-full pl-4 lg:pl-[330px] bg-white py-4 fixed top-0 right-0 z-30 border-b border-[#E4E7EC]">
       {/* {openSideMenu && ( */}
       <motion.div
         initial={{ translateX: "120%" }}
