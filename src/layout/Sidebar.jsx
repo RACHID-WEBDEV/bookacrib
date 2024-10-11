@@ -27,7 +27,7 @@ const Sidebar = ({
 }) => {
   const [open, setOpen] = useState(null);
   // const [hovered, setHovered] = useState(false);
-  console.log("first state", clickOpenSideBar);
+  // console.log("first state", clickOpenSideBar);
   const toggle = (index) => {
     setOpen(index === open ? null : index);
   };
