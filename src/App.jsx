@@ -1,6 +1,6 @@
 import Home from "./pages/Home";
 
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import MainDashboardLayout from "./layout/MainDashboardLayout";
 
 // import Dashboard from "src/layout/Dashboard";
@@ -15,6 +15,11 @@ import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ResendVerification from "./pages/ResendVerification";
 import VerifyUser from "./pages/VerifyUser";
+import Property from "./pages/Admin/Property/Property";
+import AddProperty from "./pages/Admin/Property/AddProperty";
+import PropertyLayout from "./pages/Admin/Property/PropertyLayout";
+import RoomFeatures from "./pages/Admin/Property/RoomFeatures/RoomFeatures";
+import RoomTypes from "./pages/Admin/Property/RoomType/RoomType";
 
 function App() {
   return (
@@ -47,7 +52,13 @@ function App() {
               {/* <Route path="/dashboard/home-admin" element={<Dashboard />} />
               <Route path="/dashboard/order-home" element={<Dashboard />} /> */}
             </Route>
-
+            <Route path="property" element={<PropertyLayout />}>
+              <Route index element={<Navigate replace to="all-property" />} />
+              <Route path="all-property" element={<Property />} />
+              <Route path="add-property" element={<AddProperty />} />
+              <Route path="features" element={<RoomFeatures />} />
+              <Route path="room-types" element={<RoomTypes />} />
+            </Route>
             <Route path="product" element={<Inventory />}>
               {/* <Route index element={<Navigate replace to="dashboard" />} /> */}
               <Route path="product/inventory" element={<Inventory />} />
