@@ -20,6 +20,7 @@ import AddProperty from "./pages/Admin/Property/AddProperty";
 import PropertyLayout from "./pages/Admin/Property/PropertyLayout";
 import RoomFeatures from "./pages/Admin/Property/RoomFeatures/RoomFeatures";
 import RoomTypes from "./pages/Admin/Property/RoomType/RoomType";
+import CreateCompany from "./pages/Company/CreateCompany";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
               {/* <Route path="/dashboard/home-admin" element={<Dashboard />} />
               <Route path="/dashboard/order-home" element={<Dashboard />} /> */}
             </Route>
+            <Route path="create-company" element={<CreateCompany />} />
             <Route path="property" element={<PropertyLayout />}>
               <Route index element={<Navigate replace to="all-property" />} />
               <Route path="all-property" element={<Property />} />
