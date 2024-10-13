@@ -2,16 +2,13 @@
 import React, { useEffect } from "react";
 import UserMenu from "./UserMenu";
 // import UserAvatar from "src/assets/images/Avatar.png";
-import {
-  MessageIcon,
-  NotificationIcon,
-  SettingsIcon,
-} from "src/assets/SvgIcons";
+import { NotificationIcon, EMailIcon } from "src/assets/SvgIcons";
 import MobileSidebar from "./MobileSidebar";
 import { motion } from "framer-motion";
 import { useAnimation } from "framer-motion";
 import { useSelector } from "react-redux";
 import { getNameInitials } from "../lib/constants";
+import { Button } from "../components/forms/Button";
 
 const NavBar = ({ toggleSideBar, openSideMenu }) => {
   const [showUserMenu, setShowUserMenu] = React.useState(false);
@@ -19,7 +16,11 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
   function toggleUserMenu() {
     setShowUserMenu(!showUserMenu);
   }
+  const [show, setShow] = React.useState(false);
 
+  const toogle = () => {
+    setShow(!show);
+  };
   const controls = useAnimation();
 
   useEffect(() => {
@@ -99,9 +100,51 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
         <div className="pr-4 lg:pr-8 relative">
           <div className="flex items-center ml-3 gap-4 lg:gap-6  ">
             <div className="flex items-center gap-6">
-              <MessageIcon className="w-5 h-5 cursor-pointer text-gray-500" />
-              <SettingsIcon className="w-5 h-5 cursor-pointer text-gray-500" />
-              <NotificationIcon className="w-5 h-5 cursor-pointer text-gray-500" />
+              <div className="relative">
+                <p
+                  className="text-sm text-gray-500 cursor-pointer "
+                  onClick={toogle}
+                >
+                  Create a Property?
+                </p>
+                {show && (
+                  <div
+                    className="absolute top-0 right-0 p-4 border border-gray-300 z-30 w-[310px] rounded-lg bg-gray-50"
+                    role="alert"
+                  >
+                    <div className="flex items-center gap-2">
+                      {/* <img
+                      src="/src/assets/svgs/warning-illust.svg"
+                      alt=""
+                      className="  w-14 h-14"
+                    /> */}
+                      <span className="sr-only">Info</span>
+                      <h3 className="text-lg font-bold text-gray-800 ">
+                        Create Property
+                      </h3>
+                    </div>
+                    <div className="m1-2 mb-4 text-sm text-gray-500 font-normal max-w-sm mx-auto">
+                      Are you sure you want to create property ?
+                    </div>
+                    <div className="flex items-center justify-end mt-4 w-full gap-2">
+                      <Button
+                        color="error"
+                        size="xs"
+                        onClick={() => setShow(false)}
+                      >
+                        {" "}
+                        Cancel
+                      </Button>
+                      <Button size="xs"> Proceed </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <EMailIcon className="w-6 h-6 cursor-pointer text-gray-500" />
+              <div className=" relative">
+                <NotificationIcon className="w-5 h-5 cursor-pointer text-gray-500" />
+                <div className=" bg-red-600 absolute -top-0.5 right-px size-2 rounded-full"></div>
+              </div>
             </div>
 
             <button
