@@ -44,6 +44,16 @@ const loginThunk = createAsyncThunk(
         secure: true,
       });
 
+      // console.log("company id:", loginResponse?.data?.companies[0].uuid);
+
+      const company_id = JSON.stringify(loginResponse?.data?.companies[0].uuid);
+
+      Cookies.set("bookacrib_current_company_id", company_id, {
+        expires: 7,
+        sameSite: "None",
+        secure: true,
+      });
+
       // Return the user data
       return loginResponse?.data;
     } catch (error) {
@@ -75,6 +85,7 @@ const logoutThunk = createAsyncThunk("auth/logout", async (data, thunkAPI) => {
     // Remove access token and user cookies
     Cookies.remove("bookacrib_admin_token");
     Cookies.remove("bookacrib_currentUser");
+    Cookies.remove("bookacrib_current_company_id");
 
     // Return success message
     // return "Logged out successfully";
