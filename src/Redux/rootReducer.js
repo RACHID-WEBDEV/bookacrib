@@ -4,6 +4,7 @@ import userauthReducer from "./userAuth/userAuthSlice";
 import productsReducer from "./products/productsSlice";
 import featuresReducer from "./features/featuresSlice";
 import roomTypeReducer from "./roomtypes/roomtypesSlice";
+import categoryReducer from "./categories/categoriesSlice";
 
 // Combine the slice reducers into a root reducer
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   features: featuresReducer,
   roomtype: roomTypeReducer,
+  category: categoryReducer,
 });
 
 // No need to define RootState type in JavaScript
