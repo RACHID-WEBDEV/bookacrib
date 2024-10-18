@@ -9,6 +9,7 @@ import { useAnimation } from "framer-motion";
 import { useSelector } from "react-redux";
 import { getNameInitials } from "../lib/constants";
 import { Button } from "../components/forms/Button";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = ({ toggleSideBar, openSideMenu }) => {
   const [showUserMenu, setShowUserMenu] = React.useState(false);
@@ -16,10 +17,16 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
   function toggleUserMenu() {
     setShowUserMenu(!showUserMenu);
   }
+  const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
 
   const toogle = () => {
     setShow(!show);
+  };
+
+  const closeModal = () => {
+    setShow(false);
+    navigate("/admin/create-company");
   };
   const controls = useAnimation();
 
@@ -124,7 +131,13 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
                       </h3>
                     </div>
                     <div className="m1-2 mb-4 text-sm text-gray-500 font-normal max-w-sm mx-auto">
-                      Are you sure you want to create property ?
+                      {/* <b>
+                        You must be a property owner before you can create
+                        property
+                      </b>{" "} */}
+                      <br />
+                      Are a property owner? create a property
+                      {/* Are you sure you want to create property ? */}
                     </div>
                     <div className="flex items-center justify-end mt-4 w-full gap-2">
                       <Button
@@ -135,7 +148,12 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
                         {" "}
                         Cancel
                       </Button>
-                      <Button size="xs"> Proceed </Button>
+                      {/* <Link to="/admin/create-company"> */}
+                      <Button onClick={closeModal} size="xs">
+                        {" "}
+                        Proceed{" "}
+                      </Button>
+                      {/* </Link> */}
                     </div>
                   </div>
                 )}
