@@ -3,73 +3,99 @@ import { useState } from "react";
 // import { Button } from "../../../components/forms/Button";
 import HookForm from "../../components/forms/Form";
 import { Input } from "../../components/forms/Input";
-import { TextArea } from "../../components/forms/TextArea";
+// import { TextArea } from "../../components/forms/TextArea";
 import SmallSpinner from "../../components/Loading/SmallSpinner";
-import ImageUpload from "../../components/forms/Upload/ImageUpload";
+// import ImageUpload from "../../components/forms/Upload/ImageUpload";
 import { Button } from "../../components/forms/Button";
 
 import DashboardHeading from "../../layout/DashboardHeading";
+import Uploader from "../../components/forms/Upload/uploader";
+import { CreateCompanySchema } from "../../schema/authSchema";
+import { FetchLocations } from "../../Hooks/useFetchLocation";
+import CustomSelect from "../../components/forms/Select/CustomSelect";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { postData } from "../../utils/api";
 
 const CreateCompany = ({ loading }) => {
-  const [imagesFile, setImagesFile] = useState([]);
-  const schema = () => {};
+  // const [imagesFile, setImagesFile] = useState([]);
+  const [imageFile, setImageFile] = useState("");
+  const navigate = useNavigate();
+  console.log("image file", imageFile);
+  const {
+    countries,
+    states,
+    // cities,
+    selectedCountry,
+    setSelectedCountry,
+    selectedState,
+    setSelectedState,
+    // selectedCities,
+    // setSelectedCities,
+    // loading,
+    // error,
+  } = FetchLocations();
+
+  // console.log("countries:", countries);
+  // console.log("first country", getNigeria);
   const defaultFormValue = {
     name: "",
-    brand_id: "",
-    min_selling_price: "",
-    model: "",
-    warranty: "",
-    sku: "",
-    listing_price: "",
-    short_description: "",
-    long_description: "",
-    whats_in_the_box: "",
-    status: "",
+    // brand_id: "",
+    // min_selling_price: "",
+    // model: "",
+    // warranty: "",
+    // sku: "",
+    // listing_price: "",
+    // short_description: "",
+    // long_description: "",
+    // whats_in_the_box: "",
+    // status: "",
   };
 
   const onSubmit = async (data) => {
     console.log("Form data", data);
 
-    // const filteredFormData = {
-    //   name: data.name,
-    //   brand_id: data.brand_id,
-    //   category_id: selectedCategory?.id,
-    //   listing_price: data?.listing_price,
-    //   min_selling_price: data.min_selling_price,
-    //   model: data.model,
-    //   warranty: selectedWarranty?.warranty,
-    //   sku: data.sku,
-    //   short_description: data.short_description,
-    //   long_description: data.long_description,
-    //   whats_in_the_box: data?.whats_in_the_box,
-    //   imgs: imagesFile,
-    //   attributes: [],
-    //   tags: selectedTags,
-    //   stock_item: data?.stock_item ? 1 : 0,
-    //   status: data?.status ? 1 : 0,
-    // };
+    const filteredFormData = {
+      name: data.name,
+      phone_number: data.phone_number,
+      email: data?.email,
+      address: data.address,
+      next_of_kin_name: data?.next_of_kin_name,
+      url: data?.url,
+      country: selectedCountry?.uuid,
+      state: selectedState?.uuid,
 
-    // console.log("filtered data", filteredFormData);
-    // try {
-    //   const result = await dispatch(
-    //     addNewProduct(filteredFormData)
-    //   ).unwrap();
-    //   // console.log("Product result: ", result);
+      logo: imageFile,
+    };
 
-    //   if (result.status >= 200 && result.status <= 300) {
-    //     toast.success("Product created successfully");
-    //     navigate("/admin/product/inventory/");
-    //   }
-    // } catch (error) {
-    //   console.error("Create Error:", error);
-    //   navigate("/admin/product/inventory/");
-    //   if (error?.errors) {
-    //     const errorMessages = Object.values(error?.errors)
-    //       .flat()
-    //       .join(", ");
-    //     toast.error(errorMessages, { duration: 6000 });
-    //   }
-    // }
+    console.log("filtered data", filteredFormData);
+    try {
+      // const result = await dispatch(addNewProduct(filteredFormData)).unwrap();
+      // console.log("Product result: ", result);
+      const response = await postData(
+        "/v1/users/company/create-company?with[]=country&with[]=state&with[]=timezone",
+        filteredFormData
+      );
+      if (response.status >= 200 && response.status <= 300) {
+        toast.success("Company created successfully");
+        navigate("/admin/dashboard");
+      }
+    } catch (error) {
+      console.error("Create Error:", error);
+      navigate("/admin/dashboard");
+      if (
+        error?.response?.data?.status >= 400 &&
+        error?.response?.data?.status <= 499 &&
+        error?.response?.data?.errors
+      ) {
+        const errorMessages = Object.values(error?.response?.data?.errors)
+          .flat()
+          .join(", ");
+        toast.error(errorMessages, { duration: 6000 });
+      } else {
+        toast.error(error?.response?.data?.message, { duration: 6000 });
+      }
+    }
   };
   return (
     <>
@@ -112,7 +138,7 @@ const CreateCompany = ({ loading }) => {
             <HookForm
               defaultValues={defaultFormValue}
               onSubmit={onSubmit}
-              schema={schema}
+              schema={CreateCompanySchema}
             >
               <div className=" space-y-6">
                 <div className=" flex items-start w-full gap-6">
@@ -158,7 +184,7 @@ const CreateCompany = ({ loading }) => {
                         <Input
                           name="address"
                           label="Address"
-                          placeholder="Enter company location or address"
+                          placeholder="Enter company/property location or address"
                         />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div>
@@ -176,11 +202,11 @@ const CreateCompany = ({ loading }) => {
                             />
                           </div>
                         </div>
-                        <Input
+                        {/* <Input
                           name="name"
                           label="Property Name"
                           placeholder="Enter the name given to this room"
-                        />
+                        /> */}
 
                         <div className="">
                           {/*pb-6 <AsyncReactSelect
@@ -192,17 +218,48 @@ const CreateCompany = ({ loading }) => {
                           /> */}
                         </div>
 
-                        <TextArea
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="pb-4">
+                            <CustomSelect
+                              label="Country"
+                              selected={selectedCountry}
+                              setSelected={setSelectedCountry}
+                              data={[countries]}
+                              withImage={false}
+                              placeholder="Select Country"
+                            />
+                          </div>
+
+                          <div className="pb-4">
+                            <CustomSelect
+                              label="State"
+                              selected={selectedState}
+                              setSelected={setSelectedState}
+                              data={states?.data?.states}
+                              withImage={false}
+                              placeholder="Select your state"
+                            />
+                          </div>
+                        </div>
+
+                        {/* <TextArea
                           name="description"
                           label=" Description"
                           placholder="Add more descriptions to your property..."
-                        />
+                        /> */}
                         <div className="">
-                          <div className="">
+                          {/* <div className="">
                             <ImageUpload
                               images={imagesFile}
                               setImages={setImagesFile}
+                            />
+                          </div> */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <Uploader
                               label="Logo"
+                              files={imageFile}
+                              setFiles={setImageFile}
+                              className="max-w-[150px]"
                             />
                           </div>
                         </div>
@@ -237,7 +294,7 @@ const CreateCompany = ({ loading }) => {
                           <span>Creating...</span>
                         </div>
                       ) : (
-                        "Upload for  Approve"
+                        "Create Company"
                       )}
                     </Button>
                   </div>
