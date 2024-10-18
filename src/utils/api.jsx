@@ -13,12 +13,22 @@ axiosInstance.interceptors.request.use(
   async (config) => {
     const bookacrib_token = Cookies.get("bookacrib_admin_token");
     const bookacrib_userToken = Cookies.get("bookacrib_user_token");
+    const bookacrib_companyId = Cookies.get("bookacrib_current_company_id");
     // console.log("token given", userToken);
     if (bookacrib_token || bookacrib_userToken) {
       config.headers.Authorization = `Bearer ${
         bookacrib_token || bookacrib_userToken
       }`;
     }
+    // Add company ID to headers
+    // if (bookacrib_companyId) {
+    //   config.headers.company_id = bookacrib_companyId;
+    // }
+    // Add company ID to headers with correct key
+    if (bookacrib_companyId) {
+      config.headers["company-id"] = bookacrib_companyId;
+    }
+
     return config;
   },
   (error) => {
