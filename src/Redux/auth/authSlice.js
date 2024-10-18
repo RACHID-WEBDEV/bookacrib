@@ -15,6 +15,9 @@ const initialState = {
     ? JSON.parse(Cookies.get("bookacrib_currentUser"))
     : null,
   isAuthenticated: !!Cookies.get("bookacrib_admin_token"),
+  hasCompany: Cookies.get("bookacrib_current_company_id")
+    ? JSON.parse(Cookies.get("bookacrib_current_company_id"))
+    : null,
   loading: false,
   error: null,
   registerUser: [],
@@ -39,6 +42,7 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.loading = false;
         state.error = null; // Reset error state on success
+        state.hasCompany = action.payload;
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.loading = false;
@@ -122,6 +126,7 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.loading = false;
         state.error = null;
+        state.hasCompany = null;
       })
       .addCase(logoutThunk.rejected, (state, action) => {
         state.loading = false;
