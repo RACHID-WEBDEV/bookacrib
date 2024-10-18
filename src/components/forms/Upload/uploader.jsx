@@ -36,9 +36,12 @@ function Uploader({ label, className, files, setFiles }) {
       const imagefile = acceptedFiles[0];
       const data = new FormData();
       data.append("file", imagefile);
-      data.append("upload_preset", "exnzawv1");
+      // data.append("upload_preset", "exnzawv1");
+      data.append("upload_preset", "oupzw57n");
       const res = await fetch(
-        `https://api.cloudinary.com/v1_1/dhncmjnij/image/upload`,
+        // `https://api.cloudinary.com/v1_1/dhncmjnij/image/upload`,
+        `https://api.cloudinary.com/v1_1/dwpe6s8vr/image/upload`,
+
         { method: "POST", body: data }
       );
 
@@ -63,7 +66,8 @@ function Uploader({ label, className, files, setFiles }) {
   //   </div>
   // ));
 
-  const thumbs = <Image cloudName="dhncmjnij" publicId={files} />;
+  // const thumbs = <Image cloudName="dhncmjnij" publicId={files} />;
+  const thumbs = <Image cloudName="dwpe6s8vr" publicId={files} />;
 
   // useEffect(() => {
   //   // Make sure to revoke the data uris to avoid memory leaks
