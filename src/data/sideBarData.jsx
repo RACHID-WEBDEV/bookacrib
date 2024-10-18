@@ -89,6 +89,11 @@ export const sidedata = [
         href: "/admin/property/features",
       },
       {
+        title: "Categories",
+        icon: <DotIcon />,
+        href: "/admin/property/categories",
+      },
+      {
         title: "Room Type",
         icon: <DotIcon />,
         href: "/admin/property/room-types",
