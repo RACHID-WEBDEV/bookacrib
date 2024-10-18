@@ -21,6 +21,7 @@ import PropertyLayout from "./pages/Admin/Property/PropertyLayout";
 import RoomFeatures from "./pages/Admin/Property/RoomFeatures/RoomFeatures";
 import RoomTypes from "./pages/Admin/Property/RoomType/RoomType";
 import CreateCompany from "./pages/Company/CreateCompany";
+import Categories from "./pages/Admin/Property/Categories/Categories";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
               <Route path="add-property" element={<AddProperty />} />
               <Route path="features" element={<RoomFeatures />} />
               <Route path="room-types" element={<RoomTypes />} />
+              <Route path="categories" element={<Categories />} />
             </Route>
             <Route path="product" element={<Inventory />}>
               {/* <Route index element={<Navigate replace to="dashboard" />} /> */}
