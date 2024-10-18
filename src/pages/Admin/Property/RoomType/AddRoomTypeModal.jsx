@@ -5,7 +5,7 @@ import { Input } from "../../../../components/forms/Input";
 // import { TextArea } from "../../../../components/forms/TextArea";
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { RoomSchema } from "../../../../schema/authSchema";
 import toast from "react-hot-toast";
@@ -13,11 +13,13 @@ import {
   addNewRoomType,
   fetchRoomTypes,
 } from "../../../../Redux/roomtypes/roomtypesThunk";
+import SmallSpinner from "../../../../components/Loading/SmallSpinner";
 
 // eslint-disable-next-line react/prop-types
 const AddRoomTypeModal = ({ setOpenModal }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.roomtype);
 
   //  console.log("permissions", permissions);
   const defaultFormValue = {
@@ -127,8 +129,15 @@ const AddRoomTypeModal = ({ setOpenModal }) => {
 
               <div className="p-4 border-t">
                 <div className="flex items-center gap-2 justify-end">
-                  <Button type="submit" size="xs">
-                    Add New Room Type
+                  <Button disabled={loading} type="submit" size="xs">
+                    {loading ? (
+                      <div className="inline-flex items-center gap-3">
+                        <SmallSpinner />
+                        <span>Creating...</span>
+                      </div>
+                    ) : (
+                      "Add New Room Type "
+                    )}
                   </Button>
                 </div>
               </div>
