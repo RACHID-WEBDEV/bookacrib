@@ -22,6 +22,10 @@ import RoomFeatures from "./pages/Admin/Property/RoomFeatures/RoomFeatures";
 import RoomTypes from "./pages/Admin/Property/RoomType/RoomType";
 import CreateCompany from "./pages/Company/CreateCompany";
 import Categories from "./pages/Admin/Property/Categories/Categories";
+import Roles from "./pages/Admin/AdminSettings/Roles/Roles";
+import AdminSettingsLayout from "./pages/Admin/AdminSettings/AdminSettingsLayout";
+import Permission from "./pages/Admin/AdminSettings/Permissions/Permission";
+import RoleType from "./pages/Admin/AdminSettings/Roles/RoleType";
 
 function App() {
   return (
@@ -67,6 +71,13 @@ function App() {
               {/* <Route index element={<Navigate replace to="dashboard" />} /> */}
               <Route path="product/inventory" element={<Inventory />} />
               {/* <Route path="/dashboard/order-home" element={<Dashboard />} /> */}
+            </Route>
+
+            <Route path="settings" element={<AdminSettingsLayout />}>
+              <Route index element={<Navigate replace to="roles" />} />
+              <Route path="roles" element={<Roles />} />
+              <Route path="role-types" element={<RoleType />} />
+              <Route path="permissions" element={<Permission />} />
             </Route>
           </Route>
         </Route>

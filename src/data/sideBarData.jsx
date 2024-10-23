@@ -127,8 +127,19 @@ export const sidedata = [
   {
     title: "Admin ",
     icon: <PropertyForRentIcon />,
-    // href: "/admin",
-    child: [],
+    href: "/admin/settings",
+    child: [
+      {
+        title: "Roles",
+        icon: <DotIcon />,
+        href: "/admin/settings/roles",
+      },
+      {
+        title: "Permissions",
+        icon: <DotIcon />,
+        href: "/admin/settings/permissions",
+      },
+    ],
   },
   {
     isHeader: true,
