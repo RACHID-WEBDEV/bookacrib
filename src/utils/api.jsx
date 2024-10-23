@@ -4,45 +4,35 @@ import Cookies from "js-cookie";
 // Define base URL
 const baseURL = "https://phplaravel-1332551-4877980.cloudwaysapps.com/api";
 // Create an Axios instance with default configurations
-const axiosInstance = axios.create({
-  baseURL,
-});
 
-// Add request interceptor to add token to headers
+const axiosInstance = axios.create({ baseURL });
+
 axiosInstance.interceptors.request.use(
-  async (config) => {
-    const bookacrib_token = Cookies.get("bookacrib_admin_token");
-    const bookacrib_userToken = Cookies.get("bookacrib_user_token");
-    const bookacrib_companyId = Cookies.get("bookacrib_current_company_id");
-    // console.log("token given", userToken);
-    if (bookacrib_token || bookacrib_userToken) {
-      config.headers.Authorization = `Bearer ${
-        bookacrib_token || bookacrib_userToken
-      }`;
-    }
+  (config) => {
+    const adminToken = Cookies.get("bookacrib_admin_token");
+    const userToken = Cookies.get("bookacrib_user_token");
+    const companyId = Cookies.get("bookacrib_current_company_id");
+
+    console.log("COMPanyID: ", companyId);
     // Add company ID to headers
-    // if (bookacrib_companyId) {
-    //   config.headers.company_id = bookacrib_companyId;
-    // }
+    if (adminToken || userToken) {
+      config.headers.Authorization = `Bearer ${adminToken || userToken}`;
+    }
     // Add company ID to headers with correct key
-    if (bookacrib_companyId) {
-      config.headers["company-id"] = bookacrib_companyId;
+    if (companyId) {
+      config.headers["company-id"] = companyId;
     }
 
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Add response interceptor
 axiosInstance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
-    // Your error handling logic
+    console.error("API Error:", error);
     return Promise.reject(error);
   }
 );
