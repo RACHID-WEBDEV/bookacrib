@@ -55,7 +55,8 @@ export default function CustomSelect({
                   >
                     {selected === null || selected === undefined
                       ? defaultValue?.name || placeholder
-                      : selected?.name ||
+                      : selected?.display_name ||
+                        selected?.name ||
                         selected?.title ||
                         selected?.full_name}
                   </span>
@@ -82,7 +83,8 @@ export default function CustomSelect({
                         person.id ||
                         person?.name ||
                         person.title ||
-                        person.full_name
+                        person.full_name ||
+                        person.display_name
                       }
                       className={({ active }) =>
                         classNames(
@@ -117,7 +119,8 @@ export default function CustomSelect({
                                 "ml-3 block truncate capitalize"
                               )}
                             >
-                              {person?.name ||
+                              {person.display_name ||
+                                person?.name ||
                                 person?.title ||
                                 person?.full_name}
                             </span>
