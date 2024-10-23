@@ -46,13 +46,13 @@ const loginThunk = createAsyncThunk(
 
       // console.log("company id:", loginResponse?.data?.companies[0].uuid);
 
-      const company_id = JSON.stringify(loginResponse?.data?.companies[0].uuid);
+      // const company_id = JSON.stringify(loginResponse?.data?.companies[0].uuid);
 
-      Cookies.set("bookacrib_current_company_id", company_id, {
-        expires: 7,
-        sameSite: "None",
-        secure: true,
-      });
+      // Cookies.set("bookacrib_current_company_id", company_id, {
+      //   expires: 7,
+      //   sameSite: "None",
+      //   secure: true,
+      // });
 
       // Return the user data
       return loginResponse?.data;
@@ -207,6 +207,43 @@ const resetPasswordThunk = createAsyncThunk(
   }
 );
 
+// const switchCompany = createAsyncThunk(
+//   "company/switchCompany",
+//   async ({ companyId, switchToCompany }) => {
+//     if (switchToCompany) {
+//       Cookies.set("bookacrib_current_company_id", companyId, {
+//         expires: 7,
+//         sameSite: "None",
+//         secure: true,
+//       });
+//     } else {
+//       Cookies.remove("bookacrib_current_company_id");
+//     }
+//     return { companyId, switchToCompany };
+//   }
+// );
+
+const switchCompany = createAsyncThunk(
+  "company/switchCompany",
+  async ({ companyId, switchToCompany }, { rejectWithValue }) => {
+    try {
+      if (switchToCompany) {
+        Cookies.set("bookacrib_current_company_id", companyId, {
+          expires: 7,
+          sameSite: "None",
+          secure: true,
+        });
+      } else {
+        Cookies.remove("bookacrib_current_company_id");
+      }
+      return { companyId, switchToCompany };
+    } catch (error) {
+      // Handle errors and return a rejected value
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export {
   loginThunk,
   logoutThunk,
@@ -215,4 +252,5 @@ export {
   resendVerificationThunk,
   accountVerificationThunk,
   resetPasswordThunk,
+  switchCompany,
 };
