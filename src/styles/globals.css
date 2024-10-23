@@ -336,3 +336,42 @@ input:-webkit-autofill:active {
     transform: rotate(360deg);
   }
 }
+
+/* REACT SELECT STYLE */
+.react-select .select__control {
+  @apply min-h-12 focus:border-gray-200 outline-none;
+  /* @apply  h-8 bg-gray-50 border  border-gray-200; */
+}
+
+.react-select .css-t3ipsp-control,
+.react-select .css-t3ipsp-control:hover {
+  /* background-color: hsl(0, 0%, 100%);
+  border-color: #000;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;box-sizing: border-box; */
+  box-shadow: 0 0 0 1px #cdcbcb;
+
+  @apply border-gray-200;
+}
+
+.react-select .is-invalid.select__control {
+  border-color: none !important;
+}
+.react-select .select__multi-value__label {
+  @apply text-xs bg-gray-100 text-gray-800 rounded-none rounded-l;
+}
+
+.react-select .select__multi-value__remove {
+  @apply bg-gray-100 rounded-none rounded-r;
+}
+.react-select .select__multi-value__remove svg {
+  @apply fill-gray-800;
+}
+.react-select .select__multi-value__remove:hover {
+  @apply bg-gray-100 rounded-none rounded-r;
+}
+.react-select .select__multi-value__remove svg:hover {
+  @apply fill-red-700;
+}
+/* REACT SELECT STYLE END */
