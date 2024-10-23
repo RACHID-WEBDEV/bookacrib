@@ -126,3 +126,15 @@ export const RoomSchema = yup
     name: yup.string().required("Feature Name is required"),
   })
   .required();
+
+export const RoleSchema = yup
+  .object({
+    name: yup.string().required("Role name is required"),
+  })
+  .required();
+
+export const EmptySchema = yup
+  .object({
+    // name: yup.string().required("Role name is required"),
+  })
+  .required();
