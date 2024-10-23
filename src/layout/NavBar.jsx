@@ -107,57 +107,54 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
         <div className="pr-4 lg:pr-8 relative">
           <div className="flex items-center ml-3 gap-4 lg:gap-6  ">
             <div className="flex items-center gap-6">
-              <div className="relative">
-                <p
-                  className="text-sm text-gray-500 cursor-pointer "
-                  onClick={toogle}
-                >
-                  Create a Property?
-                </p>
-                {show && (
-                  <div
-                    className="absolute top-0 right-0 p-4 border border-gray-300 z-30 w-[310px] rounded-lg bg-gray-50"
-                    role="alert"
+              {currentUser?.companies.length === 0 && (
+                <div className="relative">
+                  <p
+                    className="text-sm text-gray-500 cursor-pointer "
+                    onClick={toogle}
                   >
-                    <div className="flex items-center gap-2">
-                      {/* <img
-                      src="/src/assets/svgs/warning-illust.svg"
-                      alt=""
-                      className="  w-14 h-14"
-                    /> */}
-                      <span className="sr-only">Info</span>
-                      <h3 className="text-lg font-bold text-gray-800 ">
-                        Create Property
-                      </h3>
-                    </div>
-                    <div className="m1-2 mb-4 text-sm text-gray-500 font-normal max-w-sm mx-auto">
-                      {/* <b>
+                    Create a Property?
+                  </p>
+                  {show && (
+                    <div
+                      className="absolute top-0 right-0 p-4 border border-gray-300 z-30 w-[310px] rounded-lg bg-gray-50"
+                      role="alert"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="sr-only">Info</span>
+                        <h3 className="text-lg font-bold text-gray-800 ">
+                          Create Property
+                        </h3>
+                      </div>
+                      <div className="m1-2 mb-4 text-sm text-gray-500 font-normal max-w-sm mx-auto">
+                        {/* <b>
                         You must be a property owner before you can create
                         property
                       </b>{" "} */}
-                      <br />
-                      Are a property owner? create a property
-                      {/* Are you sure you want to create property ? */}
+                        <br />
+                        Are a property owner? create a property
+                        {/* Are you sure you want to create property ? */}
+                      </div>
+                      <div className="flex items-center justify-end mt-4 w-full gap-2">
+                        <Button
+                          color="error"
+                          size="xs"
+                          onClick={() => setShow(false)}
+                        >
+                          {" "}
+                          Cancel
+                        </Button>
+                        {/* <Link to="/admin/create-company"> */}
+                        <Button onClick={closeModal} size="xs">
+                          {" "}
+                          Proceed{" "}
+                        </Button>
+                        {/* </Link> */}
+                      </div>
                     </div>
-                    <div className="flex items-center justify-end mt-4 w-full gap-2">
-                      <Button
-                        color="error"
-                        size="xs"
-                        onClick={() => setShow(false)}
-                      >
-                        {" "}
-                        Cancel
-                      </Button>
-                      {/* <Link to="/admin/create-company"> */}
-                      <Button onClick={closeModal} size="xs">
-                        {" "}
-                        Proceed{" "}
-                      </Button>
-                      {/* </Link> */}
-                    </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
+              )}
               <EMailIcon className="w-6 h-6 cursor-pointer text-gray-500" />
               <div className=" relative">
                 <NotificationIcon className="w-5 h-5 cursor-pointer text-gray-500" />
