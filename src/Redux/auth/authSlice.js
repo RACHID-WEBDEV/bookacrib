@@ -7,7 +7,9 @@ import {
   resendVerificationThunk,
   accountVerificationThunk,
   resetPasswordThunk,
+  switchCompany,
 } from "./authThunk";
+
 import Cookies from "js-cookie";
 
 const initialState = {
@@ -15,9 +17,10 @@ const initialState = {
     ? JSON.parse(Cookies.get("bookacrib_currentUser"))
     : null,
   isAuthenticated: !!Cookies.get("bookacrib_admin_token"),
-  hasCompany: Cookies.get("bookacrib_current_company_id")
-    ? JSON.parse(Cookies.get("bookacrib_current_company_id"))
-    : null,
+  hasCompany: null,
+  // hasCompany: Cookies.get("bookacrib_current_company_id")
+  //   ? JSON.parse(Cookies.get("bookacrib_current_company_id"))
+  //   : null,
   loading: false,
   error: null,
   registerUser: [],
@@ -25,6 +28,12 @@ const initialState = {
   resendverification: [],
   accountverification: [],
   passwordreset: [],
+  // switch company to user viceversa
+  companyId: null,
+  switchToCompany: false,
+  isLoading: false,
+  isError: false,
+  errorMessage: "",
 };
 
 const authSlice = createSlice({
@@ -33,6 +42,35 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // .addCase(switchCompany.pending, (state) => {
+      //   state.isLoading = true;
+      // })
+      // .addCase(switchCompany.fulfilled, (state, action) => {
+      //   state.companyId = action.payload.companyId;
+      //   state.switchToCompany = action.payload.switchToCompany;
+      //   state.isLoading = false;
+      // })
+      // .addCase(switchCompany.rejected, (state) => {
+      //   state.isError = true;
+      //   state.isLoading = false;
+      // })
+
+      .addCase(switchCompany.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = "";
+      })
+      .addCase(switchCompany.fulfilled, (state, action) => {
+        state.companyId = action.payload.companyId;
+        state.switchToCompany = action.payload.switchToCompany;
+        state.isLoading = false;
+      })
+      .addCase(switchCompany.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.errorMessage = action.payload || "Failed to switch company";
+      })
+
       .addCase(loginThunk.pending, (state) => {
         state.loading = true;
         state.error = null; // Reset error state on pending
