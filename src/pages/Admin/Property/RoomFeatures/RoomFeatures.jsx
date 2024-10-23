@@ -147,7 +147,7 @@ const RoomFeatures = () => {
       <div>
         <div className="flex items-center justify-between">
           <div className=" py-2 pl-2">
-            <h1 className="text-lg font-semibold text-gray-900 ">Feature</h1>
+            <h1 className="text-lg font-semibold text-gray-900 ">Features</h1>
             <p className="text-gray-600 text-sm font-normal">
               Manage list of the features available
             </p>
