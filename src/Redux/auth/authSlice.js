@@ -11,6 +11,26 @@ import {
 } from "./authThunk";
 
 import Cookies from "js-cookie";
+// Token validation function (implement according to your token structure)
+// const isValidToken = (token) => {
+//   // Example validation: check expiration
+//   const decoded = JSON.parse(atob(token.split(".")[1]));
+//   return decoded.exp > Date.now() / 1000;
+// };
+// const newAuth = Cookies.get("bookacrib_admin_token");
+//    &&
+//   isValidToken(Cookies.get("bookacrib_admin_token")
+// );
+
+// console.log("newAuth:", newAuth);
+
+// console.log("show token:", !!Cookies.get("bookacrib_admin_token"));
+
+// const currentUser = Cookies.get("bookacrib_currentUser")
+//   ? JSON.parse(Cookies.get("bookacrib_currentUser"))
+//   : null;
+
+// console.log("Bookacrib_ user", currentUser);
 
 const initialState = {
   currentUser: Cookies.get("bookacrib_currentUser")
@@ -42,18 +62,6 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // .addCase(switchCompany.pending, (state) => {
-      //   state.isLoading = true;
-      // })
-      // .addCase(switchCompany.fulfilled, (state, action) => {
-      //   state.companyId = action.payload.companyId;
-      //   state.switchToCompany = action.payload.switchToCompany;
-      //   state.isLoading = false;
-      // })
-      // .addCase(switchCompany.rejected, (state) => {
-      //   state.isError = true;
-      //   state.isLoading = false;
-      // })
 
       .addCase(switchCompany.pending, (state) => {
         state.isLoading = true;
@@ -80,12 +88,15 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.loading = false;
         state.error = null; // Reset error state on success
+        state.companyId = null;
+        state.switchToCompany = false;
         state.hasCompany = action.payload;
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.loading = false;
         state.isAuthenticated = false;
-        state.error = action.payload; // Set error state from rejection value
+        state.error = action.payload || "Login failed";
+        // state.error = action.payload; // Set error state from rejection value
       })
 
       .addCase(signupThunk.pending, (state) => {
@@ -163,6 +174,8 @@ const authSlice = createSlice({
         state.currentUser = null;
         state.isAuthenticated = false;
         state.loading = false;
+        state.companyId = null;
+        state.switchToCompany = false;
         state.error = null;
         state.hasCompany = null;
       })

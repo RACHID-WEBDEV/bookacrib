@@ -24,11 +24,11 @@ const AddPermisssionModal = ({ setOpenModal }) => {
   const { loading } = useSelector((state) => state.features);
   //  console.log("permissions", permissions);
   const [selectedValue, setSelectedValue] = useState(null);
-  const TAGS_URL = "/v1/users/permission/list-all-permissions?limit=100";
+  const PERMISSIONS_URL = "/v1/users/permission/list-all-permissions?limit=100";
 
   const fetchAllPermisssions = async () => {
     try {
-      const response = await getData(TAGS_URL);
+      const response = await getData(PERMISSIONS_URL);
       return response?.data;
     } catch (error) {
       const errorMessage = error;

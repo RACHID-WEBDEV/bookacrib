@@ -36,14 +36,16 @@ const Permission = () => {
       // console.log("res:", response);
       setPermission(response);
     } catch (error) {
-      setError(error.response.data.message);
+      setError(error.response.data);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchPermisssion("/v1/users/permission/list-all-permissions?with[]=roles");
+    fetchPermisssion(
+      "/v1/customers/company/users/permission/list-all-permissions?with[]=roles"
+    );
   }, []);
 
   const fetchPermisssionDetails = async (id) => {
@@ -52,7 +54,7 @@ const Permission = () => {
       const response = await getData(
         `/v1/users/permission/get-single-permission?with[]=roles&id=${id}`
       );
-      console.log("res:", response);
+      // console.log("res:", response);
       setPermissionDetail(response);
     } catch (error) {
       setError(error.response.data.message);
@@ -65,7 +67,7 @@ const Permission = () => {
   //     fetchPermisssionDetails();
   //   }, []);
   const fetchViewRole = (perm_id) => {
-    console.log(perm_id);
+    // console.log(perm_id);
     // dispatch(fetchRole(role_id));
     fetchPermisssionDetails(perm_id);
     setViewPermissionModal(true);
@@ -74,7 +76,7 @@ const Permission = () => {
     const fetchSearchUsers = async () => {
       if (searchQuery.length >= 2) {
         fetchPermisssion(
-          "/v1/users/permission/list-all-permissions?with[]=roles",
+          "/v1/customers/company/users/permission/list-all-permissions?with[]=roles",
           searchQuery
         );
       }
@@ -87,7 +89,7 @@ const Permission = () => {
       fetchPermisssion(url);
     }
   };
-  console.log("first permission:", permission);
+  // console.log("first permission:", permission);
   const Headings = {
     tableHeadings: ["S/N", "Name", "Description", "Status", "Type", "Action"],
   };
@@ -144,7 +146,7 @@ const Permission = () => {
                       onClick={() => {
                         setSearchQuery("");
                         fetchPermisssion(
-                          "/v1/users/permission/list-all-permissions?with[]=roles"
+                          "/v1/customers/company/users/permission/list-all-permissions?with[]=roles"
                         );
                       }}
                       className="absolute inset-y-0 end-2 flex items-center ps-3 cursor-pointer"
@@ -223,7 +225,7 @@ const Permission = () => {
                           onClick={() => {
                             setSearchQuery("");
                             fetchPermisssion(
-                              "/v1/users/permission/list-all-permissions?with[]=roles"
+                              "/v1/customers/company/users/permission/list-all-permissions?with[]=roles"
                             );
                           }}
                         >

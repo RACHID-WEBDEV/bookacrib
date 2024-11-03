@@ -69,7 +69,9 @@ const Roles = () => {
   };
 
   useEffect(() => {
-    fetchRoleHandler("v1/users/role/list-all-user-roles?with[]=permissions");
+    fetchRoleHandler(
+      "v1/customers/company/users/role/list-all-user-roles?with[]=permissions"
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
@@ -77,7 +79,7 @@ const Roles = () => {
     const fetchSearchUsers = async () => {
       if (searchQuery.length >= 2) {
         fetchRoleHandler(
-          "v1/users/role/list-all-user-roles?with[]=permissions",
+          "v1/customers/company/users/role/list-all-user-roles?with[]=permissions",
           searchQuery
         );
       }
@@ -127,7 +129,9 @@ const Roles = () => {
           //   navigate("/admin/property/features");
           toast.success(result?.message);
           dispatch(
-            fetchRoles("v1/users/role/list-all-user-roles?with[]=permissions")
+            fetchRoles(
+              "v1/customers/company/users/role/list-all-user-roles?with[]=permissions"
+            )
           );
         }
       } catch (error) {
@@ -229,7 +233,7 @@ const Roles = () => {
                       onClick={() => {
                         setSearchQuery("");
                         fetchRoleHandler(
-                          "v1/users/role/list-all-user-roles?with[]=permissions"
+                          "v1/customers/company/users/role/list-all-user-roles?with[]=permissions"
                         );
                       }}
                       className="absolute inset-y-0 end-2 flex items-center ps-3 cursor-pointer"
@@ -308,7 +312,7 @@ const Roles = () => {
                           onClick={() => {
                             setSearchQuery("");
                             fetchRoleHandler(
-                              "v1/users/role/list-all-user-roles?with[]=permissions"
+                              "v1/customers/company/users/role/list-all-user-roles?with[]=permissions"
                             );
                           }}
                         >

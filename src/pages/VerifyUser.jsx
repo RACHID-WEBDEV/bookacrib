@@ -10,14 +10,14 @@ const VerifyUser = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const token = searchParams.get("ts");
-  const userEmail = searchParams.get("email");
+  // const userEmail = searchParams.get("email");
 
   const userdata = useMemo(
     () => ({
-      email: userEmail,
+      // email: userEmail,
       verification_token: token,
     }),
-    [userEmail, token]
+    [token]
   );
 
   useEffect(() => {

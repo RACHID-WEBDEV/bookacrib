@@ -13,7 +13,7 @@ axiosInstance.interceptors.request.use(
     const userToken = Cookies.get("bookacrib_user_token");
     const companyId = Cookies.get("bookacrib_current_company_id");
 
-    console.log("COMPanyID: ", companyId);
+    // console.log("COMPanyID: ", companyId);
     // Add company ID to headers
     if (adminToken || userToken) {
       config.headers.Authorization = `Bearer ${adminToken || userToken}`;

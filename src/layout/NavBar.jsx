@@ -107,7 +107,7 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
         <div className="pr-4 lg:pr-8 relative">
           <div className="flex items-center ml-3 gap-4 lg:gap-6  ">
             <div className="flex items-center gap-6">
-              {currentUser?.companies.length === 0 && (
+              {currentUser?.companies?.length === 0 && (
                 <div className="relative">
                   <p
                     className="text-sm text-gray-500 cursor-pointer "

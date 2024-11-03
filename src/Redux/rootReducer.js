@@ -6,6 +6,7 @@ import featuresReducer from "./features/featuresSlice";
 import roomTypeReducer from "./roomtypes/roomtypesSlice";
 import categoryReducer from "./categories/categoriesSlice";
 import rolesReducer from "./roles/rolesSlice";
+import propertyReducer from "./property/propertySlice";
 
 // Combine the slice reducers into a root reducer
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   roomtype: roomTypeReducer,
   category: categoryReducer,
   roles: rolesReducer,
+  properties: propertyReducer,
 });
 
 // No need to define RootState type in JavaScript
