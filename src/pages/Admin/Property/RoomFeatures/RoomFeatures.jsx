@@ -26,6 +26,7 @@ import ViewFeatureModal from "./ViewFeatureModal";
 import { formatNumber } from "../../../../lib/constants";
 import Notification from "../../../../components/shared/notification/Notification";
 import toast from "react-hot-toast";
+import { patchData } from "../../../../utils/api";
 
 const RoomFeatures = () => {
   const dispatch = useDispatch();
@@ -51,8 +52,7 @@ const RoomFeatures = () => {
     let fetchUrl = url;
     if (search) {
       fetchUrl += `?q=${search}`;
-    }
-    dispatch(fetchFeatures(fetchUrl));
+    } else dispatch(fetchFeatures(fetchUrl));
   };
 
   useEffect(() => {
@@ -139,8 +139,32 @@ const RoomFeatures = () => {
   };
   // console.log("getSingleRole", role);
 
+  const handleRoomFeatureStatus = async (room_feat_id) => {
+    try {
+      // console.log("room_feat_id clicked ", room_feat_id);
+      if (room_feat_id) {
+        const response = await patchData(
+          `bookacrib-api-routes/v1/features/toggle-feature-status?id=${room_feat_id}`
+        );
+        if (
+          (response?.status >= 200 && response?.status < 300) ||
+          (response?.status_code >= 200 && response?.status_code < 300)
+        ) {
+          toast.success(response?.message);
+          // console.log("category status:", response);
+          dispatch(
+            fetchFeatureHandler(
+              "bookacrib-api-routes/v1/features/list-features"
+            )
+          );
+        }
+      }
+    } catch (error) {
+      console.log("ERROR:", error);
+    }
+  };
   const Headings = {
-    tableHeadings: ["S/N", "Name", "Price", "Status", "Action"],
+    tableHeadings: ["S/N", "Name", "Price", "Status", "Toggle", "Action"],
   };
   return (
     <>
@@ -323,9 +347,26 @@ const RoomFeatures = () => {
                           ></Badge>
                         )}
                       </td>
-                      {/* <td className="px-6 py-4 whitespace-nowrap">
-                        {formatDateTime(item?.created)}
-                      </td> */}
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {/* {formatDateTime(item?.created)} */}
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {/* {formatDateTime(item?.created)} */}
+                          <div className="text-sm  text-gray-600 ">
+                            <label className="inline-flex items-center cursor-pointer  ">
+                              <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                value=""
+                                defaultChecked={item?.is_active === true}
+                                onClick={() =>
+                                  handleRoomFeatureStatus(item.uuid)
+                                }
+                              />
+                              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-success-600"></div>
+                            </label>
+                          </div>
+                        </td>
+                      </td>
 
                       <td
                         // onClick={() => checkUserDetail(item)}

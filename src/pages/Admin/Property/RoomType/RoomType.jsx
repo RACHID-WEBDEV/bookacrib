@@ -27,6 +27,7 @@ import {
   fetchRoomType,
   fetchRoomTypes,
 } from "../../../../Redux/roomtypes/roomtypesThunk";
+import { patchData } from "../../../../utils/api";
 
 const RoomTypes = () => {
   const dispatch = useDispatch();
@@ -138,8 +139,32 @@ const RoomTypes = () => {
   };
   // console.log("getSingleRole", role);
 
+  const handleRoomTypeStatus = async (room_type_id) => {
+    try {
+      // console.log("room_type_id clicked ", room_type_id);
+      if (room_type_id) {
+        const response = await patchData(
+          `bookacrib-api-routes/v1/room-types/toggle-room-type-status?id=${room_type_id}`
+        );
+        if (
+          (response?.status >= 200 && response?.status < 300) ||
+          (response?.status_code >= 200 && response?.status_code < 300)
+        ) {
+          toast.success(response?.message);
+          // console.log("category status:", response);
+          dispatch(
+            fetchRoomTypeHandler(
+              "bookacrib-api-routes/v1/room-types/list-room-types"
+            )
+          );
+        }
+      }
+    } catch (error) {
+      console.log("ERROR:", error);
+    }
+  };
   const Headings = {
-    tableHeadings: ["S/N", "Name", "Status", "Action"],
+    tableHeadings: ["S/N", "Name", "Status", "Toggle", "Action"],
   };
   return (
     <>
@@ -317,9 +342,21 @@ const RoomTypes = () => {
                           ></Badge>
                         )}
                       </td>
-                      {/* <td className="px-6 py-4 whitespace-nowrap">
-                        {formatDateTime(item?.created)}
-                      </td> */}
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {/* {formatDateTime(item?.created)} */}
+                        <div className="text-sm  text-gray-600 ">
+                          <label className="inline-flex items-center cursor-pointer  ">
+                            <input
+                              type="checkbox"
+                              className="sr-only peer"
+                              value=""
+                              defaultChecked={item?.is_active === true}
+                              onClick={() => handleRoomTypeStatus(item.uuid)}
+                            />
+                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-success-600"></div>
+                          </label>
+                        </div>
+                      </td>
 
                       <td
                         // onClick={() => checkUserDetail(item)}
