@@ -74,9 +74,9 @@ export const sidedata = [
     href: "/admin/property",
     child: [
       {
-        title: "Add property",
+        title: "Create property",
         icon: <DotIcon />,
-        href: "/admin/property/add-property",
+        href: "/admin/property/create-property",
       },
       {
         title: "Approve property",
