@@ -110,8 +110,8 @@ const ImageUpload = ({ images, setImages, label, className, updateImages }) => {
   //   function uploadImages() {
   //     console.log("Images:", images);
   //   }
-  console.log("Images:", images);
-  console.log("Preview:", preview);
+  // console.log("Images:", images);
+  // console.log("Preview:", preview);
   return (
     <>
       <div>

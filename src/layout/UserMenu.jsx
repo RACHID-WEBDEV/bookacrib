@@ -12,23 +12,24 @@ import { Button } from "../components/forms/Button";
 import { switchCompany } from "../Redux/auth/authThunk";
 import { Dropdown, DropdownItem } from "flowbite-react";
 import { ArrowDownIcon } from "../assets/SvgIcons";
+import { persistor } from "../Redux/store";
 
 const UserMenu = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logoutThunk());
+    persistor.purge();
   };
   const { currentUser, companyId, switchToCompany } = useSelector(
     (state) => state.auth
   );
 
-  console.log("companyId: ", companyId);
-  console.log("switchToCompany: ", switchToCompany);
-  // console.log("switchToCompany2: ", !switchToCompany);
-  // const newCompanyId = Cookies.get("bookacrib_current_company_id");
-  const newCompanyId = currentUser.companies[0].uuid;
-  console.log("newCompanyId: ", newCompanyId);
+  // console.log("currentUser", currentUser);
+  // console.log("companyId: ", companyId);
+
+  const newCompanyId = currentUser?.companies[0]?.uuid;
+  // console.log("newCompanyId: ", newCompanyId);
 
   const handleSwitchCompany = async () => {
     if (!switchToCompany && currentUser?.companies?.length > 0) {
@@ -104,34 +105,36 @@ const UserMenu = () => {
             {currentUser?.email}
           </p>
         </div>
-        <div className="text-sm pt-4 px-8 text-gray-600 ">
-          <Dropdown
-            dismissOnClick={true}
-            inline
-            arrowIcon={false}
-            placement="bottom"
-            label={
-              <Button
-                rightIcon={
-                  <span>
-                    <ArrowDownIcon />
-                  </span>
-                }
-              >
-                <span className=" whitespace-nowrap ">Switch Account</span>
-              </Button>
-            }
-          >
-            <DropdownItem>
-              <span
-                onClick={handleSwitchCompany}
-                className="!text-sm !text-gray-600 font-normal uppercase"
-              >
-                {switchToCompany ? "Switch to User" : "Switch to Company"}
-              </span>
-            </DropdownItem>
-          </Dropdown>
-        </div>
+        {newCompanyId && (
+          <div className="text-sm pt-4 px-8 text-gray-600 ">
+            <Dropdown
+              dismissOnClick={true}
+              inline
+              arrowIcon={false}
+              placement="bottom"
+              label={
+                <Button
+                  rightIcon={
+                    <span>
+                      <ArrowDownIcon />
+                    </span>
+                  }
+                >
+                  <span className=" whitespace-nowrap ">Switch Account</span>
+                </Button>
+              }
+            >
+              <DropdownItem>
+                <span
+                  onClick={handleSwitchCompany}
+                  className="!text-sm !text-gray-600 font-normal uppercase"
+                >
+                  {switchToCompany ? "Switch to User" : "Switch to Company"}
+                </span>
+              </DropdownItem>
+            </Dropdown>
+          </div>
+        )}
 
         {/* <Button onClick={handleSwitchCompany}>
           {switchToCompany ? "Switch to User" : "Switch to Company"}
