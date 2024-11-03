@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Public from "./Routes/Public";
 import Private from "./Routes/Private";
 import Register from "./pages/Register";
-import Inventory from "./pages/Admin/Products/Inventory";
+// import Inventory from "./pages/Admin/Products/Inventory";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import ForgetPassword from "./pages/ForgetPassword";
@@ -16,7 +16,8 @@ import ResetPassword from "./pages/ResetPassword";
 import ResendVerification from "./pages/ResendVerification";
 import VerifyUser from "./pages/VerifyUser";
 import Property from "./pages/Admin/Property/Property";
-import AddProperty from "./pages/Admin/Property/AddProperty";
+
+import CreateProperty from "./pages/Admin/Property/CreateProperty";
 import PropertyLayout from "./pages/Admin/Property/PropertyLayout";
 import RoomFeatures from "./pages/Admin/Property/RoomFeatures/RoomFeatures";
 import RoomTypes from "./pages/Admin/Property/RoomType/RoomType";
@@ -26,6 +27,8 @@ import Roles from "./pages/Admin/AdminSettings/Roles/Roles";
 import AdminSettingsLayout from "./pages/Admin/AdminSettings/AdminSettingsLayout";
 import Permission from "./pages/Admin/AdminSettings/Permissions/Permission";
 import RoleType from "./pages/Admin/AdminSettings/Roles/RoleType";
+import PropertyDetails from "./pages/Admin/Property/PropertyDetails";
+import EditProperty from "./pages/Admin/Property/EditProperty";
 
 function App() {
   return (
@@ -62,16 +65,23 @@ function App() {
             <Route path="property" element={<PropertyLayout />}>
               <Route index element={<Navigate replace to="all-property" />} />
               <Route path="all-property" element={<Property />} />
-              <Route path="add-property" element={<AddProperty />} />
+              <Route
+                path="property-detail/:uuid"
+                element={<PropertyDetails />}
+              />
+
+              <Route path="create-property" element={<CreateProperty />} />
+              <Route path="property-edit/:uuid" element={<EditProperty />} />
+
               <Route path="features" element={<RoomFeatures />} />
               <Route path="room-types" element={<RoomTypes />} />
               <Route path="categories" element={<Categories />} />
             </Route>
-            <Route path="product" element={<Inventory />}>
-              {/* <Route index element={<Navigate replace to="dashboard" />} /> */}
+            {/* <Route path="product" element={<Inventory />}>
+              <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="product/inventory" element={<Inventory />} />
-              {/* <Route path="/dashboard/order-home" element={<Dashboard />} /> */}
-            </Route>
+              <Route path="/dashboard/order-home" element={<Dashboard />} />
+            </Route> */}
 
             <Route path="settings" element={<AdminSettingsLayout />}>
               <Route index element={<Navigate replace to="roles" />} />

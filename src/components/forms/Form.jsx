@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
@@ -10,11 +10,11 @@ function HookForm({ onSubmit, children, schema, defaultValues }) {
     resolver: yupResolver(schema),
   });
 
-  useEffect(() => {
-    if (methods.formState.isSubmitSuccessful) {
-      methods.reset();
-    }
-  }, [methods.formState.isSubmitSuccessful, methods]);
+  // useEffect(() => {
+  //   if (methods.formState.isSubmitSuccessful) {
+  //     methods.reset();
+  //   }
+  // }, [methods.formState.isSubmitSuccessful, methods]);
 
   return (
     <FormProvider {...methods}>

@@ -9,6 +9,7 @@ const Checkbox = ({
   label,
   className,
   labelClassName,
+  disabled,
 }) => {
   return (
     <div className={`flex items-center ${className}`}>
@@ -18,6 +19,7 @@ const Checkbox = ({
           name={name}
           type="checkbox"
           checked={checked}
+          disabled={disabled}
           onChange={() => {
             setChecked((prevChecked) => !prevChecked);
           }}
@@ -84,6 +86,7 @@ Checkbox.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   setChecked: PropTypes.any.isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
