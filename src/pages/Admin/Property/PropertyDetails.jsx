@@ -16,12 +16,12 @@ const PropertyDetails = () => {
   const { uuid } = useParams(); // Type assertion for id
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    dispatch(fetchProperty(uuid));
-  }, [uuid, dispatch]);
   const { propertys, property, loading, error } = useSelector(
     (state) => state.properties
   );
+  useEffect(() => {
+    dispatch(fetchProperty(uuid));
+  }, [uuid, dispatch]);
 
   console.log("property: ", property);
   const sliderForRef = useRef(null);
