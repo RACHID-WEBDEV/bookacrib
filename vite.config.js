@@ -14,6 +14,21 @@ export default defineConfig({
       functions: "/src/functions",
     },
   },
+  server: {
+    // port: 8080,
+    proxy: {
+      "/maps": {
+        target: "https://maps.googleapis.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/maps/, "/maps"),
+      },
+      "/v1_1": {
+        target: "https://api.cloudinary.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/v1_1/, "/v1_1"),
+      },
+    },
+  },
   build: {
     outDir: "dist",
   },
