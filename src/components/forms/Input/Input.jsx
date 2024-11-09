@@ -19,6 +19,7 @@ export const Input = ({
   type = "text",
   Icon,
   disabled,
+  autoComplete,
 }) => {
   const {
     register,
@@ -69,9 +70,10 @@ export const Input = ({
           )}
           id={name}
           {...register(name)}
-          placeholder={placeholder || label}
+          placeholder={placeholder}
           type={isPasswordField ? (showPassword ? "text" : "password") : type}
           disabled={disabled}
+          autoComplete={autoComplete}
         />
         {hasErrors && (
           <div
