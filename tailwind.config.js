@@ -1,9 +1,10 @@
-// const flowbite = require("flowbite-react/tailwind");
+/* eslint-disable no-undef */
+const flowbite = require("flowbite-react/tailwind");
 /** @type {import('tailwindcss').Config} */
-// eslint-disable-next-line no-undef
+
 const colors = require("./src/tokens/color.tokens");
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content()],
   safelist: ["hover:bg-primary-800", "text-neutral-white"],
   theme: {
     extend: {
@@ -43,6 +44,8 @@ export default {
       Inter: ["Inter", "sans-serif"],
       Gemunu_Libre: ["Gemunu_Libre", "sans-serif"],
     },
-    plugins: [],
+    plugins: [flowbite.plugin()],
+
+    // plugins: [],
   },
 };

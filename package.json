@@ -58,6 +58,7 @@
     "slick-carousel": "^1.8.1",
     "swiper": "^11.0.5",
     "tailwind-merge": "^2.3.0",
+    "uuid": "^11.0.2",
     "yup": "^1.4.0"
   },
   "devDependencies": {
