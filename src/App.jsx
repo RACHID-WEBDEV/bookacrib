@@ -29,6 +29,10 @@ import Permission from "./pages/Admin/AdminSettings/Permissions/Permission";
 import RoleType from "./pages/Admin/AdminSettings/Roles/RoleType";
 import PropertyDetails from "./pages/Admin/Property/PropertyDetails";
 import EditProperty from "./pages/Admin/Property/EditProperty";
+import PropertyOverview from "./pages/PropertyOverview";
+import PropertyDetailsLayout from "./pages/PropertyDetailsLayout";
+import PropertyCheckout from "./pages/PropertyCheckout";
+import PaymentCallBack from "./pages/PaymentCallback";
 
 function App() {
   return (
@@ -38,6 +42,10 @@ function App() {
 
         <Route element={<Public />}>
           <Route path="/" element={<Home />} />
+          <Route path="view-property" element={<PropertyDetailsLayout />}>
+            <Route path="details/:uuid" element={<PropertyOverview />} />
+          </Route>
+          <Route path="property/checkout" element={<PropertyCheckout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
@@ -48,6 +56,8 @@ function App() {
             element={<ResendVerification />}
           />
 
+          <Route path="/payment/confirmation" element={<PaymentCallBack />} />
+
           {/* <Route path="/check-email" element={<CheckEmail />} />
             <Route path="/set-new-password" element={<ResetPassword />} />
             
@@ -56,11 +66,7 @@ function App() {
 
         <Route element={<Private />}>
           <Route path="admin" element={<MainDashboardLayout />}>
-            <Route path="dashboard" element={<AdminDashboard />}>
-              {/* <Route index element={<Navigate replace to="dashboard" />} /> */}
-              {/* <Route path="/dashboard/home-admin" element={<Dashboard />} />
-              <Route path="/dashboard/order-home" element={<Dashboard />} /> */}
-            </Route>
+            <Route path="dashboard" element={<AdminDashboard />}></Route>
             <Route path="create-company" element={<CreateCompany />} />
             <Route path="property" element={<PropertyLayout />}>
               <Route index element={<Navigate replace to="all-property" />} />
@@ -77,11 +83,6 @@ function App() {
               <Route path="room-types" element={<RoomTypes />} />
               <Route path="categories" element={<Categories />} />
             </Route>
-            {/* <Route path="product" element={<Inventory />}>
-              <Route index element={<Navigate replace to="dashboard" />} />
-              <Route path="product/inventory" element={<Inventory />} />
-              <Route path="/dashboard/order-home" element={<Dashboard />} />
-            </Route> */}
 
             <Route path="settings" element={<AdminSettingsLayout />}>
               <Route index element={<Navigate replace to="roles" />} />
