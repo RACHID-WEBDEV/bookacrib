@@ -201,9 +201,13 @@ const EditProperty = () => {
     try {
       // Replace YOUR_CLOUD_NAME with your Cloudinary cloud name
       // Replace YOUR_API_KEY and YOUR_API_SECRET with your Cloudinary credentials
-      const cloudName = "dwpe6s8vr"; // dwpe6s8vr "YOUR_CLOUD_NAME";
-      const apiKey = "115111542838195"; // 115111542838195 "YOUR_API_KEY";
-      const apiSecret = "QXmfLjMnkM_22RoR2OMYs94Hnug"; // QXmfLjMnkM_22RoR2OMYs94Hnug "YOUR_API_SECRET";
+      // const cloudName = "dwpe6s8vr"; // dwpe6s8vr "YOUR_CLOUD_NAME";
+      // const apiKey = "115111542838195"; // 115111542838195 "YOUR_API_KEY";
+      // const apiSecret = "QXmfLjMnkM_22RoR2OMYs94Hnug"; // QXmfLjMnkM_22RoR2OMYs94Hnug "YOUR_API_SECRET";
+
+      const cloudName = import.meta.env.VITE_CLOUD_NAME;
+      const apiKey = import.meta.env.VITE_API_KEY;
+      const apiSecret = import.meta.env.VITE_API_SECRET;
 
       // Cloudinary API URL for deleting images
       const url = ` https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`;

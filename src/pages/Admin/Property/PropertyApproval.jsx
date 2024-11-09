@@ -69,7 +69,7 @@ const PropertyApproval = ({ setOpenModal, propertyId }) => {
     } catch (error) {
       console.log("ERROR:", error);
       toast.error(error?.response?.data?.message);
-      navigate("/database/users/awaiting-kyc");
+      navigate("/admin/property/all-property");
     }
     // dispatch(addNewRole(filteredFormData));
     // alert(JSON.stringify(filteredFormData));
