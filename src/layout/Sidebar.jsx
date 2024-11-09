@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { sidedata } from "../data/sideBarData";
 import { AvatarIcon, SettingsIcon } from "../assets/SvgIcons";
 import { getNameInitials } from "../lib/constants";
+import { persistor } from "../Redux/store";
 
 const Sidebar = ({
   openSideMenu,
@@ -43,6 +44,7 @@ const Sidebar = ({
 
   const handleLogout = () => {
     dispatch(logoutThunk());
+    persistor.purge();
   };
 
   const [activeSubmenu, setActiveSubmenu] = useState(null);
