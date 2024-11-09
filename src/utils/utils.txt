@@ -1,0 +1,16 @@
+ ₦ naira symbol
+ 
+ format data into another Object
+ 
+ const featureFilter = selectedValue?.map((feature) => ({
+    name: feature.name,
+    price: feature.price,
+  }));
+
+const adultData =[]
+    // for (let i = 1; i <= 10; i++) {
+  //   adultData.push({
+  //     name: `${i} ${i === 1 ? "Year" : "Years"}`,
+  //     warranty: `${i} ${i === 1 ? "year" : "years"}`,
+  //   });
+  // }
