@@ -335,6 +335,12 @@ const PropertyCheckout = () => {
           .flat()
           .join(", ");
         toast.error(errorMessages, { duration: 6000 });
+      } else if (error?.response?.data?.message === "Unauthenticated.") {
+        toast.error(
+          `${error?.response?.data?.message}- Sign up to  create a Booking`,
+          { duration: 6000 }
+        );
+        navigate("/sign-up");
       } else {
         toast.error(error?.response?.data?.message, { duration: 6000 });
       }
