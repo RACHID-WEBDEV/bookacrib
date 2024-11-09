@@ -1,10 +1,22 @@
 /* eslint-disable react/prop-types */
 import classNames from "classnames";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../forms/Button";
+import { v4 as uuidv4 } from "uuid";
+import Cookies from "js-cookie";
+import { formatNumber } from "../../lib/constants";
 
-const ProductCard = ({ image, title, discount, category, price }) => {
+const ProductCard = ({
+  image,
+  title,
+  discount,
+  category,
+  price,
+  cate,
+  property_id,
+}) => {
+  const navigate = useNavigate();
   //   const [favorite, setFavorite] = useState(0);
   const [favorite, setFavorite] = useState(false);
 
@@ -16,11 +28,32 @@ const ProductCard = ({ image, title, discount, category, price }) => {
     //   setFavorite(0);
     // }
   };
+  const uniqueId = uuidv4();
+
+  const navigatePropertyDetail = async (record) => {
+    const getUniqueId = Cookies.get("bookacrib_uniqueId");
+    // console.log("getUniqueId:", getUniqueId);
+    try {
+      if (getUniqueId === undefined || null) {
+        Cookies.set("bookacrib_uniqueId", uniqueId, {
+          expires: 7,
+          sameSite: "None",
+          secure: true,
+        });
+      }
+      navigate(`/view-property/details/${record.uuid}`);
+    } catch (error) {
+      console.error("Error navigating:", error);
+    }
+  };
   return (
     <div className=" relative flex lg:flex-col bg-transparent  border border-gray-100 rounded-lg ">
       {/* <a className="absolute inset-0" /> */}
       <div className="w-[35%] lg:w-full relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-l-xl lg:rounded-t-xl overflow-hidden z-1 group">
-        <a className="block relative" href="#">
+        <a
+          className="block relative"
+          onClick={() => navigatePropertyDetail(property_id)}
+        >
           <div className="flex overflow-hidden lg:w-full w-32 h-[132px] lg:h-64">
             <img
               alt="product"
@@ -30,7 +63,7 @@ const ProductCard = ({ image, title, discount, category, price }) => {
           </div>
           <div className=" absolute w-full h-full inset-0  bg-black/20"></div>
         </a>
-        {discount && (
+        {discount !== 0 && (
           <div className="nc-shadow-lg hidden rounded-full lg:flex items-center justify-center absolute top-3 start-3 px-2.5 py-1.5 text-xs bg-gray-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300">
             <svg
               className="w-3.5 h-3.5"
@@ -67,7 +100,7 @@ const ProductCard = ({ image, title, discount, category, price }) => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="ms-1 leading-none capitalize">{discount}</span>
+            <span className="ms-1 leading-none capitalize">{`${discount}% Discount`}</span>
           </div>
         )}
         {/* <button
@@ -105,7 +138,10 @@ const ProductCard = ({ image, title, discount, category, price }) => {
             </svg>
             <span className="ms-1">Add to cart</span>
           </button> */}
-          <button className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full  text-xs py-2 px-4  text-slate-700 dark:bg-slate-900 dark:text-slate-300  ms-1.5 bg-white hover:!bg-gray-100 hover:text-slate-900 transition-colors shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 ">
+          <button
+            onClick={() => navigatePropertyDetail(property_id)}
+            className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full  text-xs py-2 px-4  text-slate-700 dark:bg-slate-900 dark:text-slate-300  ms-1.5 bg-white hover:!bg-gray-100 hover:text-slate-900 transition-colors shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -130,7 +166,7 @@ const ProductCard = ({ image, title, discount, category, price }) => {
         <div>
           <div className=" flex items-center w-full justify-between gap-2">
             <div>
-              <Link to="">
+              <Link to={`/view-property/details/${property_id?.uuid}`}>
                 <h2 className="text-base font-semibold transition-colors w-full">
                   {title}
                 </h2>
@@ -138,6 +174,7 @@ const ProductCard = ({ image, title, discount, category, price }) => {
               <p className="text-xs lg:hidden text-slate-500 dark:text-slate-400 lg:mt-1 ">
                 {category}
               </p>
+              {/* <p>Unique ID: {uniqueId}</p> */}
             </div>
             <div className="lg:w-[10%]">
               <button
@@ -173,14 +210,21 @@ const ProductCard = ({ image, title, discount, category, price }) => {
           <div className="">
             <div className="flex flex-col lg:flex-row lg:items-center gap-1.5 text-sm text-gray-500 ">
               <span className="text-gray-800 font-semibold text-base !leading-none">
-                NGN{price}
+                NGN{formatNumber(price)}
               </span>
-              <span className="hidden lg:flex">|</span>
-              <span className="">Per night</span>
+              <span className="">|</span>
+              <span className=" capitalize">{cate} </span>
             </div>
           </div>
           <div className="flex items-center">
-            <Button size="xs">Book</Button>
+            {/* <Link to={`/property-details/view/${}`}> */}
+            <Button
+              onClick={() => navigatePropertyDetail(property_id)}
+              size="xs"
+            >
+              Book
+            </Button>
+            {/* </Link> */}
           </div>
         </div>
       </div>
