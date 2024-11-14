@@ -61,9 +61,9 @@ export const sidedata = [
     href: "/admin/transactions",
     child: [
       {
-        title: "Orders List",
+        title: "List Bookings",
         icon: <DotIcon />,
-        href: "/admin/order-list",
+        href: "/admin/transactions/list-bookings",
       },
     ],
   },

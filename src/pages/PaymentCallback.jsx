@@ -16,15 +16,6 @@ const PaymentCallBack = () => {
   const reference = searchParams.get("reference");
   const [showModalSuccess, setShowModalSuccess] = useState(false);
 
-  //bookacrib.vercel.app/payment/confirmation?trxref=BAC-NM59LYL5U1O3H&reference=BAC-NM59LYL5U1O3H
-  //   const userdata = useMemo(
-  //     () => ({
-  //       email: reference,
-  //       reference: trxref,
-  //     }),
-  //     [reference, trxref]
-  //   );
-
   useEffect(() => {
     const verifyUser = async () => {
       try {

@@ -33,6 +33,8 @@ import PropertyOverview from "./pages/PropertyOverview";
 import PropertyDetailsLayout from "./pages/PropertyDetailsLayout";
 import PropertyCheckout from "./pages/PropertyCheckout";
 import PaymentCallBack from "./pages/PaymentCallback";
+import ListBookings from "./pages/Admin/Property/ListBookings/ListBookings";
+import TransactionLayout from "./pages/Admin/Property/ListBookings/TransactionLayout";
 
 function App() {
   return (
@@ -56,7 +58,9 @@ function App() {
             element={<ResendVerification />}
           />
 
-          <Route path="/payment/confirmation" element={<PaymentCallBack />} />
+          <Route path="payment/confirmation" element={<PaymentCallBack />} />
+          <Route path="/confirmation" element={<PaymentCallBack />} />
+          <Route path="verify" element={<PaymentCallBack />} />
 
           {/* <Route path="/check-email" element={<CheckEmail />} />
             <Route path="/set-new-password" element={<ResetPassword />} />
@@ -68,6 +72,21 @@ function App() {
           <Route path="admin" element={<MainDashboardLayout />}>
             <Route path="dashboard" element={<AdminDashboard />}></Route>
             <Route path="create-company" element={<CreateCompany />} />
+            <Route path="transactions" element={<TransactionLayout />}>
+              <Route index element={<Navigate replace to="list-bookings" />} />
+              <Route path="list-bookings" element={<ListBookings />} />
+              {/* <Route
+                path="property-detail/:uuid"
+                element={<PropertyDetails />}
+              />
+
+              <Route path="create-property" element={<CreateProperty />} />
+              <Route path="property-edit/:uuid" element={<EditProperty />} />
+
+              <Route path="features" element={<RoomFeatures />} />
+              <Route path="room-types" element={<RoomTypes />} />
+              <Route path="categories" element={<Categories />} /> */}
+            </Route>
             <Route path="property" element={<PropertyLayout />}>
               <Route index element={<Navigate replace to="all-property" />} />
               <Route path="all-property" element={<Property />} />
