@@ -6,7 +6,7 @@ import { patchData, postData } from "../../utils/api";
 
 // Async thunk action creator for login
 const loginThunk = createAsyncThunk(
-  "admin/auth",
+  "user_login/auth",
   async (userData, { rejectWithValue }) => {
     try {
       // Make an HTTP POST request to the login endpoint with user data
@@ -31,7 +31,7 @@ const loginThunk = createAsyncThunk(
       // console.log(access_token);
 
       // Store the access token in a cookie with expiry, sameSite, and secure options
-      Cookies.set("bookacrib_admin_token", access_token, {
+      Cookies.set("bookacrib_user_token", access_token, {
         expires: 7,
         sameSite: "None",
         secure: true,
@@ -67,26 +67,29 @@ const loginThunk = createAsyncThunk(
   }
 );
 
-const logoutThunk = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
-  try {
-    const response = await postData("/v1/users/logout", "");
+const logoutThunk = createAsyncThunk(
+  "user_auth/logout",
+  async (_, thunkAPI) => {
+    try {
+      const response = await postData("/v1/users/logout", "");
 
-    // Remove cookies related to auth
-    Cookies.remove("bookacrib_admin_token");
-    Cookies.remove("bookacrib_currentUser");
-    Cookies.remove("bookacrib_current_company_id");
+      // Remove cookies related to auth
+      Cookies.remove("bookacrib_user_token");
+      Cookies.remove("bookacrib_currentUser");
+      Cookies.remove("bookacrib_current_company_id");
 
-    if (response.status >= 200 && response.status < 300) {
-      toast.success(response.message);
+      if (response.status >= 200 && response.status < 300) {
+        toast.success(response.message);
+      }
+
+      // await persistor.purge();
+      return response;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.message;
+      return thunkAPI.rejectWithValue(errorMessage);
     }
-
-    // await persistor.purge();
-    return response;
-  } catch (error) {
-    const errorMessage = error.response?.data?.message || error.message;
-    return thunkAPI.rejectWithValue(errorMessage);
   }
-});
+);
 // Create a logout thunk
 // const logoutThunk = createAsyncThunk("auth/logout", async (data, thunkAPI) => {
 
@@ -95,7 +98,7 @@ const logoutThunk = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 //     const response = await postData("/v1/users/logout", "");
 
 //     // Remove access token and user cookies
-//     Cookies.remove("bookacrib_admin_token");
+//     Cookies.remove("bookacrib_user_token");
 //     Cookies.remove("bookacrib_currentUser");
 //     Cookies.remove("bookacrib_current_company_id");
 
@@ -118,7 +121,7 @@ const logoutThunk = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 // });
 
 const signupThunk = createAsyncThunk(
-  "auth/signup",
+  "user_auth/signup",
   async (userData, { rejectWithValue }) => {
     try {
       const response = await postData("/v1/users/registration", userData);
@@ -137,7 +140,7 @@ const signupThunk = createAsyncThunk(
 );
 
 const forgetPasswordThunk = createAsyncThunk(
-  "auth/forgetPassword",
+  "user_auth/forgetPassword",
   async (userEmail, { rejectWithValue }) => {
     try {
       const response = await postData("/v1/users/forgot-password", userEmail);
@@ -156,7 +159,7 @@ const forgetPasswordThunk = createAsyncThunk(
 );
 
 const resendVerificationThunk = createAsyncThunk(
-  "auth/resendVerification",
+  "user_auth/resendVerification",
   async (userEmail, { rejectWithValue }) => {
     try {
       const response = await postData(
@@ -177,7 +180,7 @@ const resendVerificationThunk = createAsyncThunk(
   }
 );
 const accountVerificationThunk = createAsyncThunk(
-  "auth/accountVerification",
+  "user_auth/accountVerification",
   async (userEmail_Token, { rejectWithValue }) => {
     try {
       const response = await patchData(
@@ -199,7 +202,7 @@ const accountVerificationThunk = createAsyncThunk(
 );
 
 const resetPasswordThunk = createAsyncThunk(
-  "auth/resetPassword",
+  "user_auth/resetPassword",
   async (userPassword_Token, { rejectWithValue }) => {
     try {
       const response = await patchData(
@@ -221,7 +224,7 @@ const resetPasswordThunk = createAsyncThunk(
 );
 
 const switchCompany = createAsyncThunk(
-  "company/switchCompany",
+  "user_company/switchCompany",
   async ({ companyId, switchToCompany }, { rejectWithValue }) => {
     try {
       if (switchToCompany) {
