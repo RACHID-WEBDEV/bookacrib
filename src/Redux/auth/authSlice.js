@@ -17,14 +17,14 @@ import Cookies from "js-cookie";
 //   const decoded = JSON.parse(atob(token.split(".")[1]));
 //   return decoded.exp > Date.now() / 1000;
 // };
-// const newAuth = Cookies.get("bookacrib_admin_token");
+// const newAuth = Cookies.get("bookacrib_user_token");
 //    &&
-//   isValidToken(Cookies.get("bookacrib_admin_token")
+//   isValidToken(Cookies.get("bookacrib_user_token")
 // );
 
 // console.log("newAuth:", newAuth);
 
-// console.log("show token:", !!Cookies.get("bookacrib_admin_token"));
+// console.log("show token:", !!Cookies.get("bookacrib_user_token"));
 
 // const currentUser = Cookies.get("bookacrib_currentUser")
 //   ? JSON.parse(Cookies.get("bookacrib_currentUser"))
@@ -36,7 +36,7 @@ const initialState = {
   currentUser: Cookies.get("bookacrib_currentUser")
     ? JSON.parse(Cookies.get("bookacrib_currentUser"))
     : null,
-  isAuthenticated: !!Cookies.get("bookacrib_admin_token"),
+  isAuthenticated: !!Cookies.get("bookacrib_user_token"),
   hasCompany: null,
   // hasCompany: Cookies.get("bookacrib_current_company_id")
   //   ? JSON.parse(Cookies.get("bookacrib_current_company_id"))
