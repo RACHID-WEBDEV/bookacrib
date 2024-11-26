@@ -1,29 +1,40 @@
-/* eslint-disable no-unused-vars */
-import { Link, useNavigate } from "react-router-dom";
-import LogoWhite from "../components/shared/Logo/LogoWhite";
-import { ForgetPasswordSchema } from "../schema/authSchema";
+import { useNavigate } from "react-router-dom";
+import LogoWhite from "../../components/shared/Logo/LogoWhite";
+import { ForgetPasswordSchema } from "../../schema/authSchema";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Input } from "../components/forms/Input";
-import { Button } from "../components/forms/Button";
-import HookForm from "../components/forms/Form";
+import { Input } from "../../components/forms/Input";
+import { Button } from "../../components/forms/Button";
+import HookForm from "../../components/forms/Form";
 
 import toast from "react-hot-toast";
-import { resendVerificationThunk } from "../Redux/auth/authThunk";
-import SmallSpinner from "../components/Loading/SmallSpinner";
 
-const ResendVerification = () => {
+import SmallSpinner from "../../components/Loading/SmallSpinner";
+import { adminForgetPasswordThunk } from "../../Redux/adminAuth/adminAuthThunk";
+import Cookies from "js-cookie";
+
+const AdminForgetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, loading } = useSelector((state) => state.auth);
+  const { error, loading } = useSelector((state) => state.adminauth);
 
-  console.log(error);
+  console.log("err:", error);
   const onSubmit = async (data) => {
     try {
-      const result = await dispatch(resendVerificationThunk(data)).unwrap();
+      const result = await dispatch(adminForgetPasswordThunk(data)).unwrap();
       console.log("forgetpassword", result);
-      if (result.status >= 200 && result.status <= 300) {
-        navigate("/");
+      if (
+        (result.status >= 200 && result.status <= 300) ||
+        (result.status_code >= 200 && result.status_code <= 300)
+      ) {
+        const adminEmail = JSON.stringify(data);
+        Cookies.set("bac_admin_reset_email", adminEmail, {
+          expires: 7,
+          sameSite: "None",
+          secure: true,
+        });
+
+        navigate("/admin/forget-password-sent");
       }
     } catch (error) {
       if (error?.status >= 400 && error?.status <= 499) {
@@ -46,11 +57,10 @@ const ResendVerification = () => {
           </div>
           <div className=" border bg-gray-50 dark:border-gray-700 dark:bg-gray-800 px-4 lg:px-6 py-8 sm:py-10">
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
-              Resend Verification
+              Admin Forgot password?
             </h3>
             <h3 className="text-base pt-3 text-gray-500 ">
-              No worries! Enter your email address again and we&apos;ll resend
-              you a secure verification link.
+              No worries, we’ll send you reset instructions.
             </h3>
 
             <div className="max-w-lg pt-6">
@@ -73,15 +83,18 @@ const ResendVerification = () => {
                       <span>Loading...</span>
                     </div>
                   ) : (
-                    " Resend Verification Link"
+                    "Reset Password"
                   )}
                 </Button>
               </HookForm>
 
               {/* <p className=" text-gray-600 mt-4">
                 If you don&apos;t receive an email,{" "}
-                <Link to="/login" className=" text-primary-700 font-medium">
-                 
+                <Link
+                  to="/resend-verification-link"
+                  className=" text-primary-700 font-medium"
+                >
+                  Resend Email
                 </Link>{" "}
                 check your spam folder or contact support
               </p> */}
@@ -93,4 +106,4 @@ const ResendVerification = () => {
   );
 };
 
-export default ResendVerification;
+export default AdminForgetPassword;
