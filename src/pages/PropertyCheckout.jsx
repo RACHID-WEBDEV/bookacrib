@@ -337,7 +337,7 @@ const PropertyCheckout = () => {
         toast.error(errorMessages, { duration: 6000 });
       } else if (error?.response?.data?.message === "Unauthenticated.") {
         toast.error(
-          `${error?.response?.data?.message}- Sign up to  create a Booking`,
+          `${error?.response?.data?.message} - Sign up to  create a Booking`,
           { duration: 6000 }
         );
         navigate("/sign-up");

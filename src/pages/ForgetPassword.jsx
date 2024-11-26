@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LogoWhite from "../components/shared/Logo/LogoWhite";
 import { ForgetPasswordSchema } from "../schema/authSchema";
 
@@ -8,21 +8,33 @@ import { Button } from "../components/forms/Button";
 import HookForm from "../components/forms/Form";
 
 import toast from "react-hot-toast";
-import { forgetPasswordThunk } from "../Redux/auth/authThunk";
+
 import SmallSpinner from "../components/Loading/SmallSpinner";
+import { forgetPasswordThunk } from "../Redux/auth/authThunk";
+import Cookies from "js-cookie";
 
 const ForgetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error, loading } = useSelector((state) => state.auth);
 
-  console.log(error);
+  console.log("err:", error);
   const onSubmit = async (data) => {
     try {
       const result = await dispatch(forgetPasswordThunk(data)).unwrap();
       console.log("forgetpassword", result);
-      if (result.status >= 200 && result.status <= 300) {
-        navigate("/login");
+      if (
+        (result.status >= 200 && result.status <= 300) ||
+        (result.status_code >= 200 && result.status_code <= 300)
+      ) {
+        const userEmail = JSON.stringify(data);
+        Cookies.set("bac_user_reset_email", userEmail, {
+          expires: 7,
+          sameSite: "None",
+          secure: true,
+        });
+
+        navigate("/forget-password-sent");
       }
     } catch (error) {
       if (error?.status >= 400 && error?.status <= 499) {
@@ -76,7 +88,7 @@ const ForgetPassword = () => {
                 </Button>
               </HookForm>
 
-              <p className=" text-gray-600 mt-4">
+              {/* <p className=" text-gray-600 mt-4">
                 If you don&apos;t receive an email,{" "}
                 <Link
                   to="/resend-verification-link"
@@ -85,7 +97,7 @@ const ForgetPassword = () => {
                   Resend Email
                 </Link>{" "}
                 check your spam folder or contact support
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
