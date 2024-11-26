@@ -15,7 +15,7 @@ const VerifyUser = () => {
   const userdata = useMemo(
     () => ({
       // email: userEmail,
-      verification_token: token,
+      ts: token,
     }),
     [token]
   );
@@ -26,14 +26,15 @@ const VerifyUser = () => {
         const result = await dispatch(
           accountVerificationThunk(userdata)
         ).unwrap();
-        console.log("forgetpassword", result);
+        console.log("verification", result);
         if (result.status >= 200 && result.status <= 300) {
           navigate("/login");
         }
       } catch (error) {
+        // console.log("error verif:", error);
         if (error?.status >= 400 && error?.status <= 499) {
           toast.error(error.message, { duration: 6000 });
-          navigate("/");
+          navigate("/resend-verification-link");
         } else {
           console.error("Unexpected error:", error);
           toast.error("An unexpected error occurred.");
