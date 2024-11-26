@@ -21,11 +21,11 @@ export const styles = {
       "pl-3",
       "pointer-events-none",
     ],
-    noIcon: ["p-3.5"],
-    withIcon: ["pl-10", "py-3.5"],
+    noIcon: ["p-3"],
+    withIcon: ["pl-10", "py-3"],
   },
 
-  container: ["mb-6", "relative"],
+  container: ["mb-4", "relative"],
   border: {
     default: ["border-gray-300", "focus:border-gray-400"],
     errors: [

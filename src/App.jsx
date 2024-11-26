@@ -1,7 +1,8 @@
 import Home from "./pages/Home";
 
 import { Navigate, Route, Routes } from "react-router-dom";
-import MainDashboardLayout from "./layout/MainDashboardLayout";
+// import MainDashboardLayout from "./layout/MainDashboardLayout";
+import AdminDashboardLayout from "./LayoutAdmin/AdminDashboardLayout";
 
 // import Dashboard from "src/layout/Dashboard";
 import Login from "./pages/Login";
@@ -35,6 +36,16 @@ import PropertyCheckout from "./pages/PropertyCheckout";
 import PaymentCallBack from "./pages/PaymentCallback";
 import ListBookings from "./pages/Admin/Property/ListBookings/ListBookings";
 import TransactionLayout from "./pages/Admin/Property/ListBookings/TransactionLayout";
+import AdminLogin from "./pages/Admin/AdminLogin";
+import AdminRegister from "./pages/Admin/AdminRegister";
+import VerifyAdmin from "./pages/Admin/VerifyAdmin";
+import AdminForgetPassword from "./pages/Admin/AdminForgetPassword";
+import AdminResendVerification from "./pages/Admin/AdminResendVerification";
+import AdminForgetPasswordSent from "./pages/Admin/AdminForgetPasswordSent";
+import AdminResetPassword from "./pages/Admin/AdminResetPassword";
+import AdminRegisterSent from "./pages/Admin/AdminRegisterSent";
+import RegisterSent from "./pages/RegisterSent";
+import ForgetPasswordSent from "./pages/ForgetPasswordSent";
 
 function App() {
   return (
@@ -50,7 +61,12 @@ function App() {
           <Route path="property/checkout" element={<PropertyCheckout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<Register />} />
+          <Route path="/user/sign-up-success" element={<RegisterSent />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route
+            path="/forget-password-sent"
+            element={<ForgetPasswordSent />}
+          />
           <Route path="/user/reset-password" element={<ResetPassword />} />
           <Route path="/user/account/verify" element={<VerifyUser />} />
           <Route
@@ -59,17 +75,46 @@ function App() {
           />
 
           <Route path="payment/confirmation" element={<PaymentCallBack />} />
-          <Route path="/confirmation" element={<PaymentCallBack />} />
-          <Route path="verify" element={<PaymentCallBack />} />
 
           {/* <Route path="/check-email" element={<CheckEmail />} />
             <Route path="/set-new-password" element={<ResetPassword />} />
             
             */}
+          {/* ADMIN ROUTE PUBLIC */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/sign-up" element={<AdminRegister />} />
+          <Route
+            path="/admin/sign-up-success"
+            element={<AdminRegisterSent />}
+          />
+
+          <Route path="/admin/account/verify" element={<VerifyAdmin />} />
+          <Route
+            path="/admin/forget-password"
+            element={<AdminForgetPassword />}
+          />
+          <Route
+            path="/admin/forget-password-sent"
+            element={<AdminForgetPasswordSent />}
+          />
+          <Route
+            path="/admin/resend-verification-link"
+            element={<AdminResendVerification />}
+          />
+          <Route
+            path="/admin/reset-password"
+            element={<AdminResetPassword />}
+          />
         </Route>
 
         <Route element={<Private />}>
-          <Route path="admin" element={<MainDashboardLayout />}>
+          <Route
+            path="admin"
+            element={
+              <AdminDashboardLayout />
+              // <MainDashboardLayout />
+            }
+          >
             <Route path="dashboard" element={<AdminDashboard />}></Route>
             <Route path="create-company" element={<CreateCompany />} />
             <Route path="transactions" element={<TransactionLayout />}>
