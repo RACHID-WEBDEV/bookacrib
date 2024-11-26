@@ -13,6 +13,7 @@ import { switchCompany } from "../Redux/auth/authThunk";
 import { Dropdown, DropdownItem } from "flowbite-react";
 import { ArrowDownIcon } from "../assets/SvgIcons";
 import { persistor } from "../Redux/store";
+import SmallSpinner from "../components/Loading/SmallSpinner";
 
 const UserMenu = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const UserMenu = () => {
     dispatch(logoutThunk());
     persistor.purge();
   };
-  const { currentUser, companyId, switchToCompany } = useSelector(
+  const { currentUser, companyId, switchToCompany, loading } = useSelector(
     (state) => state.auth
   );
 
@@ -169,11 +170,18 @@ const UserMenu = () => {
             </li>
           ))}
           <li
+            className="  py-2 px-8 text-sm text-gray-800 hover:text-gray-900 hover:bg-gray-200 cursor-pointer flex items-center gap-2 "
+            onClick={handleLogout}
+          >
+            {loading && <SmallSpinner />}
+            {loading ? "Signing out" : " Sign out"}
+          </li>
+          {/* <li
             className="block  py-2 px-8 text-sm text-gray-800 hover:text-gray-900 hover:bg-gray-200 cursor-pointer"
             onClick={handleLogout}
           >
             Sign out
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
