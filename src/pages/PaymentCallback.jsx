@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getData } from "../utils/api";
 import Modal from "../components/Modal/Modal";
 import { SuccessCheckIcon } from "../assets/SvgIcons";
@@ -75,12 +75,14 @@ const PaymentCallBack = () => {
           icon={<SuccessCheckIcon />}
           buttons={
             <div className=" flex items-center justify-center flex-wrap gap-4">
-              <Button
-                className=" w-44 justify-center"
-                // onClick={() => handleCancelBooking()}
-              >
-                Confirm
-              </Button>
+              <Link to="/">
+                <Button
+                  className=" w-44 justify-center"
+                  // onClick={() => handleCancelBooking()}
+                >
+                  Confirm
+                </Button>
+              </Link>
 
               {/* <Button
                 color="primaryAlt"
