@@ -6,16 +6,16 @@ import Loading from "../components/Loading/Loading";
 const Private = () => {
   const navigate = useNavigate();
   // Explicitly define the type of 'state' using the RootState interface
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAdminAuthenticated } = useSelector((state) => state.adminauth);
   // const isAuthorised = currentUser?.role.id;
 
-  // console.log("isAuthenticated private", isAuthenticated);
+  // console.log("isAdminAuthenticated private", isAdminAuthenticated);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkAuthentication = async () => {
-      if (isAuthenticated === null) {
+      if (isAdminAuthenticated === null) {
         setLoading(true);
         return;
       }
@@ -24,7 +24,7 @@ const Private = () => {
     };
 
     checkAuthentication();
-  }, [isAuthenticated, navigate]); // Dependency array to ensure useEffect() runs only when needed
+  }, [isAdminAuthenticated, navigate]); // Dependency array to ensure useEffect() runs only when needed
 
   // Show loading indicator while waiting for authentication check
   if (loading) return <Loading />;
@@ -32,7 +32,7 @@ const Private = () => {
   return (
     // Show outlet if authenticated, otherwise redirect to login
     // isAuthenticated && isAuthorised ? <Outlet /> : navigate("/login")
-    <>{isAuthenticated ? <Outlet /> : navigate("/login")}</>
+    <>{isAdminAuthenticated ? <Outlet /> : navigate("/admin/login")}</>
     // <Outlet />
   );
 };

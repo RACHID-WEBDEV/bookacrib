@@ -6,53 +6,34 @@ import Loading from "../components/Loading/Loading";
 const UserPrivate = () => {
   const navigate = useNavigate();
   // Explicitly define the type of 'state' using the RootState interface
-  const { userIsAuthenticated, currentauthUser } = useSelector(
-    (state) => state.userauth
-  );
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  // const isAuthorised = currentUser?.role.id;
 
-  // debugger;
-  // if (!currentauthUser) return navigate("/login");
-
-  console.log("Current user is ", currentauthUser);
-
-  const isAuthenticatedUser = currentauthUser?.role === "user";
-
-  console.log("userIsAuthenticated", isAuthenticatedUser);
+  // console.log("isAuthenticated private", isAuthenticated);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkOrgAuthentication = async () => {
-      if (userIsAuthenticated === null) {
+    const checkAuthentication = async () => {
+      if (isAuthenticated === null) {
         setLoading(true);
         return;
       }
 
-      // else if (userIsAuthenticated === true) {
-      //   navigate("/company/dashboard");
-      // }
-
       setLoading(false);
     };
 
-    checkOrgAuthentication();
-  }, [userIsAuthenticated, navigate]);
+    checkAuthentication();
+  }, [isAuthenticated, navigate]); // Dependency array to ensure useEffect() runs only when needed
 
+  // Show loading indicator while waiting for authentication check
   if (loading) return <Loading />;
-  if (userIsAuthenticated && isAuthenticatedUser === false) {
-    navigate("/user/login");
-    // toast.error("Authentication is false");
-  }
+
   return (
     // Show outlet if authenticated, otherwise redirect to login
-    // userIsAuthenticated ? <Outlet /> : navigate("/user/login")
-    <>
-      {userIsAuthenticated && isAuthenticatedUser ? (
-        <Outlet />
-      ) : (
-        navigate("/user/login")
-      )}
-    </>
+    // isAuthenticated && isAuthorised ? <Outlet /> : navigate("/login")
+    <>{isAuthenticated ? <Outlet /> : navigate("/login")}</>
+    // <Outlet />
   );
 };
 
