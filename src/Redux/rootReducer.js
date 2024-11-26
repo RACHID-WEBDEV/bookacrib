@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import authReducer from "./auth/authSlice";
-import userauthReducer from "./userAuth/userAuthSlice";
+import adminauthReducer from "./adminAuth/adminAuthSlice";
 import productsReducer from "./products/productsSlice";
 import featuresReducer from "./features/featuresSlice";
 import roomTypeReducer from "./roomtypes/roomtypesSlice";
@@ -12,7 +12,7 @@ import listBookingReducer from "./listBookings/listBookingsSlice";
 // Combine the slice reducers into a root reducer
 const rootReducer = combineReducers({
   auth: authReducer,
-  userauth: userauthReducer,
+  adminauth: adminauthReducer,
   products: productsReducer,
   features: featuresReducer,
   roomtype: roomTypeReducer,
