@@ -37,7 +37,7 @@ const AdminSidebar = ({
 
   const { bookacrib_admin_user } = useSelector((state) => state.adminauth);
 
-  console.log("bookacrib_admin_user one:", bookacrib_admin_user);
+  // console.log("bookacrib_admin_user one:", bookacrib_admin_user);
   const bookacrib_admin = bookacrib_admin_user?.data || bookacrib_admin_user;
   const location = useLocation();
   const currentPath = location.pathname;
