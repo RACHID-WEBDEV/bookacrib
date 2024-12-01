@@ -44,7 +44,7 @@ export const Input = ({
   const isValid = !!dirtyFields?.[name] && !hasErrors;
 
   return (
-    <>
+    <div>
       {label && <Label htmlFor={name} text={label} className="mb-1" />}
 
       <div className={classNames(styles.container)}>
@@ -104,6 +104,6 @@ export const Input = ({
           <ErrorMessage name={name} className="pt-1" />
         )}
       </div>
-    </>
+    </div>
   );
 };
