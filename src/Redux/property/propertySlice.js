@@ -6,6 +6,7 @@ import {
   updateProperty,
   updatePropertyFeature,
   deleteProperty,
+  fetchProperties,
 } from "./propertyThunk";
 // / Import the new thunk action creators
 
@@ -15,6 +16,7 @@ const initialState = {
   addProperty: [],
   loading: false,
   error: null,
+  properties: [],
 };
 
 // Create the orgaization slice
@@ -35,6 +37,19 @@ const propertysSlice = createSlice({
       })
 
       .addCase(fetchPropertys.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload ?? "Failed to fetch property";
+      })
+      .addCase(fetchProperties.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProperties.fulfilled, (state, action) => {
+        state.loading = false;
+        state.properties = action.payload;
+      })
+
+      .addCase(fetchProperties.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload ?? "Failed to fetch property";
       })
