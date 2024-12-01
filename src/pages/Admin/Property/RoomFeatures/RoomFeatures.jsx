@@ -52,7 +52,8 @@ const RoomFeatures = () => {
     let fetchUrl = url;
     if (search) {
       fetchUrl += `?q=${search}`;
-    } else dispatch(fetchFeatures(fetchUrl));
+    }
+    dispatch(fetchFeatures(fetchUrl));
   };
 
   useEffect(() => {
