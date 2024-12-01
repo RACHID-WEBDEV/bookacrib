@@ -711,3 +711,7 @@ input:-webkit-autofill:active {
     opacity: 0;
   }
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+}
