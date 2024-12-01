@@ -26,7 +26,7 @@ const addNewRoomType = createAsyncThunk(
   async (RoomTypeData, { rejectWithValue, dispatch }) => {
     try {
       const response = await postData(
-        "bookacrib-api-routes/v1/room-types/create-room-type",
+        "/bookacrib-api-routes/v1/admin/room-types/create-room-type",
         RoomTypeData
       );
 
@@ -78,7 +78,7 @@ const updateRoomType = createAsyncThunk(
     // console.log("Edit formdata Enter here ", formData);
     try {
       const response = await putData(
-        `bookacrib-api-routes/v1/room-types/update-room-type?id=${id}`,
+        `/bookacrib-api-routes/v1/admin/room-types/update-room-type?id=${id}`,
         formData
       );
       // if (
@@ -110,7 +110,7 @@ const deleteRoomType = createAsyncThunk(
     try {
       // console.log(id);
       const response = await removeData(
-        `/bookacrib-api-routes/v1/room-types/delete-room-type?id=${id}`
+        `/bookacrib-api-routes/v1/admin/room-types/delete-room-type?id=${id}`
       );
 
       return response;
