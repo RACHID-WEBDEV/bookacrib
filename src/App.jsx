@@ -1,7 +1,7 @@
 import Home from "./pages/Home";
 
 import { Navigate, Route, Routes } from "react-router-dom";
-// import MainDashboardLayout from "./layout/MainDashboardLayout";
+import MainDashboardLayout from "./layout/MainDashboardLayout";
 import AdminDashboardLayout from "./LayoutAdmin/AdminDashboardLayout";
 
 // import Dashboard from "src/layout/Dashboard";
@@ -46,6 +46,16 @@ import AdminResetPassword from "./pages/Admin/AdminResetPassword";
 import AdminRegisterSent from "./pages/Admin/AdminRegisterSent";
 import RegisterSent from "./pages/RegisterSent";
 import ForgetPasswordSent from "./pages/ForgetPasswordSent";
+import UserPrivate from "./Routes/userPrivate";
+import BookacribUsers from "./pages/Admin/BookacribUsers/BookacribUsers";
+import ListCompany from "./pages/Admin/Company/ListCompany";
+import ViewCompany from "./pages/Admin/Company/ViewCompany";
+import AdminProperties from "./pages/Admin/Property/AdminProperties";
+import AdminCategories from "./pages/Admin/Property/AdminCategories/AdminCategories";
+import AdminRoomType from "./pages/Admin/Property/RoomType/AdminRoomType";
+import AdminRoomFeatures from "./pages/Admin/Property/RoomFeatures/AdminRoomFeatures";
+import BooksPermission from "./pages/Admin/BooksAdminSettings/BooksPermissions/BooksPermission";
+import BooksRoles from "./pages/Admin/BooksAdminSettings/BooksRoles/BooksRoles";
 
 function App() {
   return (
@@ -115,7 +125,53 @@ function App() {
               // <MainDashboardLayout />
             }
           >
-            <Route path="dashboard" element={<AdminDashboard />}></Route>
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="customers" element={<BookacribUsers />} />
+            <Route path="list-companies" element={<ListCompany />} />
+            <Route path="create-company" element={<CreateCompany />} />
+            <Route path="transactions" element={<TransactionLayout />}>
+              <Route index element={<Navigate replace to="list-bookings" />} />
+              <Route path="list-bookings" element={<ListBookings />} />
+
+              {/* <Route
+                path="property-detail/:uuid"
+                element={<PropertyDetails />}
+              />
+
+             
+              <Route path="property-edit/:uuid" element={<EditProperty />} />
+
+              */}
+            </Route>
+            <Route path="view-company/:uuid" element={<ViewCompany />} />
+
+            <Route path="property" element={<PropertyLayout />}>
+              <Route index element={<Navigate replace to="all-properties" />} />
+              <Route path="all-properties" element={<AdminProperties />} />
+              <Route
+                path="view-properties/:uuid"
+                element={<PropertyDetails />}
+              />
+              <Route path="categories" element={<AdminCategories />} />
+              <Route path="room-types" element={<AdminRoomType />} />
+              <Route path="features" element={<AdminRoomFeatures />} />
+
+              <Route path="create-property" element={<CreateProperty />} />
+              <Route path="property-edit/:uuid" element={<EditProperty />} />
+            </Route>
+
+            <Route path="settings" element={<AdminSettingsLayout />}>
+              <Route index element={<Navigate replace to="roles" />} />
+              <Route path="roles" element={<BooksRoles />} />
+              <Route path="role-types" element={<RoleType />} />
+              <Route path="permissions" element={<BooksPermission />} />
+            </Route>
+          </Route>
+        </Route>
+
+        <Route element={<UserPrivate />}>
+          <Route path="user" element={<MainDashboardLayout />}>
+            <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="create-company" element={<CreateCompany />} />
             <Route path="transactions" element={<TransactionLayout />}>
               <Route index element={<Navigate replace to="list-bookings" />} />
@@ -156,7 +212,6 @@ function App() {
             </Route>
           </Route>
         </Route>
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
