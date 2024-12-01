@@ -907,6 +907,44 @@ export const XIcon = (props) => {
   );
 };
 
+export const CompanyIcon = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={24}
+      height={24}
+      {...props}
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M6.7 18H4.15C2.72 18 2 17.28 2 15.85V4.15C2 2.72 2.72 2 4.15 2h4.3c1.43 0 2.15.72 2.15 2.15V6"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M17.37 8.42v11.16c0 1.61-.8 2.42-2.41 2.42H9.12c-1.61 0-2.42-.81-2.42-2.42V8.42C6.7 6.81 7.51 6 9.12 6h5.84c1.61 0 2.41.81 2.41 2.42Z"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M13.4 6V4.15c0-1.43.72-2.15 2.15-2.15h4.3C21.28 2 22 2.72 22 4.15v11.7c0 1.43-.72 2.15-2.15 2.15h-2.48M10 11h4M10 14h4M12 22v-3"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export const HomeBaseIcon = (props) => {
   return (
     <svg
@@ -2229,3 +2267,33 @@ export const EMailIcon = (props) => {
     </svg>
   );
 };
+
+export const ChevronLeft = (props) => (
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 19l-7-7 7-7"
+    />
+  </svg>
+);
+export const ChevronRight = (props) => (
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 5l7 7-7 7"
+    />
+  </svg>
+);
+
+export const PlayIcon = (props) => (
+  <svg viewBox="0 0 14 14" fill="none" {...props}>
+    <path
+      d="M2.97883 0.308689C1.71665 -0.415315 0.693359 0.177798 0.693359 1.63238V12.3666C0.693359 13.8226 1.71665 14.415 2.97883 13.6917L12.3611 8.31101C13.6237 7.58675 13.6237 6.41334 12.3611 5.68925L2.97883 0.308689Z"
+      fill="currentColor"
+    />
+  </svg>
+);
