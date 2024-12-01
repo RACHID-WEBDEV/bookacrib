@@ -26,7 +26,7 @@ const addNewFeature = createAsyncThunk(
   async (FeatureData, { rejectWithValue, dispatch }) => {
     try {
       const response = await postData(
-        "bookacrib-api-routes/v1/features/create-feature",
+        "/bookacrib-api-routes/v1/admin/features/create-feature",
         FeatureData
       );
 
@@ -78,7 +78,7 @@ const updateFeature = createAsyncThunk(
     // console.log("Edit formdata Enter here ", formData);
     try {
       const response = await putData(
-        `bookacrib-api-routes/v1/features/update-feature?id=${id}`,
+        `/bookacrib-api-routes/v1/admin/features/update-feature?id=${id}`,
         formData
       );
       // if (
@@ -110,7 +110,7 @@ const deleteFeature = createAsyncThunk(
     try {
       // console.log(id);
       const response = await removeData(
-        `/bookacrib-api-routes/v1/features/delete-feature?id=${id}`
+        `/bookacrib-api-routes/v1/admin/features/delete-feature?id=${id}`
       );
 
       return response;
