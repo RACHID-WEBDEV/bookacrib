@@ -19,6 +19,8 @@ import CustomCheckboxGroup from "../components/forms/Checkbox/CustomCheckboxGrou
 import toast from "react-hot-toast";
 import SmallSpinner from "../components/Loading/SmallSpinner";
 import { formateCheckDate } from "../utils/constant";
+import { ThumbsCarousel } from "../components/ui/thumb-carousel";
+import { MobileThumbsCarousel } from "../components/ui/thumb-carousel-mobile";
 
 // import PropertyApproval from "./PropertyApproval";
 
@@ -166,6 +168,10 @@ const PropertyOverview = () => {
   // console.log("selectedMinor :", selectedMinor?.minor_count);
   // console.log("checkOut :", checkOut);
 
+  const imagesData = viewPropery?.data?.images?.map((img, index) => ({
+    image: `${img}`,
+    id: index + 1,
+  }));
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -227,7 +233,7 @@ const PropertyOverview = () => {
           reload
         />
       ) : (
-        <section className="bg- xl:pb-[100px] pb-[70px] pt-12">
+        <section className="bg- xl:pb-[100px] pb-[70px] pt-12 lg:pt-16">
           {/* <div className=" flex items-center justify-between flex-wrap gap-4 pb-4">
             <p className=" lg:text-2xl font-bold text-gray-900">
               Book Property
@@ -240,18 +246,42 @@ const PropertyOverview = () => {
               </Button>
             </div>
           </div> */}
-          <div className=" p-4 bg-gray-100 mb-4 rounded">
+          {/* <div className=" p-4 bg-gray-100 mb-4 rounded">
             <p className=" text font-medium text-gray-900">
               Book Property Details
-              {/* {property?.data?.uuid} */}
+              
             </p>
-          </div>
+          </div> */}
 
           <div className="flex flex-wrap justify-between items-center mx-auto 2xl:max-w-[1320px] xl:max-w-[1140px] lg:max-w-[960px] md:max-w-[720px] sm:max-w-[540px]">
             <div className="flex flex-wrap w-full mb-[-24px]">
               <div className="lg:w-[60%] w-full  mb-[24px] ">
                 <div className="lh-room-details">
-                  <div className="lh-main-room w-full">
+                  <div className="lg:block hidden">
+                    <ThumbsCarousel
+                      gallery={imagesData}
+                      // video={video}
+                      hideThumbs={
+                        imagesData?.length <= 1
+                        // previewImages.length && video?.length
+                        //   ? false
+                        //   : previewImages.length <= 1
+                      }
+                    />
+                  </div>
+                  <div className="lg:hidden">
+                    <MobileThumbsCarousel
+                      gallery={imagesData}
+                      // video={video}
+                      hideThumbs={
+                        imagesData?.length <= 1
+                        // previewImages.length && video?.length
+                        //   ? false
+                        //   : previewImages.length <= 1
+                      }
+                    />
+                  </div>
+                  {/* <div className="lh-main-room w-full">
                     <Slider {...settingsFor} ref={sliderForHomeRef}>
                       {viewPropery?.data?.images?.map((image, imagesIndex) => (
                         <div key={imagesIndex} className=" rounded-lg">
@@ -284,44 +314,69 @@ const PropertyOverview = () => {
                         )
                       )}
                     </Slider>
-                  </div>
-                  <div className="lh-room-details-contain pt-0">
-                    <h4 className="lh-room-details-contain-heading text-[#000] pt-[10px] font-bold lg:text-[30px] md:text-[28px] sm:text-[26px] text-[24px]">
+                  </div> */}
+                  <div className=" px-4 pt-1 pb-4 shadow lg:w-[83%]">
+                    <h4 className="lh-room-details-contain-heading text-gray-800 text-lg lg:text-xl pt-[10px] font-bold ">
                       {viewPropery?.data?.name}
                     </h4>
-                    <p className=" text-gray-600 text- ">
+                    <p className=" text-gray-600 text-sm ">
                       {viewPropery?.data?.address}
                     </p>
-                    <div className=" w-full pt-6">
-                      <p className=" text-gray-800 text- font-semibold border-b  border-[#e3e1e1] pb-[10px] mb-2">
-                        Description
-                      </p>
-                    </div>
-                    <p className="pt-2 text-sm text-gray-600">
-                      {viewPropery?.data?.description}
-                    </p>
-                    <div className="lh-room-details-amenities pt-[24px]">
-                      <h4 className="text- text-gray-800 font-semibold border-b  border-[#e3e1e1] pb-[10px]">
+                  </div>
+                  <div className="lh-room-details-contain pt-0">
+                    <div className=" mt-[24px] bg-gray-100 p-4 rounded">
+                      <h4 className="text- text-gray-800 font-medium border-b  border-[#e3e1e1] pb-[10px]">
                         Amenities
                       </h4>
                       <div className="flex flex-wrap">
                         <div className=" w-full pt-[15px] lg:pr-[12px] pr-[0]">
-                          <ul className=" grid lg:grid-cols-3">
+                          <ul className=" grid lg:grid-cols-3 gap-2">
                             {viewPropery?.data?.features?.map(
                               (feature, indexFeature) => (
                                 <li
                                   key={indexFeature}
-                                  className="flex gap-1 items-center flex-wrap pb-[10px] capitalize"
+                                  className="text-sm flex gap-1 text-gray-700 bg-white rounded  items-center justify-between px-2.5 py-3 capitalize"
                                 >
-                                  <code className="text-[17px] text-primary-600 ">
-                                    *
-                                  </code>
                                   {feature?.name}
+                                  <span className=" ">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width={20}
+                                      height={20}
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                    >
+                                      <path
+                                        d="M4.26 11.02v4.97c0 1.82 0 1.82 1.72 2.98l4.73 2.73c.71.41 1.87.41 2.58 0l4.73-2.73c1.72-1.16 1.72-1.16 1.72-2.98v-4.97c0-1.82 0-1.82-1.72-2.98l-4.73-2.73c-.71-.41-1.87-.41-2.58 0L5.98 8.04C4.26 9.2 4.26 9.2 4.26 11.02Z"
+                                        stroke="currentColor"
+                                        strokeWidth="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      />
+                                      <path
+                                        d="M17.5 7.63V5c0-2-1-3-3-3h-5c-2 0-3 1-3 3v2.56M12.63 10.99l.57.89c.09.14.29.28.44.32l1.02.26c.63.16.8.7.39 1.2l-.67.81c-.1.13-.18.36-.17.52l.06 1.05c.04.65-.42.98-1.02.74l-.98-.39a.863.863 0 0 0-.55 0l-.98.39c-.6.24-1.06-.1-1.02-.74l.06-1.05c.01-.16-.07-.4-.17-.52l-.67-.81c-.41-.5-.24-1.04.39-1.2l1.02-.26c.16-.04.36-.19.44-.32l.57-.89c.36-.54.92-.54 1.27 0Z"
+                                        stroke="currentColor"
+                                        strokeWidth="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      />
+                                    </svg>
+                                  </span>
                                 </li>
                               )
                             )}
                           </ul>
                         </div>
+                      </div>
+                    </div>
+                    <div className=" mt-[24px] bg-gray-100 p-4 rounded">
+                      <h4 className="text- text-gray-800 font-medium border-b  border-[#e3e1e1] pb-[10px]">
+                        Description
+                      </h4>
+                      <div className="flex flex-wrap">
+                        <p className="pt-2 text-sm text-gray-600">
+                          {viewPropery?.data?.description}
+                        </p>
                       </div>
                     </div>
 
