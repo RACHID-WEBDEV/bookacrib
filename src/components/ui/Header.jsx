@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { NAVIGATION } from "../../data/menu";
 import { Button } from "../forms/Button/Button";
 import { useSelector } from "react-redux";
+import { getNameInitials } from "../../lib/constants";
+import AdminMenu from "../../LayoutAdmin/AdminMenu";
 // import SearchBar from "./SearchBar";
 // import classNames from "classnames";
 // import CartMenu from "./CartMenu";
@@ -43,12 +45,25 @@ const Header = () => {
   // const { isAuthenticated } = useSelector((state) => state.auth);
 
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAdminAuthenticated } = useSelector((state) => state.adminauth);
+  console.log("isAdminAuthenticated:", isAdminAuthenticated);
   // const isAuthorised = currentUser?.role.id;
 
   // console.log("isAuthenticated now:", isAuthenticated);
+
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  // const { currentUser } = useSelector((state) => state.auth);
+  const { bookacrib_admin_user } = useSelector((state) => state.adminauth);
+
+  // console.log("bookacrib_admin_user one:", bookacrib_admin_user);
+  const bookacrib_admin = bookacrib_admin_user?.data || bookacrib_admin_user;
+
+  function toggleUserMenu() {
+    setShowUserMenu(!showUserMenu);
+  }
   return (
     <header>
-      <nav className="fixed z-50 w-full dark:bg-gray-900/70 bg-white  md:bg-[#fff]">
+      <nav className="fixed z-50 w-full dark:bg-gray-900/70 bg-white  md:bg-[#fff] shadow">
         <div className="container m-auto px-2 md:px-12 lg:px-7">
           <div className="flex flex-wrap items-center justify-between py-2 gap-6 md:py-4 md:gap-0 relative">
             <input
@@ -151,12 +166,45 @@ const Header = () => {
                   </li> */}
                 </ul>
               </div>
-              {isAuthenticated ? (
-                <Link to="/admin/dashboard">
-                  <Button className="w-full justify-center lg:w-max" size="sm">
-                    Go to Dashboard →
-                  </Button>
-                </Link>
+              {isAuthenticated || isAdminAuthenticated ? (
+                <div>
+                  {isAdminAuthenticated ? (
+                    <div className=" relative">
+                      <button
+                        onClick={toggleUserMenu}
+                        className="flex rounded-full cursor-pointer"
+                      >
+                        {bookacrib_admin?.picture === null ? (
+                          <div>
+                            <span className="sr-only">Open user menu</span>
+                            <div className="relative inline-flex items-center justify-center w-12 h-12  cursor-pointer overflow-hidden bg-gray-200 rounded-full ">
+                              <span className="font-medium text-gray-600 uppercase text-base ">
+                                {getNameInitials(bookacrib_admin?.last_name)}
+                                {getNameInitials(bookacrib_admin?.first_name)}
+                              </span>
+                            </div>
+                          </div>
+                        ) : (
+                          <img
+                            className="w-12 h-12 rounded-full"
+                            src={bookacrib_admin?.picture}
+                            alt="user photo"
+                          />
+                        )}
+                      </button>
+                      {showUserMenu && <AdminMenu />}
+                    </div>
+                  ) : (
+                    <Link to="/user/dashboard">
+                      <Button
+                        className="w-full justify-center lg:w-max"
+                        size="sm"
+                      >
+                        Go to Dashboard →
+                      </Button>
+                    </Link>
+                  )}
+                </div>
               ) : (
                 <div className=" flex flex-col lg:flex-row items-center gap-3">
                   <Link to="/sign-up">
