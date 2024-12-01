@@ -26,6 +26,19 @@ const fetchPropertys = createAsyncThunk(
   }
 );
 
+const fetchProperties = createAsyncThunk(
+  "admin/fetchProperties",
+  async (url, { rejectWithValue }) => {
+    try {
+      const response = await getData(url);
+      return response;
+    } catch (error) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      return rejectWithValue(errorMessage?.response?.data);
+    }
+  }
+);
 const addNewProperty = createAsyncThunk(
   "addNewProperty",
 
@@ -156,4 +169,5 @@ export {
   updateProperty,
   updatePropertyFeature,
   deleteProperty,
+  fetchProperties,
 };
