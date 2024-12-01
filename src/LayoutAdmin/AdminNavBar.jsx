@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
-import UserMenu from "./AdminMenu";
+import AdminMenu from "./AdminMenu";
 // import UserAvatar from "src/assets/images/Avatar.png";
 import { NotificationIcon, EMailIcon } from "src/assets/SvgIcons";
 import MobileSidebar from "./AdminMobileSidebar";
@@ -16,7 +16,7 @@ const AdminNavBar = ({ toggleSideBar, openSideMenu }) => {
   // const { currentUser } = useSelector((state) => state.auth);
   const { bookacrib_admin_user } = useSelector((state) => state.adminauth);
 
-  console.log("bookacrib_admin_user one:", bookacrib_admin_user);
+  // console.log("bookacrib_admin_user one:", bookacrib_admin_user);
   const bookacrib_admin = bookacrib_admin_user?.data || bookacrib_admin_user;
 
   function toggleUserMenu() {
@@ -191,7 +191,7 @@ const AdminNavBar = ({ toggleSideBar, openSideMenu }) => {
             </button>
           </div>
 
-          {showUserMenu && <UserMenu />}
+          {showUserMenu && <AdminMenu />}
         </div>
       </div>
     </div>

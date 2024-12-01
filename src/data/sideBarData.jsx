@@ -19,6 +19,7 @@ import {
   NotifcationActiveIcon,
   AvatarIcon,
   PropertyIcon,
+  CompanyIcon,
 } from "../assets/SvgIcons";
 
 export const adminsidedata = [
@@ -60,7 +61,7 @@ export const adminsidedata = [
   {
     title: "Property",
     icon: <PropertyIcon />,
-    href: "/admin/property",
+    href: "/admin/property/all-properties",
     child: [
       {
         title: "Create property",
@@ -95,9 +96,15 @@ export const adminsidedata = [
     ],
   },
   {
+    title: "Companies",
+    icon: <CompanyIcon />,
+    href: "/admin/list-companies",
+    child: [],
+  },
+  {
     title: "Customers",
     icon: <CustomerIcon />,
-    // href: "/admin",
+    href: "/admin/customers",
     child: [],
   },
   {
@@ -196,34 +203,34 @@ export const sidedata = [
   {
     title: "Overview",
     icon: <OverViewIcon />,
-    href: "/admin/dashboard",
+    href: "/user/dashboard",
     child: [
       // {
       //   title: "Admin Home",
       //   icon: <SettingsIcon />,
-      //   href: "/admin/dashboard/home-admin",
+      //   href: "/user/dashboard/home-admin",
       // },
       // {
       //   title: "Order Home",
       //   icon: <HomeIcon />,
-      //   href: "/admin/dashboard/order-home",
+      //   href: "/user/dashboard/order-home",
       // },
       // {
       //   title: "Sales Home",
       //   icon: <HomeIcon />,
-      //   href: "/admin/dashboard/home-sales",
+      //   href: "/user/dashboard/home-sales",
       // },
     ],
   },
   {
     title: "Transactions",
     icon: <TransactionsIcon />,
-    href: "/admin/transactions",
+    href: "/user/transactions",
     child: [
       {
         title: "List Bookings",
         icon: <DotIcon />,
-        href: "/admin/transactions/list-bookings",
+        href: "/user/transactions/list-bookings",
       },
     ],
   },
@@ -231,37 +238,37 @@ export const sidedata = [
   {
     title: "Property",
     icon: <PropertyIcon />,
-    href: "/admin/property",
+    href: "/user/property",
     child: [
       {
         title: "Create property",
         icon: <DotIcon />,
-        href: "/admin/property/create-property",
+        href: "/user/property/create-property",
       },
       {
         title: "Approve property",
         icon: <DotIcon />,
-        href: "/admin/property/approve-property",
+        href: "/user/property/approve-property",
       },
       {
         title: "Features",
         icon: <DotIcon />,
-        href: "/admin/property/features",
+        href: "/user/property/features",
       },
       {
         title: "Categories",
         icon: <DotIcon />,
-        href: "/admin/property/categories",
+        href: "/user/property/categories",
       },
       {
         title: "Room Type",
         icon: <DotIcon />,
-        href: "/admin/property/room-types",
+        href: "/user/property/room-types",
       },
       {
         title: "Property for Rent",
         icon: <DotIcon />,
-        href: "/admin/property/property-for-Rent",
+        href: "/user/property/property-for-Rent",
       },
     ],
   },
@@ -287,17 +294,17 @@ export const sidedata = [
   {
     title: "Admin ",
     icon: <PropertyForRentIcon />,
-    href: "/admin/settings",
+    href: "/user/settings",
     child: [
       {
         title: "Roles",
         icon: <DotIcon />,
-        href: "/admin/settings/roles",
+        href: "/user/settings/roles",
       },
       {
         title: "Permissions",
         icon: <DotIcon />,
-        href: "/admin/settings/permissions",
+        href: "/user/settings/permissions",
       },
     ],
   },
@@ -313,7 +320,7 @@ export const sidedata = [
       {
         title: "Hero Icons",
         icon: <SettingsIcon />,
-        href: "/admin/icons-iconify",
+        href: "/user/icons-iconify",
       },
     ],
   },
