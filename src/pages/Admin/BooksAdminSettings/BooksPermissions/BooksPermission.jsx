@@ -34,7 +34,7 @@ const BooksPermission = () => {
     try {
       let fetchUrl = url;
       if (search) {
-        fetchUrl += `?q=${search}`;
+        fetchUrl += `&q=${search}`;
       }
       const response = await getData(fetchUrl);
 
@@ -49,7 +49,7 @@ const BooksPermission = () => {
 
   useEffect(() => {
     fetchPermisssion(
-      // "/v1/customers/company/users/permission/list-all-permissions?with[]=roles"
+      // "v1/admin/permissions/list-all-permissions?with[]=roles&limit=10"
       "/v1/admin/permissions/list-all-permissions?with[]=roles&is_default=yes&status=yes&limit=10"
     );
   }, []);
@@ -83,7 +83,7 @@ const BooksPermission = () => {
     const fetchSearchUsers = async () => {
       if (searchQuery.length >= 2) {
         fetchPermisssion(
-          "/v1/customers/company/users/permission/list-all-permissions?with[]=roles",
+          "v1/admin/permissions/list-all-permissions?with[]=roles&limit=10",
           searchQuery
         );
       }
@@ -141,7 +141,7 @@ const BooksPermission = () => {
                     type="text"
                     id="default-search"
                     className="block w-full px-4 py-3 ps-10 text-sm text-gray-900 font-Inter rounded-md bg-gray-100 outline-none  "
-                    placeholder="Search features..."
+                    placeholder="Search permissions..."
                     value={searchQuery}
                     onChange={(e) => {
                       const search = e.target.value;
@@ -153,7 +153,7 @@ const BooksPermission = () => {
                       onClick={() => {
                         setSearchQuery("");
                         fetchPermisssion(
-                          "/v1/customers/company/users/permission/list-all-permissions?with[]=roles"
+                          "v1/admin/permissions/list-all-permissions?with[]=roles&limit=10"
                         );
                       }}
                       className="absolute inset-y-0 end-2 flex items-center ps-3 cursor-pointer"
@@ -171,7 +171,7 @@ const BooksPermission = () => {
                 arrowIcon={false}
                 placement="bottom"
                 label={
-                  <div className="flex items-center gap-1  bg-white border border-gray-300 text-gray-700 font-semibold font-Inter text-sm rounded-lg py-2.5 px-2 pl-2.5">
+                  <div className="flex items-center gap-1  text-white  bg-gray-900  border border-gray-300 font-semibold font-Inter text-sm rounded-lg py-2.5 px-2 pl-2.5">
                     Permission
                     <span>
                       <PlusIcon />
@@ -263,7 +263,7 @@ const BooksPermission = () => {
                           onClick={() => {
                             setSearchQuery("");
                             fetchPermisssion(
-                              "/v1/customers/company/users/permission/list-all-permissions?with[]=roles"
+                              "v1/admin/permissions/list-all-permissions?with[]=roles&limit=10"
                             );
                           }}
                         >

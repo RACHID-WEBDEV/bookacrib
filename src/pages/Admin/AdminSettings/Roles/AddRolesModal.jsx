@@ -34,7 +34,10 @@ const AddRolesModal = ({ setOpenModal }) => {
   };
 
   useEffect(() => {
-    fetchRoleTypesHandler("v1/users/role/list-user-role-types");
+    fetchRoleTypesHandler(
+      "/v1/customers/company/users/role/list-all-user-roles"
+      // "v1/users/role/list-user-role-types"
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
