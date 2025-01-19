@@ -14,6 +14,7 @@ export default {
           "linear-gradient(90deg, rgba(245, 246, 248, 1) 50%, rgba(1, 179, 248, 0.1) 50%)",
         "about-background":
           "linear-gradient(to bottom, rgba(245, 246, 248,1) 35%,rgba(30,87,153,1) 35%,rgba(30,87,153,1) 35%,rgba(255,255,255,1) 35%);",
+        "texture-white": "url('/src/assets/images/profile-bg.svg')",
       },
       boxShadow: {
         "shadow-xs": "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",

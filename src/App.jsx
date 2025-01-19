@@ -34,8 +34,8 @@ import PropertyOverview from "./pages/PropertyOverview";
 import PropertyDetailsLayout from "./pages/PropertyDetailsLayout";
 import PropertyCheckout from "./pages/PropertyCheckout";
 import PaymentCallBack from "./pages/PaymentCallback";
-import ListBookings from "./pages/Admin/Property/ListBookings/ListBookings";
-import TransactionLayout from "./pages/Admin/Property/ListBookings/TransactionLayout";
+// import ListBookings from "./pages/Admin/Property/ListBookings/ListBookings";
+// import TransactionLayout from "./pages/Admin/Property/ListBookings/TransactionLayout";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import AdminRegister from "./pages/Admin/AdminRegister";
 import VerifyAdmin from "./pages/Admin/VerifyAdmin";
@@ -56,6 +56,26 @@ import AdminRoomType from "./pages/Admin/Property/RoomType/AdminRoomType";
 import AdminRoomFeatures from "./pages/Admin/Property/RoomFeatures/AdminRoomFeatures";
 import BooksPermission from "./pages/Admin/BooksAdminSettings/BooksPermissions/BooksPermission";
 import BooksRoles from "./pages/Admin/BooksAdminSettings/BooksRoles/BooksRoles";
+import AdminRoleType from "./pages/Admin/BooksAdminSettings/BooksRoles/AdminRoleType";
+import UserDashboard from "./pages/User/UserDashboard";
+import UserListBookings from "./pages/User/UserListBookings/UserListBookings";
+import UserTransactionLayout from "./pages/User/UserListBookings/UserTransactionLayout";
+import BookingsDetails from "./pages/User/UserListBookings/BookingsDetails";
+import ProfileSettings from "./pages/User/ProfileSettings";
+import UserNotications from "./pages/User/UserNotifications";
+import AccountDeactivation from "./pages/User/AccountDeactivation";
+import UserUpdatePassword from "./pages/User/UserUpdatePassword";
+import UserUpdateProfile from "./pages/User/UserUpdateProfile";
+import CribPrivate from "./Routes/cribPrivate";
+import CribDashboardLayout from "./layout/CribDashboardLayout";
+import CribDashboard from "./pages/Company/CribDashboard";
+import CribTransactionLayout from "./pages/Company/CribListBookings/CribTransactionLayout";
+import CribListBookings from "./pages/Company/CribListBookings/CribListBookings";
+import CribBookingsDetails from "./pages/Company/CribListBookings/CribBookingsDetails";
+import AdminTransactionLayout from "./pages/Admin/AdminListBookings/AdminTransactionLayout";
+import AdminListBookings from "./pages/Admin/AdminListBookings/AdminListBookings";
+import AdminBookingsDetails from "./pages/Admin/AdminListBookings/AdminBookingsDetails";
+import CribUsers from "./pages/Company/CribUsers/CribUsers";
 
 function App() {
   return (
@@ -129,9 +149,13 @@ function App() {
             <Route path="customers" element={<BookacribUsers />} />
             <Route path="list-companies" element={<ListCompany />} />
             <Route path="create-company" element={<CreateCompany />} />
-            <Route path="transactions" element={<TransactionLayout />}>
+            <Route path="transactions" element={<AdminTransactionLayout />}>
               <Route index element={<Navigate replace to="list-bookings" />} />
-              <Route path="list-bookings" element={<ListBookings />} />
+              <Route path="list-bookings" element={<AdminListBookings />} />
+              <Route
+                path="booking-details/:uuid"
+                element={<AdminBookingsDetails />}
+              />
 
               {/* <Route
                 path="property-detail/:uuid"
@@ -163,19 +187,24 @@ function App() {
             <Route path="settings" element={<AdminSettingsLayout />}>
               <Route index element={<Navigate replace to="roles" />} />
               <Route path="roles" element={<BooksRoles />} />
-              <Route path="role-types" element={<RoleType />} />
+              <Route path="role-types" element={<AdminRoleType />} />
               <Route path="permissions" element={<BooksPermission />} />
             </Route>
+            <Route path="notifications" element={<UserNotications />} />
           </Route>
         </Route>
+        <Route element={<CribPrivate />}>
+          <Route path="crib-owner" element={<CribDashboardLayout />}>
+            <Route path="dashboard" element={<CribDashboard />} />
 
-        <Route element={<UserPrivate />}>
-          <Route path="user" element={<MainDashboardLayout />}>
-            <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="create-company" element={<CreateCompany />} />
-            <Route path="transactions" element={<TransactionLayout />}>
+            <Route path="transactions" element={<CribTransactionLayout />}>
               <Route index element={<Navigate replace to="list-bookings" />} />
-              <Route path="list-bookings" element={<ListBookings />} />
+              <Route path="list-bookings" element={<CribListBookings />} />
+              <Route
+                path="booking-details/:uuid"
+                element={<CribBookingsDetails />}
+              />
               {/* <Route
                 path="property-detail/:uuid"
                 element={<PropertyDetails />}
@@ -203,12 +232,87 @@ function App() {
               <Route path="room-types" element={<RoomTypes />} />
               <Route path="categories" element={<Categories />} />
             </Route>
-
+            <Route path="notifications" element={<UserNotications />} />
+            <Route path="users" element={<CribUsers />} />
             <Route path="settings" element={<AdminSettingsLayout />}>
               <Route index element={<Navigate replace to="roles" />} />
               <Route path="roles" element={<Roles />} />
               <Route path="role-types" element={<RoleType />} />
               <Route path="permissions" element={<Permission />} />
+            </Route>
+            {/* <Route path="settings" element={<AdminSettingsLayout />}>
+              <Route
+                index
+                element={<Navigate replace to="profile-settings" />}
+              />
+              <Route path="profile-settings" element={<ProfileSettings />} />
+              <Route
+                path="account-deactivation"
+                element={<AccountDeactivation />}
+              />
+              <Route path="update-profile" element={<UserUpdateProfile />} />
+              <Route path="update-password" element={<UserUpdatePassword />} />
+            </Route> */}
+          </Route>
+        </Route>
+        <Route element={<UserPrivate />}>
+          <Route path="user" element={<MainDashboardLayout />}>
+            <Route path="dashboard" element={<UserDashboard />} />
+
+            <Route path="create-company" element={<CreateCompany />} />
+            <Route path="transactions" element={<UserTransactionLayout />}>
+              <Route index element={<Navigate replace to="list-bookings" />} />
+              <Route path="list-bookings" element={<UserListBookings />} />
+              <Route
+                path="booking-details/:uuid"
+                element={<BookingsDetails />}
+              />
+              {/* <Route
+                path="property-detail/:uuid"
+                element={<PropertyDetails />}
+              />
+
+              <Route path="create-property" element={<CreateProperty />} />
+              <Route path="property-edit/:uuid" element={<EditProperty />} />
+
+              <Route path="features" element={<RoomFeatures />} />
+              <Route path="room-types" element={<RoomTypes />} />
+              <Route path="categories" element={<Categories />} /> */}
+            </Route>
+            <Route path="property" element={<PropertyLayout />}>
+              <Route index element={<Navigate replace to="all-property" />} />
+              <Route path="all-property" element={<Property />} />
+              <Route
+                path="property-detail/:uuid"
+                element={<PropertyDetails />}
+              />
+
+              <Route path="create-property" element={<CreateProperty />} />
+              <Route path="property-edit/:uuid" element={<EditProperty />} />
+
+              <Route path="features" element={<RoomFeatures />} />
+              <Route path="room-types" element={<RoomTypes />} />
+              <Route path="categories" element={<Categories />} />
+            </Route>
+            <Route path="notifications" element={<UserNotications />} />
+            {/* <Route path="settings" element={<AdminSettingsLayout />}>
+              <Route index element={<Navigate replace to="roles" />} />
+              <Route path="roles" element={<Roles />} />
+              <Route path="role-types" element={<RoleType />} />
+              <Route path="permissions" element={<Permission />} />
+            </Route> */}
+            <Route path="settings" element={<AdminSettingsLayout />}>
+              <Route
+                index
+                element={<Navigate replace to="profile-settings" />}
+              />
+              <Route path="profile-settings" element={<ProfileSettings />} />
+              <Route
+                path="account-deactivation"
+                element={<AccountDeactivation />}
+              />
+              <Route path="update-profile" element={<UserUpdateProfile />} />
+              <Route path="update-password" element={<UserUpdatePassword />} />
             </Route>
           </Route>
         </Route>
