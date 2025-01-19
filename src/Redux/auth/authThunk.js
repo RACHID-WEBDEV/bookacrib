@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { patchData, postData } from "../../utils/api";
+import { getData, patchData, postData } from "../../utils/api";
 // import { persistor } from "../store";
 
 // Async thunk action creator for login
@@ -19,9 +19,9 @@ const loginThunk = createAsyncThunk(
       const loginResponse = response;
       console.log("loginResponse", loginResponse);
 
-      if (loginResponse?.status === 200) {
-        toast.success(loginResponse?.message);
-      }
+      // if (loginResponse?.status === 200) {
+      //   toast.success(loginResponse?.message);
+      // }
 
       // Extract user data and access token from the response
       // eslint-disable-next-line no-unsafe-optional-chaining
@@ -52,15 +52,15 @@ const loginThunk = createAsyncThunk(
       const errorMessage = error.response.data.message;
 
       console.log("error", error);
-      if (
-        error.status === 400 ||
-        error.status === 401 ||
-        error.status === 402 ||
-        error.status === 403 ||
-        error.status === 404
-      ) {
-        toast.error(errorMessage);
-      }
+      // if (
+      //   error.status === 400 ||
+      //   error.status === 401 ||
+      //   error.status === 402 ||
+      //   error.status === 403 ||
+      //   error.status === 404
+      // ) {
+      //   toast.error(errorMessage);
+      // }
       // Reject the promise with the error message
       return rejectWithValue(errorMessage);
     }
@@ -244,6 +244,33 @@ const switchCompany = createAsyncThunk(
   }
 );
 
+const fetchuserStatistics = createAsyncThunk(
+  "getuserStatistics",
+  async (url, { rejectWithValue }) => {
+    try {
+      const response = await getData(`${url}`);
+      return response;
+    } catch (error) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      return rejectWithValue(errorMessage?.response?.data);
+    }
+  }
+);
+const fetchCribStatistics = createAsyncThunk(
+  "getcribStatistics",
+  async (url, { rejectWithValue }) => {
+    try {
+      const response = await getData(`${url}`);
+      return response;
+    } catch (error) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      return rejectWithValue(errorMessage?.response?.data);
+    }
+  }
+);
+
 export {
   loginThunk,
   logoutThunk,
@@ -253,4 +280,6 @@ export {
   accountVerificationThunk,
   resetPasswordThunk,
   switchCompany,
+  fetchuserStatistics,
+  fetchCribStatistics,
 };
