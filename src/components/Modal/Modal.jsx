@@ -52,7 +52,7 @@ const Modal = ({
               <h2 className="mb-3 text-2xl font-normal text-gray-800 dark:text-gray-400">
                 {title}
               </h2>
-              <h3 className="mb-5 text-base font-normal text-gray-500 dark:text-gray-400">
+              <h3 className="mb-5 text-sm lg:text-base font-normal text-gray-500 dark:text-gray-400">
                 {description}
               </h3>
               {buttons}
