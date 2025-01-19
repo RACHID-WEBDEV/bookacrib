@@ -9,7 +9,7 @@ import { useAnimation } from "framer-motion";
 import { useSelector } from "react-redux";
 import { getNameInitials } from "../lib/constants";
 import { Button } from "../components/forms/Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminNavBar = ({ toggleSideBar, openSideMenu }) => {
   const [showUserMenu, setShowUserMenu] = React.useState(false);
@@ -149,12 +149,12 @@ const AdminNavBar = ({ toggleSideBar, openSideMenu }) => {
                           {" "}
                           Cancel
                         </Button>
-                        {/* <Link to="/admin/create-company"> */}
-                        <Button onClick={closeModal} size="xs">
-                          {" "}
-                          Proceed{" "}
-                        </Button>
-                        {/* </Link> */}
+                        <Link to="/user/create-company">
+                          <Button onClick={closeModal} size="xs">
+                            {" "}
+                            Proceed{" "}
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   )}
@@ -191,7 +191,7 @@ const AdminNavBar = ({ toggleSideBar, openSideMenu }) => {
             </button>
           </div>
 
-          {showUserMenu && <AdminMenu />}
+          {showUserMenu && <AdminMenu setShowUserMenu={setShowUserMenu} />}
         </div>
       </div>
     </div>

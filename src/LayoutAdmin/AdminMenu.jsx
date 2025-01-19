@@ -16,8 +16,10 @@ import { persistor } from "../Redux/store";
 import { Badge } from "../components/forms/Badge";
 import { adminLogoutThunk } from "../Redux/adminAuth/adminAuthThunk";
 import SmallSpinner from "../components/Loading/SmallSpinner";
+import { adminMenu } from "../data/userMenu";
 
-const AdminMenu = () => {
+// eslint-disable-next-line react/prop-types
+const AdminMenu = ({ setShowUserMenu }) => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
@@ -118,8 +120,8 @@ const AdminMenu = () => {
         )} */}
 
         <ul className="py-2 ">
-          {userMenu.map(({ link, routeName }, index) => (
-            <li key={index} className="">
+          {adminMenu.map(({ link, routeName }, index) => (
+            <li key={index} className="" onClick={() => setShowUserMenu(false)}>
               <Link
                 to={link}
                 className="block  py-2 px-8 text-sm text-gray-800 hover:text-gray-900 hover:bg-gray-200"

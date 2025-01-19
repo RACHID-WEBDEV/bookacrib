@@ -18,7 +18,7 @@ import { AvatarIcon, SettingsIcon } from "../assets/SvgIcons";
 import { getNameInitials } from "../lib/constants";
 import { persistor } from "../Redux/store";
 
-const Sidebar = ({
+const CribSidebar = ({
   openSideMenu,
   openMenu,
   setOpenMenu,
@@ -277,7 +277,7 @@ const Sidebar = ({
               </div>
             ))}
 
-            <Link to="">
+            <Link to="/crib-owner/dashboard">
               <div
                 className={classNames(
                   "flex items-center py-2 pl-1 rounded-lg hover:text-primary-800 group text-base transition duration-75 hover:bg-primary-100",
@@ -332,7 +332,7 @@ const Sidebar = ({
                 </span>
               </div>
             </Link>
-            <Link to="" onClick={handleLogout}>
+            <div className=" cursor-pointer" onClick={handleLogout}>
               <div
                 className={classNames(
                   "flex items-center p-2 rounded-lg hover:text-red-800 group text-base transition duration-75 hover:bg-primary-100",
@@ -367,7 +367,7 @@ const Sidebar = ({
                   Logout
                 </span>
               </div>
-            </Link>
+            </div>
             <div className="flex items-center gap-4 pb-10"></div>
           </div>
 
@@ -404,4 +404,4 @@ const Sidebar = ({
   );
 };
 
-export default Sidebar;
+export default CribSidebar;
