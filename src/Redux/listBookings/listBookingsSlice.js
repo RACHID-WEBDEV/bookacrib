@@ -5,6 +5,10 @@ import {
   fetchListBooking,
   updateListBooking,
   deleteListBooking,
+  fetchCribListBookings,
+  fetchCribListBooking,
+  fetchAdminListBookings,
+  fetchAdminListBooking,
 } from "./listBookingsThunk";
 // / Import the new thunk action creators
 
@@ -14,6 +18,15 @@ const initialState = {
   addlistbooking: [],
   loading: false,
   error: null,
+  listcribbookings: [],
+  listcribbooking: [],
+  loadingcribbooking: false,
+  errorcribbooking: null,
+
+  listadminbookings: [],
+  listadminbooking: [],
+  loadingadminbooking: false,
+  erroradminbooking: null,
 };
 
 // Create the orgaization slice
@@ -35,7 +48,37 @@ const listBookingsSlice = createSlice({
 
       .addCase(fetchListBookings.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload ?? "Failed to fetch list booking";
+        state.error = action.payload ?? "Failed to fetch list bookings";
+      })
+
+      .addCase(fetchCribListBookings.pending, (state) => {
+        state.loadingcribbooking = true;
+        state.errorcribbooking = null;
+      })
+      .addCase(fetchCribListBookings.fulfilled, (state, action) => {
+        state.loadingcribbooking = false;
+        state.listcribbookings = action.payload;
+      })
+
+      .addCase(fetchCribListBookings.rejected, (state, action) => {
+        state.loadingcribbooking = false;
+        state.errorcribbooking =
+          action.payload ?? "Failed to fetch crib list bookings";
+      })
+
+      .addCase(fetchAdminListBookings.pending, (state) => {
+        state.loadingadminbooking = true;
+        state.erroradminbooking = null;
+      })
+      .addCase(fetchAdminListBookings.fulfilled, (state, action) => {
+        state.loadingadminbooking = false;
+        state.listadminbookings = action.payload;
+      })
+
+      .addCase(fetchAdminListBookings.rejected, (state, action) => {
+        state.loadingadminbooking = false;
+        state.erroradminbooking =
+          action.payload ?? "Failed to fetch admin list bookings";
       })
 
       // addNewListBooking
@@ -64,6 +107,35 @@ const listBookingsSlice = createSlice({
       .addCase(fetchListBooking.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload ?? "Failed to fetch list booking";
+      })
+      .addCase(fetchCribListBooking.pending, (state) => {
+        state.loadingcribbooking = true;
+        state.errorcribbooking = null;
+      })
+      .addCase(fetchCribListBooking.fulfilled, (state, action) => {
+        state.loadingcribbooking = false;
+        state.listcribbooking = action.payload;
+      })
+
+      .addCase(fetchCribListBooking.rejected, (state, action) => {
+        state.loadingcribbooking = false;
+        state.errorcribbooking =
+          action.payload ?? "Failed to fetch crib list booking";
+      })
+
+      .addCase(fetchAdminListBooking.pending, (state) => {
+        state.loadingadminbooking = true;
+        state.erroradminbooking = null;
+      })
+      .addCase(fetchAdminListBooking.fulfilled, (state, action) => {
+        state.loadingadminbooking = false;
+        state.listadminbooking = action.payload;
+      })
+
+      .addCase(fetchAdminListBooking.rejected, (state, action) => {
+        state.loadingadminbooking = false;
+        state.erroradminbooking =
+          action.payload ?? "Failed to fetch admin list booking";
       })
 
       // updateListBooking
