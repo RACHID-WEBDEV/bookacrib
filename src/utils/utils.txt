@@ -14,3 +14,18 @@ const adultData =[]
   //     warranty: `${i} ${i === 1 ? "year" : "years"}`,
   //   });
   // }
+
+
+  const [width] = useState(641);
+  // const [invoices, setInvoices] = useState([]);
+  const componentRef = useRef();
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  useEffect(() => {
+    if (window.innerWidth < width) {
+      alert("Place your phone in landscape mode for the best experience");
+    }
+  }, [width]);
