@@ -7,7 +7,7 @@ export const styles = {
     "inline-flex",
     "items-center",
     "text-xs px-1.5 pr-2 py-0.5 gap-1",
-    "border ",
+    "border max-w-max",
   ],
 
   disabled: ["cursor-not-allowed", "opacity-50"],
