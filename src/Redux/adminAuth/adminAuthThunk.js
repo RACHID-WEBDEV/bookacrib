@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { patchData, postData } from "../../utils/api";
+import { getData, patchData, postData } from "../../utils/api";
 // import { persistor } from "../store";
 
 // Async thunk action creator for login
@@ -215,6 +215,20 @@ const adminSwitchCompany = createAsyncThunk(
   }
 );
 
+const fetchadminStatistics = createAsyncThunk(
+  "getadminStatistics",
+  async (url, { rejectWithValue }) => {
+    try {
+      const response = await getData(`${url}`);
+      return response;
+    } catch (error) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      return rejectWithValue(errorMessage?.response?.data);
+    }
+  }
+);
+
 export {
   adminLoginThunk,
   adminLogoutThunk,
@@ -224,4 +238,5 @@ export {
   adminAccountVerificationThunk,
   adminResetPasswordThunk,
   adminSwitchCompany,
+  fetchadminStatistics,
 };

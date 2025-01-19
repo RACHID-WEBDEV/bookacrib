@@ -11,6 +11,7 @@ import listBookingReducer from "./listBookings/listBookingsSlice";
 import usersReducer from "./users/usersSlice";
 import admincategoryReducer from "./admincategories/admincategoriesSlice";
 import adminrolesReducer from "./adminroles/adminrolesSlice";
+import cribusersReducer from "./cribusers/cribusersSlice";
 
 // Combine the slice reducers into a root reducer
 const rootReducer = combineReducers({
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   users: usersReducer,
   admincategory: admincategoryReducer,
   adminroles: adminrolesReducer,
+  cribusers: cribusersReducer,
 });
 
 // No need to define RootState type in JavaScript

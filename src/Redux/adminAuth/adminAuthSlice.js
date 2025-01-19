@@ -8,6 +8,7 @@ import {
   adminAccountVerificationThunk,
   adminResetPasswordThunk,
   adminSwitchCompany,
+  fetchadminStatistics,
 } from "./adminAuthThunk";
 
 import Cookies from "js-cookie";
@@ -35,6 +36,9 @@ const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: "",
+  adminstatistics: [],
+  loadingAdminStatistics: false,
+  errorAdminStatistics: null,
 };
 
 const adminAuthSlice = createSlice({
@@ -43,7 +47,20 @@ const adminAuthSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchadminStatistics.pending, (state) => {
+        state.loadingAdminStatistics = true;
+        state.errorAdminStatistics = null;
+      })
+      .addCase(fetchadminStatistics.fulfilled, (state, action) => {
+        state.loadingAdminStatistics = false;
+        state.adminstatistics = action.payload;
+      })
 
+      .addCase(fetchadminStatistics.rejected, (state, action) => {
+        state.loadingAdminStatistics = false;
+        state.errorAdminStatistics =
+          action.payload ?? "Failed to fetch admin statistics";
+      })
       .addCase(adminSwitchCompany.pending, (state) => {
         state.isLoading = true;
         state.isError = false;

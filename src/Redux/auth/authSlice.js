@@ -8,6 +8,8 @@ import {
   accountVerificationThunk,
   resetPasswordThunk,
   switchCompany,
+  fetchuserStatistics,
+  fetchCribStatistics,
 } from "./authThunk";
 
 import Cookies from "js-cookie";
@@ -54,6 +56,12 @@ const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: "",
+  userstatistics: [],
+  loadingUserStatistics: false,
+  errorUserStatistics: null,
+  cribstatistics: [],
+  loadingCribStatistics: false,
+  errorCribStatistics: null,
 };
 
 const authSlice = createSlice({
@@ -62,7 +70,34 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchuserStatistics.pending, (state) => {
+        state.loadingUserStatistics = true;
+        state.errorUserStatistics = null;
+      })
+      .addCase(fetchuserStatistics.fulfilled, (state, action) => {
+        state.loadingUserStatistics = false;
+        state.userstatistics = action.payload;
+      })
 
+      .addCase(fetchuserStatistics.rejected, (state, action) => {
+        state.loadingUserStatistics = false;
+        state.errorUserStatistics =
+          action.payload ?? "Failed to fetch user statistics";
+      })
+      .addCase(fetchCribStatistics.pending, (state) => {
+        state.loadingCribStatistics = true;
+        state.errorCribStatistics = null;
+      })
+      .addCase(fetchCribStatistics.fulfilled, (state, action) => {
+        state.loadingCribStatistics = false;
+        state.cribstatistics = action.payload;
+      })
+
+      .addCase(fetchCribStatistics.rejected, (state, action) => {
+        state.loadingCribStatistics = false;
+        state.errorCribStatistics =
+          action.payload ?? "Failed to fetch user statistics";
+      })
       .addCase(switchCompany.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
