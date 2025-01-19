@@ -162,3 +162,27 @@ export function firstPathSegment(url) {
 
   return urlParts.join(" ");
 }
+
+export function formatDateStringYearStart(dateString) {
+  // Create a new Date object from the input date string
+  const date = new Date(dateString);
+
+  // Extract the day, month, and year from the Date object
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const year = date.getFullYear();
+
+  // Return the formatted date as dd/mm/yyyy
+  return `${year}-${month}-${day}`;
+}
+
+export const getErrormessage = (errorMsg) => {
+  if (errorMsg?.errors) {
+    const errorMessages = Object.values(errorMsg?.errors).flat().join(", ");
+    return errorMessages;
+    //  toast.error(errorMessages, { duration: 6000 });
+  } else {
+    return errorMsg?.message;
+    //  toast.error(error?.response?.data?.message, { duration: 6000 });
+  }
+};
