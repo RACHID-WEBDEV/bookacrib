@@ -1,13 +1,12 @@
 import { useState } from "react";
-// import { useLocation } from "react-router-dom";
-// import { getBasePath } from "../lib/constants";
-import UserSidebar from "./UserSidebar";
+
 import { Outlet } from "react-router-dom";
-import NavBar from "./NavBar";
+import CribNavBar from "./CribNavBar";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 import { useViewport } from "../lib/screenSize";
 import PropTypes from "prop-types";
+import CribSidebar from "./CribSidebar";
 // import Skelton from "./Skelton";
 
 export const DashboardLayout = ({ children, openMenu, clickOpenSideBar }) => {
@@ -42,7 +41,7 @@ DashboardLayout.propTypes = {
   clickOpenSideBar: PropTypes.bool,
 };
 
-const MainDashboardLayout = () => {
+const CribDashboardLayout = () => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
   const [openMenu, setOpenMenu] = useState(true);
   const [clickOpenSideBar, setClickOpenSideBar] = useState(false);
@@ -66,7 +65,7 @@ const MainDashboardLayout = () => {
       <>
         <main className="bg-gray-50 ">
           <div className=" hidden lg:block">
-            <UserSidebar
+            <CribSidebar
               openSideMenu={openSideMenu}
               collapaseMenu={collapaseMenu}
               openMenu={openMenu}
@@ -80,7 +79,7 @@ const MainDashboardLayout = () => {
             openMenu={openMenu}
             clickOpenSideBar={clickOpenSideBar}
           >
-            <NavBar
+            <CribNavBar
               toggleSideBar={toggleSideBar}
               openSideMenu={openSideMenu}
               // animateRight={animateRight}
@@ -96,4 +95,4 @@ const MainDashboardLayout = () => {
   );
 };
 
-export default MainDashboardLayout;
+export default CribDashboardLayout;

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import userMenu from "src/data/userMenu";
 import { useSelector } from "react-redux";
 
@@ -15,7 +15,9 @@ import { ArrowDownIcon } from "../assets/SvgIcons";
 import { persistor } from "../Redux/store";
 import SmallSpinner from "../components/Loading/SmallSpinner";
 
-const UserMenu = () => {
+// eslint-disable-next-line react/prop-types
+const UserMenu = ({ setShowUserMenu }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -40,6 +42,7 @@ const UserMenu = () => {
         .unwrap()
         .then(() => toast.success("Switched to company successfully"))
         .catch((error) => toast.error(`Error switching company: ${error}`));
+      navigate("/crib-owner/dashboard");
     } else {
       dispatch(switchCompany({ companyId: null, switchToCompany: false }))
         .unwrap()
@@ -160,7 +163,7 @@ const UserMenu = () => {
         </div> */}
         <ul className="py-2 ">
           {userMenu.map(({ link, routeName }, index) => (
-            <li key={index} className="">
+            <li key={index} className="" onClick={() => setShowUserMenu(false)}>
               <Link
                 to={link}
                 className="block  py-2 px-8 text-sm text-gray-800 hover:text-gray-900 hover:bg-gray-200"

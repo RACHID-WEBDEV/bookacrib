@@ -44,7 +44,6 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <Features />
 
       <div>
         {loadingProperty ? (
@@ -99,6 +98,7 @@ const Home = () => {
         )}
       </div>
       <CitiesFeatures />
+      <Features />
       <Cta />
       {/* <Categories /> */}
       {/* <FlashSales />
