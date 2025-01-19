@@ -49,12 +49,38 @@ const Header = () => {
   console.log("isAdminAuthenticated:", isAdminAuthenticated);
   // const isAuthorised = currentUser?.role.id;
 
-  // console.log("isAuthenticated now:", isAuthenticated);
+  console.log("isAuthenticated now:", isAuthenticated);
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   // const { currentUser } = useSelector((state) => state.auth);
   const { bookacrib_admin_user } = useSelector((state) => state.adminauth);
 
+  // const data = localStorage.getItem("persist:root");
+  // const userlocal = JSON.parse(data);
+  // const localauth = JSON.parse(userlocal?.auth);
+  // console.log(
+  //   "local auth:",
+  //   localauth?.isAuthenticated,
+  //   "auth",
+  //   isAuthenticated
+  // );
+
+  // useEffect(() => {
+  //   const checkAuthentication = async () => {
+  //     // if (isAuthenticated === null) {
+  //     //   // setLoading(true);
+  //     //   return;
+  //     // }
+
+  //     if (isAuthenticated) {
+  //       console.log("authenticated status:", isAuthenticated);
+  //       // navigate("/");
+  //     }
+  //     // setLoading(false);
+  //   };
+
+  //   checkAuthentication();
+  // }, [isAuthenticated]);
   // console.log("bookacrib_admin_user one:", bookacrib_admin_user);
   const bookacrib_admin = bookacrib_admin_user?.data || bookacrib_admin_user;
 
