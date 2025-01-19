@@ -246,7 +246,7 @@ const ListCompany = () => {
                         {/* <img src={AssignEmpty} alt="" /> */}
 
                         <p className="text-2xl font-medium font-gray-600">
-                          No Feature Found
+                          No Company Found
                         </p>
                         <Button
                           className="w-48 justify-center"

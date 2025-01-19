@@ -17,7 +17,7 @@ import { getData, postData } from "../../../utils/api";
 import { PropertySchema } from "../../../schema/propertySchema";
 import toast from "react-hot-toast";
 import AnimateLoader from "../../../components/Loading/AnimateLoader";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import AnimateLoader from "../../../components/Loading/AnimateLoader";
 
 const CreateProperty = () => {
@@ -173,7 +173,7 @@ const CreateProperty = () => {
 
       if (result.status >= 200 && result.status <= 300) {
         toast.success(result?.message);
-        navigate("/admin/property/all-property");
+        navigate("/user/property/all-property");
       }
     } catch (error) {
       console.error("Create Error:", error);
@@ -297,9 +297,10 @@ const CreateProperty = () => {
             <div className=" flex items-center justify-between gap-4 flex-wrap ">
               <div className=" lg:w-[65%]"></div>
               <div className="flex items-center gap-4">
-                <Button>Add Property</Button>
-
-                <Button color="primaryAlt">Back to Property</Button>
+                {/* <Button>Add Property</Button> */}
+                <Link to="/crib-owner/property">
+                  <Button color="primaryAlt">Back to Property</Button>
+                </Link>
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ import { formatDateOnly, formatTimeOnly } from "../../../lib/constants";
 // import PropertyApproval from "./PropertyApproval";
 import { patchData } from "../../../utils/api";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import TestImageApp from "./TestImages";
 
 const AdminProperties = () => {
@@ -58,7 +58,7 @@ const AdminProperties = () => {
 
   useEffect(() => {
     fetchPropertyHandler(
-      "/bookacrib-api-routes/v1/properties/list-properties-public?is_active=yes&limit=10&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category"
+      "/bookacrib-api-routes/v1/admin/properties/list-properties?&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category"
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
@@ -90,7 +90,7 @@ const AdminProperties = () => {
   const IN_APP_PROPERTY = properties?.data?.filter(
     (data) => data?.create_source !== "SEEDER"
   );
-  console.log("propertys IN:", IN_APP_PROPERTY);
+  // console.log("propertys IN:", IN_APP_PROPERTY);
 
   const handlePropertyStatus = async (property_id) => {
     try {
@@ -136,6 +136,23 @@ const AdminProperties = () => {
     declined: { color: "warning" },
   };
 
+  // const properties_data = [
+  //   { name: "New rave apartment", category: { name: "apartment" } },
+  //   { name: "blue sky", category: { name: "room" } },
+  //   { name: "Brown cliennter", category: { name: "room" } },
+  //   { name: "greener spacer", category: { name: "room" } },
+  //   { name: "blue sky", category: { name: "room" } },
+  //   { name: "alexxer apartment", category: { name: "apartment" } },
+  // ];
+
+  const categoryCounts = IN_APP_PROPERTY?.reduce((acc, property) => {
+    const categoryName = property.category.name;
+    acc[categoryName] = (acc[categoryName] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Output the result
+  // console.log(categoryCounts);
   const defaultBadge = { color: "primary" };
 
   const getBadgeColor = (status) => {
@@ -144,7 +161,7 @@ const AdminProperties = () => {
 
   const navigatePropertyDetail = async (record) => {
     try {
-      navigate(`/admin/property/property-detail/${record.uuid}`);
+      navigate(`/admin/property/view-properties/${record.uuid}`);
     } catch (error) {
       console.error("Error navigating:", error);
     }
@@ -177,7 +194,7 @@ const AdminProperties = () => {
         description=" Overview of the properties bookings etc"
       />
       <div className=" space-y-6">
-        <PropsFeatures />
+        <PropsFeatures data={categoryCounts} />
 
         <div className="p-3 border border-gray-300 rounded-md">
           <div className=" flex items-center justify-between gap-4 flex-wrap ">
@@ -229,12 +246,14 @@ const AdminProperties = () => {
               </form>
             </div>
             <div className="flex items-center gap-4">
-              <Button>Add Property</Button>
+              <Link to="/admin/property/create-property">
+                <Button>Add Property</Button>
+              </Link>
               <Button
                 color="primaryAlt"
                 rightIcon={
                   <span className="inline-flex items-center justify-center h-6 px-1.5 text-xs font-semibold text-gray-50 bg-dark-100 rounded-md">
-                    12
+                    0
                   </span>
                 }
               >
@@ -244,7 +263,7 @@ const AdminProperties = () => {
                 color="primaryAlt"
                 rightIcon={
                   <span className="inline-flex items-center justify-center h-6 px-1.5 text-xs font-semibold text-gray-50 bg-dark-100 rounded-md">
-                    10
+                    {IN_APP_PROPERTY?.length}
                   </span>
                 }
               >
