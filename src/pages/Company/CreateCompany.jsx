@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 // import { Button } from "../../../components/forms/Button";
 import HookForm from "../../components/forms/Form";
@@ -13,14 +12,16 @@ import Uploader from "../../components/forms/Upload/uploader";
 import { CreateCompanySchema } from "../../schema/authSchema";
 import { FetchLocations } from "../../Hooks/useFetchLocation";
 import CustomSelect from "../../components/forms/Select/CustomSelect";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { postData } from "../../utils/api";
+import { LeftArrowIcon } from "../../assets/SvgIcons";
 
-const CreateCompany = ({ loading }) => {
+const CreateCompany = () => {
   // const [imagesFile, setImagesFile] = useState([]);
   const [imageFile, setImageFile] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   console.log("image file", imageFile);
   const {
     countries,
@@ -53,6 +54,7 @@ const CreateCompany = ({ loading }) => {
   };
 
   const onSubmit = async (data) => {
+    setLoading(true);
     console.log("Form data", data);
 
     const filteredFormData = {
@@ -78,11 +80,11 @@ const CreateCompany = ({ loading }) => {
       );
       if (response.status >= 200 && response.status <= 300) {
         toast.success("Company created successfully");
-        navigate("/admin/dashboard");
+        navigate("/user/dashboard");
       }
     } catch (error) {
       console.error("Create Error:", error);
-      navigate("/admin/dashboard");
+      // navigate("/admin/dashboard");
       if (
         error?.response?.data?.status >= 400 &&
         error?.response?.data?.status <= 499 &&
@@ -96,6 +98,7 @@ const CreateCompany = ({ loading }) => {
         toast.error(error?.response?.data?.message, { duration: 6000 });
       }
     }
+    setLoading(false);
   };
   return (
     <>
@@ -107,25 +110,35 @@ const CreateCompany = ({ loading }) => {
         />
       </div>
 
-      <div className=" space-y-6 p-4">
-        <div className="lg:hidden flex">
+      <div className=" space-y-0 p-4">
+        {/* <div className="lg:hidden flex">
           <DashboardHeading
             title="Add Property"
             description=" Overview of the properties bookings etc"
           />
-        </div>
+        </div> */}
         <div className="p-3  rounded-md">
           <div className=" flex items-center justify-between gap-4 flex-wrap ">
-            <div className=" lg:w-[45%]">
+            <div className=" lg:w-[45%] relative">
               <DashboardHeading
                 title="Create Company"
                 description="Take your property online! Showcase your listings, amenities, and expertise through a professional profile that connects you with interested buyers or renters. "
               />
+              <div className="lg:hidden block">
+                <div className=" absolute top-0 right-0">
+                  <Link to="/user/dashboard">
+                    <Button color="primaryAlt">
+                      {" "}
+                      <LeftArrowIcon />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-              {/* <Button>Create Company</Button> */}
-
-              <Button color="primaryAlt">Back to Home</Button>
+            <div className="hidden lg:block">
+              <Link to="/user/dashboard">
+                <Button color="primaryAlt">Back to Home</Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -139,6 +152,7 @@ const CreateCompany = ({ loading }) => {
               defaultValues={defaultFormValue}
               onSubmit={onSubmit}
               schema={CreateCompanySchema}
+              resetAfterSubmit={false}
             >
               <div className=" space-y-6">
                 <div className=" flex items-start w-full gap-6">
