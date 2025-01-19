@@ -34,7 +34,7 @@ const RoleType = () => {
       }
 
       if (isAuthenticated && companyId === null) {
-        navigate("/admin/dashboard");
+        navigate("/user/dashboard");
         toast.error("Switch to company to access this page");
       }
       // setLoading(false);
@@ -89,7 +89,7 @@ const RoleType = () => {
               List of the roles types available for access on this platform
             </p>
           </div>
-          <Link to="/admin/settings/roles">
+          <Link to="/crib-owner/settings/roles">
             <Button size="sm">Go Back Roles</Button>
           </Link>
         </div>
@@ -135,7 +135,7 @@ const RoleType = () => {
                           No Role Type Found
                         </p>
 
-                        <Link to="/admin/settings/roles">
+                        <Link to="/crib-owner/settings/roles">
                           <Button
                             className="w-48 justify-center"
                             // onClick={() => setOpenRoleModal(true)}

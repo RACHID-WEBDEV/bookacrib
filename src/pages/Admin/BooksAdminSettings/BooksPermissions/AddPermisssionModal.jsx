@@ -43,7 +43,7 @@ const AddPermisssionModal = ({ setOpenModal }) => {
 
   // console.log("getDefaultPermissions:", getDefaultPermissions);
   const PERMISSIONS_URL =
-    "/v1/admin/permissions/list-all-permissions?with[]=roles&is_default=yes&status=yes&limit=10";
+    "/v1/admin/permissions/list-all-permissions?with[]=roles&limit=10";
 
   const fetchAllPermisssions = async () => {
     try {
@@ -70,7 +70,7 @@ const AddPermisssionModal = ({ setOpenModal }) => {
   useEffect(() => {
     // fetchRoleTypesHandler("v1/users/role/list-user-role-types");
     fetchRoleHandler(
-      "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10"
+      "/v1/admin/roles/list-all-admin-roles?with[]=permissions&limit=10&type=admin"
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
@@ -100,7 +100,7 @@ const AddPermisssionModal = ({ setOpenModal }) => {
       if (result.status >= 200 && result.status <= 300) {
         dispatch(
           fetchRoles(
-            "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10"
+            "/v1/admin/roles/list-all-admin-roles?with[]=permissions&limit=10&type=admin"
           )
         );
         toast.success(result.message, { duration: 6000 });

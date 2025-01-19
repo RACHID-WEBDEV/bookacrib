@@ -70,7 +70,7 @@ const Roles = () => {
 
   useEffect(() => {
     fetchRoleHandler(
-      "v1/customers/company/users/role/list-all-user-roles?with[]=permissions"
+      "v1/customers/company/users/role/list-all-user-roles?with[]=permissions&type=user"
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
@@ -79,7 +79,7 @@ const Roles = () => {
     const fetchSearchUsers = async () => {
       if (searchQuery.length >= 2) {
         fetchRoleHandler(
-          "v1/customers/company/users/role/list-all-user-roles?with[]=permissions",
+          "v1/customers/company/users/role/list-all-user-roles?with[]=permissions&type=user",
           searchQuery
         );
       }
@@ -130,7 +130,7 @@ const Roles = () => {
           toast.success(result?.message);
           dispatch(
             fetchRoles(
-              "v1/customers/company/users/role/list-all-user-roles?with[]=permissions"
+              "v1/customers/company/users/role/list-all-user-roles?with[]=permissions&type=user"
             )
           );
         }
@@ -191,7 +191,7 @@ const Roles = () => {
             </p>
           </div>
 
-          <Link to="/admin/settings/role-types">
+          <Link to="/crib-owner/settings/role-types">
             <Button
               // onClick={() => setOpenRoleModal(true)}
               size="sm"
@@ -233,7 +233,7 @@ const Roles = () => {
                       onClick={() => {
                         setSearchQuery("");
                         fetchRoleHandler(
-                          "v1/customers/company/users/role/list-all-user-roles?with[]=permissions"
+                          "v1/customers/company/users/role/list-all-user-roles?with[]=permissions&type=user"
                         );
                       }}
                       className="absolute inset-y-0 end-2 flex items-center ps-3 cursor-pointer"
@@ -312,7 +312,7 @@ const Roles = () => {
                           onClick={() => {
                             setSearchQuery("");
                             fetchRoleHandler(
-                              "v1/customers/company/users/role/list-all-user-roles?with[]=permissions"
+                              "v1/customers/company/users/role/list-all-user-roles?with[]=permissions&type=user"
                             );
                           }}
                         >
