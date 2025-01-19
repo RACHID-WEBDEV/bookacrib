@@ -20,6 +20,81 @@ const fetchListBookings = createAsyncThunk(
   }
 );
 
+const fetchListBooking = createAsyncThunk(
+  "getListBooking",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await getData(
+        `/bookacrib-api-routes/v1/properties/view-my-single-booking?id=${id}&with[]=property`
+      );
+      return response;
+    } catch (error) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      return rejectWithValue(errorMessage?.response?.data);
+    }
+  }
+);
+
+const fetchCribListBookings = createAsyncThunk(
+  "crib/fetchCribListBookings",
+  async (url, { rejectWithValue }) => {
+    try {
+      const response = await getData(url);
+      return response;
+    } catch (error) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      return rejectWithValue(errorMessage?.response?.data);
+    }
+  }
+);
+
+const fetchCribListBooking = createAsyncThunk(
+  "getListCribBooking",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await getData(
+        `/bookacrib-api-routes/v1/bookings/view-company-single-booking?id=${id}&with[]=property&with[]=user`
+      );
+      return response;
+    } catch (error) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      return rejectWithValue(errorMessage?.response?.data);
+    }
+  }
+);
+
+const fetchAdminListBookings = createAsyncThunk(
+  "Admin/fetchAdminListBookings",
+  async (url, { rejectWithValue }) => {
+    try {
+      const response = await getData(url);
+      return response;
+    } catch (error) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      return rejectWithValue(errorMessage?.response?.data);
+    }
+  }
+);
+
+const fetchAdminListBooking = createAsyncThunk(
+  "getListAdminBooking",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await getData(
+        `/bookacrib-api-routes/v1/admin/bookings/view-single-booking?id=${id}&with[]=property&with[]=user`
+      );
+      return response;
+    } catch (error) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      return rejectWithValue(errorMessage?.response?.data);
+    }
+  }
+);
 const addNewListBooking = createAsyncThunk(
   "addNewListBooking",
 
@@ -35,7 +110,9 @@ const addNewListBooking = createAsyncThunk(
         (response?.status_code >= 200 && response?.status_code < 300)
       ) {
         dispatch(
-          fetchListBookings("/bookacrib-api-routes/v1/ListBookings/list-ListBookings")
+          fetchListBookings(
+            "/bookacrib-api-routes/v1/ListBookings/list-ListBookings"
+          )
         );
       }
       // console.log("ListBooking create response:", response);
@@ -55,21 +132,6 @@ const addNewListBooking = createAsyncThunk(
 );
 
 // Async thunk action creator for fetching a single ListBooking
-const fetchListBooking = createAsyncThunk(
-  "getListBooking",
-  async (id, { rejectWithValue }) => {
-    try {
-      const response = await getData(
-        `/bookacrib-api-routes/v1/ListBookings/view-single-ListBooking?id=${id}`
-      );
-      return response;
-    } catch (error) {
-      const errorMessage = error;
-      console.log(errorMessage);
-      return rejectWithValue(errorMessage?.response?.data);
-    }
-  }
-);
 
 const updateListBooking = createAsyncThunk(
   "updateListBooking",
@@ -128,4 +190,8 @@ export {
   fetchListBooking,
   updateListBooking,
   deleteListBooking,
+  fetchCribListBookings,
+  fetchCribListBooking,
+  fetchAdminListBookings,
+  fetchAdminListBooking,
 };

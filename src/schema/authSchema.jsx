@@ -110,7 +110,7 @@ export const CreateCompanySchema = yup
       .email("Kindly provide a valid email address")
       .required("Email is required"),
     address: yup.string().required("Property address is required"),
-    next_of_kin_name: yup.string().required("Next of kin name is required"),
+    // next_of_kin_name: yup.string().required("Next of kin name is required"),
   })
   .required();
 
@@ -136,5 +136,33 @@ export const RoleSchema = yup
 export const EmptySchema = yup
   .object({
     // name: yup.string().required("Role name is required"),
+  })
+  .required();
+
+export const CreateUserSchema = yup
+  .object({
+    first_name: yup.string().required("First Name is required"),
+    last_name: yup.string().required("Last Name is required"),
+
+    phone_number: yup
+      .string()
+      .required("Phone number is required")
+      .matches(
+        /^[0-9]{10,15}$/,
+        "Phone number must be between 10 to 15 digits"
+      ),
+    email: yup
+      .string()
+      .email("Kindly provide a valid email address")
+      .required("Email is required"),
+  })
+  .required();
+
+export const ResendUserSchema = yup
+  .object({
+    email: yup
+      .string()
+      .email("Kindly provide a valid email address")
+      .required("Email is required"),
   })
   .required();

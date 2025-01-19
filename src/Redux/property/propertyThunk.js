@@ -21,7 +21,24 @@ const fetchPropertys = createAsyncThunk(
     } catch (error) {
       const errorMessage = error;
       console.log(errorMessage);
-      return rejectWithValue(errorMessage?.response?.data);
+
+      if (
+        (error?.response?.data?.status >= 400 &&
+          error?.response?.data?.status <= 499 &&
+          error?.response?.data?.errors) ||
+        (error?.response?.data?.status_code >= 400 &&
+          error?.response?.data?.status_code <= 499 &&
+          error?.response?.data?.errors)
+      ) {
+        const errorMessages = Object.values(error?.response?.data?.errors)
+          .flat()
+          .join(", ");
+        // toast.error(errorMessages, { duration: 6000 });
+        return rejectWithValue(errorMessages);
+      } else {
+        // toast.error(error?.message, { duration: 6000 });
+        return rejectWithValue(errorMessage?.response?.data?.message);
+      }
     }
   }
 );
@@ -81,7 +98,8 @@ const fetchProperty = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await getData(
-        `/bookacrib-api-routes/v1/properties/view-single-property?id=${id}&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category&with[]=roomType`
+        `/bookacrib-api-routes/v1/admin/properties/view-single-property?id=${id}&with[]=company&with[]=initiator&with[]=country&with[]=state`
+        // `/bookacrib-api-routes/v1/properties/view-single-property?id=${id}&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category&with[]=roomType`
       );
       return response;
     } catch (error) {
