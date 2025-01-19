@@ -74,6 +74,12 @@ const ViewFeatureModal = ({ setOpenModal, featureData }) => {
                     </p>
                   </div>
                   <div className=" space-y-1 flex items-center justify-between flex-wrap">
+                    <Label text="Slug" />
+                    <p className="text-gray-900 text-base font-medium">
+                      {featureData?.slug}
+                    </p>
+                  </div>
+                  <div className=" space-y-1 flex items-center justify-between flex-wrap">
                     <Label text="Price" />
                     <p className="text-gray-900 font-medium">
                       ₦{formatNumber(featureData?.price)}
@@ -96,12 +102,12 @@ const ViewFeatureModal = ({ setOpenModal, featureData }) => {
                       ></Badge>
                     </div>
                   </div>
-                  <div className=" space-y-1 flex items-center justify-between flex-wrap">
+                  {/* <div className=" space-y-1 flex items-center justify-between flex-wrap">
                     <Label text="Created Date" />
                     <p className="text-gray-900 font-medium">
                       {formatDateTime(featureData?.created_at)}
                     </p>
-                  </div>
+                  </div> */}
                   <div className=" space-y-1 flex items-center justify-between flex-wrap">
                     <Label text="Update Date" />
                     <p className="text-gray-900 font-medium">

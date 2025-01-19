@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 import {
@@ -12,7 +13,7 @@ import {
   DeleteIcon,
   EditIcon,
   EyeIconBold,
-  PlusIcon,
+  // PlusIcon,
   SearchIcon,
   XIconSmall,
 } from "../../../../assets/SvgIcons";
@@ -165,7 +166,7 @@ const RoomFeatures = () => {
     }
   };
   const Headings = {
-    tableHeadings: ["S/N", "Name", "Price", "Status", "Toggle", "Action"],
+    tableHeadings: ["S/N", "Name", "Price", "Status", "Action"],
   };
   return (
     <>
@@ -189,7 +190,7 @@ const RoomFeatures = () => {
 
         <div className="p-3 border border-gray-300 rounded-md mt-2">
           <div className=" flex items-center justify-between gap-4 flex-wrap ">
-            <div className=" lg:w-[65%]">
+            <div className=" lg:w-full">
               <form className="">
                 <label
                   htmlFor="default-search"
@@ -229,7 +230,7 @@ const RoomFeatures = () => {
                 </div>
               </form>
             </div>
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
               <div className=" hidden lg:flex">
                 <Button
                   onClick={() => setOpenRoleModal(true)}
@@ -248,7 +249,7 @@ const RoomFeatures = () => {
                   Add
                 </Button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -348,26 +349,20 @@ const RoomFeatures = () => {
                           ></Badge>
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {/* {formatDateTime(item?.created)} */}
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {/* {formatDateTime(item?.created)} */}
-                          <div className="text-sm  text-gray-600 ">
-                            <label className="inline-flex items-center cursor-pointer  ">
-                              <input
-                                type="checkbox"
-                                className="sr-only peer"
-                                value=""
-                                defaultChecked={item?.is_active === true}
-                                onClick={() =>
-                                  handleRoomFeatureStatus(item.uuid)
-                                }
-                              />
-                              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-success-600"></div>
-                            </label>
-                          </div>
-                        </td>
-                      </td>
+                      {/* <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm  text-gray-600 ">
+                          <label className="inline-flex items-center cursor-pointer  ">
+                            <input
+                              type="checkbox"
+                              className="sr-only peer"
+                              value=""
+                              defaultChecked={item?.is_active === true}
+                              onClick={() => handleRoomFeatureStatus(item.uuid)}
+                            />
+                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-success-600"></div>
+                          </label>
+                        </div>
+                      </td> */}
 
                       <td
                         // onClick={() => checkUserDetail(item)}
@@ -380,18 +375,18 @@ const RoomFeatures = () => {
                           >
                             <EyeIconBold />
                           </div>
-                          <div
+                          {/* <div
                             className="cursor-pointer "
                             onClick={() => fetchSingleRole(item?.uuid)}
                           >
                             <EditIcon />
-                          </div>
-                          <div
+                          </div> */}
+                          {/* <div
                             className="cursor-pointer "
                             onClick={() => deleteFeatureData(item?.uuid)}
                           >
                             <DeleteIcon className="text-red-600 w-6 h-6" />
-                          </div>
+                          </div> */}
                         </div>
                       </td>
                     </tr>
