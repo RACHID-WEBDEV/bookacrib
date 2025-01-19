@@ -151,11 +151,11 @@ const DetachPermisssionModal = ({ setOpenModal }) => {
               <div className="flex items-center justify-between p-4 md:px-5 border-b rounded-t ">
                 <div>
                   <h1 className="text-lg font-semibold text-gray-900 ">
-                    Detach Permission to Role
+                    Detach/Remove Permission from Role
                   </h1>
                   <p className="text-gray-600 text-sm font-light">
-                    Detach a permisssion to admin role to enable them perform
-                    certain actions
+                    Detach/Remove a permisssion to admin role to prevent them
+                    perform certain actions
                   </p>
                 </div>
                 <button

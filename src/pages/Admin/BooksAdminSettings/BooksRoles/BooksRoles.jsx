@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 
@@ -25,7 +26,7 @@ import toast from "react-hot-toast";
 
 import { Link, useNavigate } from "react-router-dom";
 import { patchData } from "../../../../utils/api";
-import { Tooltip } from "flowbite-react";
+import { Dropdown, DropdownItem, Tooltip } from "flowbite-react";
 import EditPermisssionModal from "../BooksPermissions/EditPermisssionModal";
 import {
   fetchadminRoles,
@@ -74,7 +75,7 @@ const BooksRoles = () => {
 
   useEffect(() => {
     fetchRoleHandler(
-      "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10"
+      "/v1/admin/roles/list-all-admin-roles?with[]=permissions&limit=10&type=admin"
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
@@ -83,7 +84,7 @@ const BooksRoles = () => {
     const fetchSearchUsers = async () => {
       if (searchQuery.length >= 2) {
         fetchRoleHandler(
-          "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10",
+          "/v1/admin/roles/list-all-admin-roles?with[]=permissions&limit=10&type=admin",
           searchQuery
         );
       }
@@ -134,7 +135,7 @@ const BooksRoles = () => {
           toast.success(result?.message);
           dispatch(
             fetchadminRoles(
-              "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10"
+              "/v1/admin/roles/list-all-admin-roles?with[]=permissions&limit=10&type=admin"
             )
           );
         }
@@ -157,7 +158,7 @@ const BooksRoles = () => {
       // console.log("role_id clicked ", role_id);
       if (role_id) {
         const response = await patchData(
-          `v1/users/role/toggle-user-role-status?id=${role_id}`
+          `/v1/admin/roles/toggle-admin-role-status?id=${role_id}`
           // ,
           // {
           //   id: role_id,
@@ -195,7 +196,7 @@ const BooksRoles = () => {
             </p>
           </div>
 
-          <Link to="/admin/settings/role-types">
+          {/* <Link to="/admin/settings/role-types">
             <Button
               // onClick={() => setOpenRoleModal(true)}
               size="sm"
@@ -203,7 +204,7 @@ const BooksRoles = () => {
             >
               View Role Types
             </Button>
-          </Link>
+          </Link> */}
         </div>
 
         <div className="p-3 border border-gray-300 rounded-md mt-2">
@@ -225,7 +226,7 @@ const BooksRoles = () => {
                     type="text"
                     id="default-search"
                     className="block w-full px-4 py-3 ps-10 text-sm text-gray-900 font-Inter rounded-md bg-gray-100 outline-none  "
-                    placeholder="Search features..."
+                    placeholder="Search roles..."
                     value={searchQuery}
                     onChange={(e) => {
                       const search = e.target.value;
@@ -237,7 +238,7 @@ const BooksRoles = () => {
                       onClick={() => {
                         setSearchQuery("");
                         fetchRoleHandler(
-                          "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10"
+                          "/v1/admin/roles/list-all-admin-roles?with[]=permissions&limit=10&type=admin"
                         );
                       }}
                       className="absolute inset-y-0 end-2 flex items-center ps-3 cursor-pointer"
@@ -248,14 +249,47 @@ const BooksRoles = () => {
                 </div>
               </form>
             </div>
-            <div className="flex items-center gap-4">
+            <Dropdown
+              dismissOnClick={true}
+              inline
+              arrowIcon={false}
+              placement="bottom"
+              label={
+                <div className="flex items-center gap-1  text-white  bg-gray-900 border border-gray-300  font-semibold font-Inter text-sm rounded-lg py-2.5 px-2 pl-2.5">
+                  Create
+                  <span>
+                    <PlusIcon />
+                  </span>
+                </div>
+              }
+            >
+              <DropdownItem onClick={() => setOpenRoleModal(true)}>
+                <span
+                  id="all"
+                  className="!text-sm !text-gray-600 font-normal uppercase"
+                >
+                  Create Admin Role
+                </span>
+              </DropdownItem>
+              <DropdownItem>
+                <Link to="/admin/settings/role-types">
+                  <span
+                    id="all"
+                    className="!text-sm !text-gray-600 font-normal uppercase"
+                  >
+                    View Role Types
+                  </span>
+                </Link>
+              </DropdownItem>
+            </Dropdown>
+            {/* <div className="flex items-center gap-4">
               <div className=" hidden lg:flex">
                 <Button
                   onClick={() => setOpenRoleModal(true)}
                   size="sm"
                   leftIcon={<PlusIcon />}
                 >
-                  Create User Role
+                  Create Admin Role
                 </Button>
               </div>
               <div className="lg:hidden">
@@ -267,7 +301,7 @@ const BooksRoles = () => {
                   Add
                 </Button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -316,7 +350,7 @@ const BooksRoles = () => {
                           onClick={() => {
                             setSearchQuery("");
                             fetchRoleHandler(
-                              "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10"
+                              "/v1/admin/roles/list-all-admin-roles?with[]=permissions&limit=10&type=admin"
                             );
                           }}
                         >
@@ -400,7 +434,7 @@ const BooksRoles = () => {
                               <EyeIconBold />
                             </Tooltip>
                           </div>
-                          <div
+                          {/* <div
                             className="cursor-pointer "
                             onClick={() => fetchEditPermission(item?.uuid)}
                           >
@@ -408,10 +442,9 @@ const BooksRoles = () => {
                               content="Detash Permissions"
                               animation="duration-150"
                             >
-                              {/* <Button>Fast animation</Button> */}
                               <EditIcon />
                             </Tooltip>
-                          </div>
+                          </div> */}
                           <div
                             className="cursor-pointer "
                             onClick={() => deleteFeatureData(item?.uuid)}

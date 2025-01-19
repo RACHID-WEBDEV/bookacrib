@@ -38,9 +38,7 @@ const AddRolesModal = ({ setOpenModal }) => {
   };
 
   useEffect(() => {
-    fetchRoleTypesHandler(
-      "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10"
-    );
+    fetchRoleTypesHandler("/v1/admin/roles/list-admin-role-types");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
@@ -64,7 +62,7 @@ const AddRolesModal = ({ setOpenModal }) => {
       if (result.status >= 200 && result.status <= 300) {
         dispatch(
           fetchadminRoles(
-            "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10"
+            "/v1/admin/roles/list-all-admin-roles?with[]=permissions&limit=10&type=admin"
           )
         );
         toast.success(result.message, { duration: 6000 });
@@ -74,7 +72,7 @@ const AddRolesModal = ({ setOpenModal }) => {
       if (error?.status >= 400 && error?.status <= 499) {
         dispatch(
           fetchadminRoles(
-            "/v1/admin/roles/list-all-admin-roles?with[]=permissions&is_default=yes&status=yes&limit=10"
+            "/v1/admin/roles/list-all-admin-roles?with[]=permissions&limit=10&type=admin"
           )
         );
         // const errorMessages = Object.values(error?.errors).flat().join(", ");
@@ -102,11 +100,11 @@ const AddRolesModal = ({ setOpenModal }) => {
               <div className="flex items-center justify-between p-4 md:px-5 border-b rounded-t ">
                 <div>
                   <h1 className="text-lg font-semibold text-gray-900 ">
-                    Create User Role
+                    Create Admin Role
                   </h1>
                   <p className="text-gray-600 text-sm font-light">
-                    Add a role for users to perform different action on this
-                    platform
+                    Add a role for an admin users to perform different action on
+                    this platform
                   </p>
                 </div>
                 <button
@@ -175,7 +173,7 @@ const AddRolesModal = ({ setOpenModal }) => {
                         <span>Creating...</span>
                       </div>
                     ) : (
-                      "Create User Role"
+                      "Create Admin User Role"
                     )}
                   </Button>
                 </div>
