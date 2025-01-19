@@ -296,7 +296,7 @@ const AdminSidebar = ({
               </div>
             ))}
 
-            <Link to="">
+            <div>
               <div
                 className={classNames(
                   "flex items-center py-2 pl-1 rounded-lg hover:text-primary-800 group text-base transition duration-75 hover:bg-primary-100",
@@ -350,7 +350,7 @@ const AdminSidebar = ({
                   Profile
                 </span>
               </div>
-            </Link>
+            </div>
             <Link to="" onClick={handleLogout}>
               <div
                 className={classNames(

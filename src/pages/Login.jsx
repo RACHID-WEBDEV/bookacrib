@@ -10,10 +10,12 @@ import HookForm from "../components/forms/Form";
 // import toast from "react-hot-toast";
 import { loginThunk } from "../Redux/auth/authThunk";
 import SmallSpinner from "../components/Loading/SmallSpinner";
+import toast from "react-hot-toast";
 import { useEffect } from "react";
+// import { useEffect } from "react";
 const Login = () => {
   const navigate = useNavigate();
-  // Explicitly define the type of 'state' using the RootState interface
+  // // Explicitly define the type of 'state' using the RootState interface
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -37,11 +39,30 @@ const Login = () => {
 
   console.log(error);
   // toast.error(error);
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // alert(JSON.stringify(data));
-    dispatch(loginThunk(data));
-    // navigate("/dashboard");
+
+    try {
+      const result = await dispatch(loginThunk(data)).unwrap();
+      console.log("login :", result);
+
+      if (
+        result?.access_token !== ""
+        // result.status >= 200 && result.status <= 300
+      ) {
+        toast.success("Login Successfully");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("first error: ", error);
+      toast.error(error, { duration: 6000 });
+      // if (error?.status >= 400 && error?.status <= 499) {
+      //   // const errorMessages = Object.values(error?.errors).flat().join(", ");
+      // }
+    }
+    // dispatch(loginThunk(data));
   };
+
   return (
     <div className="m-auto pt-4 lg:pt-20 xl:container px-1 lg:px-12 sm:px-0 mx-auto">
       <div className="mx-auto h-full max-w-lg">

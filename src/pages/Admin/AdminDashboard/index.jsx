@@ -4,8 +4,47 @@ import StatisticsChart from "./StatisticsChart";
 import { ArrowDownIcon } from "../../../assets/SvgIcons";
 import UserDeviceReport from "./user-device-report";
 import TopFeatures from "./TopFeatures";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchadminStatistics } from "../../../Redux/adminAuth/adminAuthThunk";
+import LoadingSpinner from "../../../components/Loading/LoadingSpinner";
 
 const AdminDashboard = () => {
+  const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
+  const { adminstatistics, loadingAdminStatistics } = useSelector(
+    (state) => state.adminauth
+  );
+
+  // console.log("adminstatistics:", adminstatistics);
+
+  const fetchAdminStatsHandler = (url, search) => {
+    let fetchUrl = url;
+    if (search) {
+      fetchUrl += `?q=${search}`;
+    }
+    dispatch(fetchadminStatistics(fetchUrl));
+  };
+
+  useEffect(() => {
+    fetchAdminStatsHandler(
+      "/v1/admin/dashboards/admin-dashboard-statistics?start_date=2025-01-01&end_date=2025-12-31"
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchSearchUsers = async () => {
+      if (searchQuery.length >= 2) {
+        fetchAdminStatsHandler(
+          "/v1/admin/dashboards/admin-dashboard-statistics?start_date=2025-01-01&end_date=2025-12-31",
+          searchQuery
+        );
+      }
+    };
+    fetchSearchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
   return (
     <div className="p-4 ">
       <div className=" flex items-center justify-between ">
@@ -14,19 +53,25 @@ const AdminDashboard = () => {
             Overview
           </h1>
           <h5 className="text-gray-500 text-sm font-normal">
-            Overview of the sales stats, analytics, Recent bookings, Customer
-            activities etc
+            Admin Overview of the sales stats, analytics, Recent bookings,
+            Customer activities etc
           </h5>
         </div>
         <div className="flex items-center gap-3"></div>
       </div>
-      <TopFeatures />
-      <div className=" grid grid-cols-3 gap-5">
-        <div className=" col-span-2">
-          <StatisticsChart />
+      {loadingAdminStatistics ? (
+        <div className="min-h-[200px] flex items-center justify-center">
+          <LoadingSpinner />
         </div>
-        <div className="w-full space-y-6 ">
-          {/* <div className="">
+      ) : (
+        <div className="">
+          <TopFeatures data={adminstatistics?.data} />
+          <div className=" grid grid-cols-3 gap-5">
+            <div className=" col-span-2">
+              <StatisticsChart />
+            </div>
+            <div className="w-full space-y-6 ">
+              {/* <div className="">
             <div className="border border-gray-200 rounded-xl  ">
               <div className="flex items-center justify-between p-4 py-5 rounded-t-xl border-b bg-white">
                 <div className=" flex items-center gap-2">
@@ -106,15 +151,15 @@ const AdminDashboard = () => {
             </div>
           </div> */}
 
-          <div className="">
-            <div className="border border-gray-200 rounded-xl  ">
-              <div className="flex items-center justify-between p-4 py-5 rounded-t-xl border-b bg-white">
-                <div className=" flex items-center gap-2">
-                  <div className="font-medium text-gray-900 text-lg">
-                    Statistics
-                  </div>
-                </div>
-                {/* <Dropdown
+              <div className="">
+                <div className="border border-gray-200 rounded-xl  ">
+                  <div className="flex items-center justify-between p-4 py-5 rounded-t-xl border-b bg-white">
+                    <div className=" flex items-center gap-2">
+                      <div className="font-medium text-gray-900 text-lg">
+                        Statistics
+                      </div>
+                    </div>
+                    {/* <Dropdown
                   dismissOnClick={true}
                   inline
                   arrowIcon={false}
@@ -152,15 +197,15 @@ const AdminDashboard = () => {
                     </span>
                   </DropdownItem>
                 </Dropdown> */}
+                  </div>
+
+                  <div className="py-8">
+                    <UserDeviceReport />
+                  </div>
+                </div>
               </div>
 
-              <div className="py-8">
-                <UserDeviceReport />
-              </div>
-            </div>
-          </div>
-
-          {/* <div className="">
+              {/* <div className="">
             <div className="border border-gray-200 rounded-xl  ">
               <div className="flex items-center justify-between p-4 py-5 rounded-t-xl border-b bg-white">
                 <div className=" flex items-center gap-2">
@@ -256,8 +301,10 @@ const AdminDashboard = () => {
               </div>
             </div>
           </div> */}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
