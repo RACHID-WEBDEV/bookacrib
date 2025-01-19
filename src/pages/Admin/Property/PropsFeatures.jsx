@@ -1,12 +1,18 @@
+/* eslint-disable react/prop-types */
 import { Dropdown, DropdownItem } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 import {
   HomeIcon2,
   PropertyIcon,
   MoreInfoIcon,
   CheckSquareIcon,
 } from "../../../assets/SvgIcons";
+import { Link } from "react-router-dom";
 
-const PropsFeatures = () => {
+const PropsFeatures = ({ data }) => {
+  // console.log("data", data);
+  const navigate = useNavigate();
+
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3">
       <div className="relative w-full p-6 pr-10 h-36 rounded-2xl  group bg-gray-100">
@@ -14,16 +20,18 @@ const PropsFeatures = () => {
           <HomeIcon2 className="text-[#373F41]" />
           <div className="space-y-3 ">
             <div className="flex items-center justify-between">
-              <p className="text-2xl font-bold text-gray-800">60</p>
+              <p className="text-2xl font-bold text-gray-800">
+                {data?.restaurant || 0}
+              </p>
             </div>
             <p className="text-gray-500 font-normal text-sm ">
-              Total Apartment
+              Total Restaurant
             </p>
           </div>
         </div>
         <div className="absolute top-14 right-4">
           <Dropdown
-            dismissOnClick={false}
+            dismissOnClick={true}
             inline
             arrowIcon={false}
             placement="bottom"
@@ -36,19 +44,21 @@ const PropsFeatures = () => {
           >
             <DropdownItem>
               <div className="flex items-center w-full gap-4 justify-between ">
-                <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
-                  New Bookings
-                </p>
+                <Link to="/admin/property/create-property">
+                  <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
+                    New Restaurant
+                  </p>
+                </Link>
               </div>
             </DropdownItem>
-            <DropdownItem>
+            {/* <DropdownItem>
               <div className="flex items-center w-full gap-4 justify-between">
                 <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
                   View All
                 </p>
               </div>
-            </DropdownItem>
-            <DropdownItem>
+            </DropdownItem> */}
+            <DropdownItem onClick={() => navigate(0)}>
               <div className="flex items-center w-full gap-4 justify-between">
                 <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
                   Refresh
@@ -64,7 +74,9 @@ const PropsFeatures = () => {
           <PropertyIcon className="text-[#373F41] size-9" />
           <div className="space-y-3 ">
             <div className="flex items-center justify-between">
-              <p className="text-2xl font-bold text-gray-800">0</p>
+              <p className="text-2xl font-bold text-gray-800">
+                {data?.room || 0}
+              </p>
             </div>
             <p className="text-gray-500 font-normal text-sm ">Total Rooms</p>
           </div>
@@ -84,22 +96,24 @@ const PropsFeatures = () => {
           >
             <DropdownItem>
               <div className="flex items-center w-full gap-4 justify-between ">
-                <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
-                  New Bookings
-                </p>
+                <Link to="/admin/property/create-property">
+                  <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
+                    New Rooms
+                  </p>
+                </Link>
               </div>
             </DropdownItem>
-            <DropdownItem>
+            {/* <DropdownItem>
               <div className="flex items-center w-full gap-4 justify-between">
                 <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
                   View All
                 </p>
               </div>
-            </DropdownItem>
-            <DropdownItem>
+            </DropdownItem> */}
+            <DropdownItem onClick={() => navigate(0)}>
               <div className="flex items-center w-full gap-4 justify-between">
                 <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
-                  Refresh
+                  Reload
                 </p>
               </div>
             </DropdownItem>
@@ -112,7 +126,9 @@ const PropsFeatures = () => {
           <CheckSquareIcon className="text-[#373F41]" />
           <div className="space-y-3 ">
             <div className="flex items-center justify-between">
-              <p className="text-2xl font-bold text-gray-800">60</p>
+              <p className="text-2xl font-bold text-gray-800">
+                {data?.apartment || data?.Apartment || 0}
+              </p>
             </div>
             <p className="text-gray-500 font-normal text-sm ">
               Total Apartment
@@ -134,19 +150,21 @@ const PropsFeatures = () => {
           >
             <DropdownItem>
               <div className="flex items-center w-full gap-4 justify-between ">
-                <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
-                  New Bookings
-                </p>
+                <Link to="/admin/property/create-property">
+                  <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
+                    New Apartment
+                  </p>
+                </Link>
               </div>
             </DropdownItem>
-            <DropdownItem>
+            {/* <DropdownItem>
               <div className="flex items-center w-full gap-4 justify-between">
                 <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
                   View All
                 </p>
               </div>
-            </DropdownItem>
-            <DropdownItem>
+            </DropdownItem> */}
+            <DropdownItem onClick={() => navigate(0)}>
               <div className="flex items-center w-full gap-4 justify-between">
                 <p className="!text-sm !text-gray-600 font-normal whitespace-nowrap">
                   Refresh
