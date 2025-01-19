@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 
@@ -186,7 +187,7 @@ const RoomTypes = () => {
         </div>
         <div className="p-3 border border-gray-300 rounded-md mt-2">
           <div className=" flex items-center justify-between gap-4 flex-wrap ">
-            <div className=" lg:w-[65%]">
+            <div className=" lg:w-full">
               <form className="">
                 <label
                   htmlFor="default-search"
@@ -226,7 +227,7 @@ const RoomTypes = () => {
                 </div>
               </form>
             </div>
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
               <div className=" hidden lg:flex">
                 <Button
                   onClick={() => setOpenRoleModal(true)}
@@ -245,7 +246,7 @@ const RoomTypes = () => {
                   Add
                 </Button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -369,7 +370,7 @@ const RoomTypes = () => {
                           >
                             <EyeIconBold />
                           </div>
-                          <div
+                          {/* <div
                             className="cursor-pointer "
                             onClick={() => fetchSingleRole(item?.uuid)}
                           >
@@ -380,7 +381,7 @@ const RoomTypes = () => {
                             onClick={() => deleteFeatureData(item?.uuid)}
                           >
                             <DeleteIcon className="text-red-600 w-6 h-6" />
-                          </div>
+                          </div> */}
                         </div>
                       </td>
                     </tr>
