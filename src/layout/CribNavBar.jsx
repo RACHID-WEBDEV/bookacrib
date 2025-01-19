@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
-import UserMenu from "./UserMenu";
 // import UserAvatar from "src/assets/images/Avatar.png";
 import { NotificationIcon, EMailIcon } from "src/assets/SvgIcons";
 import MobileSidebar from "./MobileSidebar";
@@ -13,8 +12,9 @@ import { Button } from "../components/forms/Button";
 import { Link, useNavigate } from "react-router-dom";
 import Modal from "../components/Modal/Modal";
 import { BuildingIcon } from "../assets/SvgIcons";
+import CribMenu from "./CribMenu";
 
-const NavBar = ({ toggleSideBar, openSideMenu }) => {
+const CribNavBar = ({ toggleSideBar, openSideMenu }) => {
   const [showUserMenu, setShowUserMenu] = React.useState(false);
   const { currentUser } = useSelector((state) => state.auth);
   function toggleUserMenu() {
@@ -184,7 +184,7 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
             </button>
           </div>
 
-          {showUserMenu && <UserMenu setShowUserMenu={setShowUserMenu} />}
+          {showUserMenu && <CribMenu setShowUserMenu={setShowUserMenu} />}
         </div>
       </div>
       {show && (
@@ -235,4 +235,4 @@ const NavBar = ({ toggleSideBar, openSideMenu }) => {
   );
 };
 
-export default NavBar;
+export default CribNavBar;
