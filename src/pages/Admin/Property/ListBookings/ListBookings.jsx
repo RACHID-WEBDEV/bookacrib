@@ -28,7 +28,10 @@ import { formatNumber } from "../../../../lib/constants";
 // import Notification from "../../../../components/shared/notification/Notification";
 import toast from "react-hot-toast";
 import { patchData } from "../../../../utils/api";
-import { fetchListBookings } from "../../../../Redux/listBookings/listBookingsThunk";
+import {
+  fetchListBooking,
+  fetchListBookings,
+} from "../../../../Redux/listBookings/listBookingsThunk";
 
 const ListBookings = () => {
   const dispatch = useDispatch();
@@ -37,12 +40,12 @@ const ListBookings = () => {
   const { listbookings, listbooking, loading, error } = useSelector(
     (state) => state.listbooking
   );
-  //   const fetchFeatureHandler = (url) => {
+  //   const fetchListBookingHandler = (url) => {
   //     dispatch(fetchFeatures(url));
   //   };
 
   //   useEffect(() => {
-  //     fetchFeatureHandler(
+  //     fetchListBookingHandler(
   //       "bookacrib-api-routes/v1/properties/list-my-bookings?limit=15&with[]=property&with[]=user?limit=10"
   //     );
   //     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,7 +53,7 @@ const ListBookings = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchFeatureHandler = (url, search) => {
+  const fetchListBookingHandler = (url, search) => {
     let fetchUrl = url;
     if (search) {
       fetchUrl += `?q=${search}`;
@@ -58,7 +61,7 @@ const ListBookings = () => {
   };
 
   useEffect(() => {
-    fetchFeatureHandler(
+    fetchListBookingHandler(
       "bookacrib-api-routes/v1/properties/list-my-bookings?limit=15&with[]=property&with[]=user"
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,7 +70,7 @@ const ListBookings = () => {
   useEffect(() => {
     const fetchSearchUsers = async () => {
       if (searchQuery.length >= 2) {
-        fetchFeatureHandler(
+        fetchListBookingHandler(
           "bookacrib-api-routes/v1/properties/list-my-bookings?limit=15&with[]=property&with[]=user",
           searchQuery
         );
@@ -79,7 +82,7 @@ const ListBookings = () => {
 
   const handlePaginate = (url) => {
     if (url) {
-      fetchFeatureHandler(url);
+      fetchListBookingHandler(url);
     }
   };
   // console.log("roles", roles);
@@ -89,17 +92,17 @@ const ListBookings = () => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   const fetchSingleRole = (cat_id) => {
-    dispatch(fetchFeature(cat_id));
+    dispatch(fetchListBooking(cat_id));
     setEditSupportModal(true);
   };
 
   const fetchViewRole = (cat_id) => {
-    dispatch(fetchFeature(cat_id));
+    dispatch(fetchListBooking(cat_id));
     setViewSupportModal(true);
   };
 
   const deleteFeatureData = (cat_id) => {
-    dispatch(fetchFeature(cat_id));
+    dispatch(fetchListBooking(cat_id));
     setShowDeletePopup(true);
   };
 
@@ -159,7 +162,7 @@ const ListBookings = () => {
           toast.success(response?.message);
           // console.log("category status:", response);
           dispatch(
-            fetchFeatureHandler(
+            fetchListBookingHandler(
               "bookacrib-api-routes/v1/properties/list-my-bookings?limit=15&with[]=property&with[]=user"
             )
           );
@@ -232,7 +235,7 @@ const ListBookings = () => {
                     <div
                       onClick={() => {
                         setSearchQuery("");
-                        fetchFeatureHandler(
+                        fetchListBookingHandler(
                           "bookacrib-api-routes/v1/properties/list-my-bookings?limit=15&with[]=property&with[]=user"
                         );
                       }}
@@ -305,13 +308,13 @@ const ListBookings = () => {
                         {/* <img src={AssignEmpty} alt="" /> */}
 
                         <p className="text-2xl font-medium font-gray-600">
-                          No Feature Found
+                          No Booking Found
                         </p>
                         <Button
                           className="w-48 justify-center"
                           onClick={() => {
                             setSearchQuery("");
-                            fetchFeatureHandler(
+                            fetchListBookingHandler(
                               "bookacrib-api-routes/v1/properties/list-my-bookings?limit=15&with[]=property&with[]=user"
                             );
                           }}
@@ -398,18 +401,18 @@ const ListBookings = () => {
                           >
                             <EyeIconBold />
                           </div>
-                          <div
+                          {/* <div
                             className="cursor-pointer "
                             onClick={() => fetchSingleRole(item?.uuid)}
                           >
                             <EditIcon />
-                          </div>
-                          <div
+                          </div> */}
+                          {/* <div
                             className="cursor-pointer "
                             onClick={() => deleteFeatureData(item?.uuid)}
                           >
                             <DeleteIcon className="text-red-600 w-6 h-6" />
-                          </div>
+                          </div> */}
                         </div>
                       </td>
                     </tr>

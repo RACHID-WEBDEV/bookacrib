@@ -23,7 +23,8 @@ import { formatDateOnly, formatTimeOnly } from "../../../lib/constants";
 // import PropertyApproval from "./PropertyApproval";
 import { patchData } from "../../../utils/api";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UserPropsFeatures from "./UserPropsFeatures";
 // import TestImageApp from "./TestImages";
 
 const Property = () => {
@@ -34,6 +35,7 @@ const Property = () => {
   const { propertys, property, loading, error } = useSelector(
     (state) => state.properties
   );
+
   //   const fetchFeatureHandler = (url) => {
   //     dispatch(fetchFeatures(url));
   //   };
@@ -91,6 +93,12 @@ const Property = () => {
   );
   console.log("propertys IN:", IN_APP_PROPERTY);
 
+  const categoryCounts = IN_APP_PROPERTY?.reduce((acc, property) => {
+    const categoryName = property.category.name;
+    acc[categoryName] = (acc[categoryName] || 0) + 1;
+    return acc;
+  }, {});
+
   const handlePropertyStatus = async (property_id) => {
     try {
       // console.log("property_id clicked ", property_id);
@@ -143,7 +151,7 @@ const Property = () => {
 
   const navigatePropertyDetail = async (record) => {
     try {
-      navigate(`/admin/property/property-detail/${record.uuid}`);
+      navigate(`/user/property/property-detail/${record.uuid}`);
     } catch (error) {
       console.error("Error navigating:", error);
     }
@@ -176,7 +184,7 @@ const Property = () => {
         description=" Overview of the properties bookings etc"
       />
       <div className=" space-y-6">
-        <PropsFeatures />
+        <UserPropsFeatures data={categoryCounts} />
 
         <div className="p-3 border border-gray-300 rounded-md">
           <div className=" flex items-center justify-between gap-4 flex-wrap ">
@@ -228,12 +236,14 @@ const Property = () => {
               </form>
             </div>
             <div className="flex items-center gap-4">
-              <Button>Add Property</Button>
+              <Link to="/crib-owner/property/create-property">
+                <Button>Add Property</Button>
+              </Link>
               <Button
                 color="primaryAlt"
                 rightIcon={
                   <span className="inline-flex items-center justify-center h-6 px-1.5 text-xs font-semibold text-gray-50 bg-dark-100 rounded-md">
-                    12
+                    0
                   </span>
                 }
               >
@@ -243,7 +253,7 @@ const Property = () => {
                 color="primaryAlt"
                 rightIcon={
                   <span className="inline-flex items-center justify-center h-6 px-1.5 text-xs font-semibold text-gray-50 bg-dark-100 rounded-md">
-                    10
+                    {IN_APP_PROPERTY?.length}
                   </span>
                 }
               >
@@ -263,8 +273,8 @@ const Property = () => {
             </div>
           ) : error ? (
             <ErrorStatus
-              message={JSON.stringify(error?.message)}
-              statusCode={error?.status_code || error?.status}
+              message={JSON.stringify(error)}
+              statusCode={error?.status_code || error?.status || "404"}
               link="/dashboard"
               reload
             />
@@ -460,17 +470,6 @@ const Property = () => {
               />
             )}
           </div>
-        </div>
-        <div className=" flex flex-col items-center justify-center gap-24 pt-6 pb-20">
-          <div className=" text-center">
-            <p className="text-xl font-semibold text-dark-100">
-              No Room Added yet
-            </p>
-            <p className="text- font-normal text-gray-500">
-              Any property added would be saved here automatically{" "}
-            </p>
-          </div>
-          <EmptyImage />
         </div>
       </div>
     </div>
