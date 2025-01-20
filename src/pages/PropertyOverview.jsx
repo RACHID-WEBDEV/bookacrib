@@ -18,7 +18,7 @@ import Cookies from "js-cookie";
 import CustomCheckboxGroup from "../components/forms/Checkbox/CustomCheckboxGroup";
 import toast from "react-hot-toast";
 import SmallSpinner from "../components/Loading/SmallSpinner";
-import { formateCheckDate } from "../utils/constant";
+import { capitalizeFirstLetter, formateCheckDate } from "../utils/constant";
 import { ThumbsCarousel } from "../components/ui/thumb-carousel";
 import { MobileThumbsCarousel } from "../components/ui/thumb-carousel-mobile";
 
@@ -37,7 +37,7 @@ const PropertyOverview = () => {
 
   // const [selectedOriginCountry, setSelectedOriginCountry] = useState(null);
 
-  // console.log("viewPropery:", viewPropery);
+  console.log("viewPropery:", viewPropery);
 
   const handleViewPropery = async () => {
     setLoadingProperty(true);
@@ -109,9 +109,9 @@ const PropertyOverview = () => {
 
   const [selectedItems, setSelectedItems] = useState([]);
 
-  function capitalizeFirstLetter(str) {
-    return str.replace(/^./, (match) => match.toUpperCase());
-  }
+  // function capitalizeFirstLetter(str) {
+  //   return str.replace(/^./, (match) => match.toUpperCase());
+  // }
 
   const featureFilter = viewPropery?.data?.features?.map(
     (feature, featureIndex) => ({
