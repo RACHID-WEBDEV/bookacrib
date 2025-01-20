@@ -1,24 +1,219 @@
+/* eslint-disable no-unused-vars */
 // import { Link } from "react-router-dom";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "src/components/forms/Checkbox/Checkbox.jsx";
-import { ArrowDownIcon, SearchIcon, FilterIcon } from "../../assets/SvgIcons";
+import {
+  ArrowDownIcon,
+  SearchIcon,
+  FilterIcon,
+  XIconSmall,
+} from "../../assets/SvgIcons";
 import { Dropdown, DropdownItem } from "flowbite-react";
 import { Button } from "../forms/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategoriess } from "../../Redux/categories/categoriesThunk";
+import { fetchRoomTypes } from "../../Redux/roomtypes/roomtypesThunk";
+import { capitalizeFirstLetter } from "../../utils/constant";
+import SingleCustomCheckboxGroup from "../forms/Checkbox/SingleCustomCheckboxGroup";
+import SelectCustomCheckboxGroup from "../forms/Checkbox/SelectCustomCheckboxGroup";
+import { getData } from "../../utils/api";
 
 const Hero = () => {
-  const [checked, setChecked] = useState(false);
-  const [checkedResturant, setCheckedResturant] = useState(false);
-  const [checkedCar, setCheckedCar] = useState(false);
-  const [checkedTaxi, setCheckedTaxi] = useState(false);
-  const [checkedWifi, setCheckedWifi] = useState(false);
-  const [checkedAirCondition, setCheckedAirCondition] = useState(false);
-  const [checkedMealPlus, setCheckedMealPlus] = useState(false);
-  const [checkedRoomServices, setCheckedRoomServices] = useState(false);
-  const [checkedParking, setCheckedParking] = useState(false);
-  const [checkedFreeCancellation, setCheckedFreeCancellation] = useState(false);
+  // const [checked, setChecked] = useState(false);
+  // const [checkedResturant, setCheckedResturant] = useState(false);
+  // const [checkedCar, setCheckedCar] = useState(false);
+  // const [checkedTaxi, setCheckedTaxi] = useState(false);
+  // const [checkedWifi, setCheckedWifi] = useState(false);
+  // const [checkedAirCondition, setCheckedAirCondition] = useState(false);
+  // const [checkedMealPlus, setCheckedMealPlus] = useState(false);
+  // const [checkedRoomServices, setCheckedRoomServices] = useState(false);
+  // const [checkedParking, setCheckedParking] = useState(false);
+  // const [checkedFreeCancellation, setCheckedFreeCancellation] = useState(false);
 
-  console.log("first check:", checked);
+  const dispatch = useDispatch();
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [selectedRoomType, setSelectedRoomType] = useState([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState([]);
+  console.log("price", selectedPriceRange);
+  const { categories } = useSelector((state) => state.category);
+  const fetchCategoryHandler = (url) => {
+    dispatch(fetchCategoriess(url));
+  };
+
+  const categoryFilter = categories?.data?.map((category) => ({
+    id: `${category?.uuid}`,
+    name: category.name,
+    label: `${capitalizeFirstLetter(category.name)}`,
+  }));
+
+  // console.log("categories", selectedCategory);
+  const { roomtypes } = useSelector((state) => state.roomtype);
+
+  console.log(roomtypes);
+  const fetchRoomTypeHandler = (url) => {
+    dispatch(fetchRoomTypes(url));
+  };
+
+  const roomTypeFilter = roomtypes?.data?.map((roomType) => ({
+    id: `${roomType?.uuid}`,
+    name: roomType.name,
+    label: `${capitalizeFirstLetter(roomType.name)}`,
+  }));
+  console.log("roomType", selectedRoomType);
+
+  useEffect(() => {
+    fetchRoomTypeHandler(
+      "bookacrib-api-routes/v1/room-types/list-room-types?status=yes&limit=50"
+    );
+
+    fetchCategoryHandler(
+      "v1/public/categories/list-all-categories?status=yes&limit=50"
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  const priceRangeData = [
+    {
+      id: 100020000,
+      name: "Less than - 20k",
+      label: "Less than - 20k",
+      min_price: 1000,
+      max_price: 20000,
+    },
+    {
+      id: 2100050000,
+      name: "21k - 50k",
+      label: "21k - 50k",
+      min_price: 21000,
+      max_price: 50000,
+    },
+    {
+      id: 51000100000,
+      name: "51k - 100k",
+      label: "51k - 100k",
+      min_price: 51000,
+      max_price: 100000,
+    },
+    {
+      id: 101000200000,
+      name: "101k - 200k",
+      label: "101k - 200k",
+      min_price: 101000,
+      max_price: 200000,
+    },
+    {
+      id: 201000300000,
+      name: "201k - 300k",
+      label: "201k - 300k",
+      min_price: 201000,
+      max_price: 300000,
+    },
+    {
+      id: 301000400000,
+      name: "301k - 400k",
+      label: "301k - 400k",
+      min_price: 301000,
+      max_price: 400000,
+    },
+    {
+      id: 401000500000,
+      name: "401k - 499k",
+      label: "401k - 499k",
+      min_price: 401000,
+      max_price: 499000,
+    },
+    {
+      id: 5000001000000,
+      name: "500k Above - 1 Million",
+      label: "500k Above - 1 Million",
+      min_price: 500000,
+      max_price: 1000000,
+    },
+    {
+      id: 10000002000000,
+      name: "1 Million - 2 Million",
+      label: "1 Million - 2 Million",
+      min_price: 1000000,
+      max_price: 2000000,
+    },
+    {
+      id: 20000005000000,
+      name: "2 Million - 5 Million",
+      label: "2 Million - 5 Million",
+      min_price: 2000000,
+      max_price: 5000000,
+    },
+    {
+      id: 500000010000000,
+      name: "5 Million - 10 Million",
+      label: "5 Million - 10 Million",
+      min_price: 5000000,
+      max_price: 10000000,
+    },
+
+    {
+      id: 1000000020000000,
+      name: "10 Million and Above",
+      label: "10 Million and Above",
+      min_price: 10000000,
+      max_price: 1000000000,
+    },
+  ];
+
+  const [loadingInvoice, setLoadingInvoice] = useState(false);
+  const [invoicesData, setInvoicesData] = useState([]);
+  const [errorInvoice, setErrorInvoice] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // console.log("search query: ", searchQuery);
+
+  console.log("error query Invoice: ", errorInvoice);
+  // console.log("invoices tracking:", invoicesData);
+
+  console.log(
+    "first invoice: ",
+    invoicesData?.length
+    // "data:",
+    // Array.isArray(invoicesData?.data),
+    // "first invoice: ",
+    // Array.isArray(invoicesData)
+  );
+
+  const fetchPropertySearchHandler = async (
+    url,
+    search,
+    room_type,
+    category_id,
+    min_price,
+    max_price,
+    state_id
+  ) => {
+    let fetchUrl = url;
+    if (search) {
+      fetchUrl += `&q=${search}`;
+    } else if (room_type) {
+      fetchUrl += `&room_type_id=${room_type}`;
+    } else if (category_id) {
+      fetchUrl += `&category_id=${category_id}`;
+    } else if (min_price) {
+      fetchUrl += `&min_price=${min_price}`;
+    } else if (max_price) {
+      fetchUrl += `&max_price=${max_price}`;
+    } else if (state_id) {
+      fetchUrl += `&state_id=${state_id}`;
+    }
+
+    setLoadingInvoice(true);
+    try {
+      const response = await getData(fetchUrl);
+      setInvoicesData(response?.data?.progress);
+    } catch (error) {
+      setErrorInvoice(error.response.data.message);
+    }
+  };
+
+  // console.log("first: ", priceRangeData);
   return (
     <div className=" bg-[#E8EDF6]">
       <div className="relative">
@@ -30,7 +225,7 @@ const Hero = () => {
           <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
         </div> */}
         <div className="relative container m-auto px-0 md:px-12 lg:px-7">
-          <div className="py-40 ml-auto">
+          <div className="pt-40 pb-10 ml-auto">
             <div className="lg:w-2/3 text-center mx-auto px-4 md:px-0">
               <h1 className="text-stone-800 dark:text-white font-bold text-4xl md:text-6xl xl:text-7xl">
                 Get a Cheap place to relax with
@@ -47,8 +242,16 @@ const Hero = () => {
                     Search and Filter
                   </p>
                 </div>
+
                 <div className=" flex flex-wrap justify-start rounded-lg gap-y-4 gap-x-2 lg:gap-x-6 lg:p-4 bg-white">
-                  <div className="border border-gray-400 rounded-md px-4 py-2.5 lg:min-w-36">
+                  <SingleCustomCheckboxGroup
+                    items={categoryFilter}
+                    selectedItems={selectedCategory}
+                    setSelectedItems={setSelectedCategory}
+                    containerClassName="gap-x-4 flex-wrap"
+                  />
+
+                  {/* <div className="border border-gray-400 rounded-md px-4 py-2.5 lg:min-w-36">
                     <Checkbox
                       id="room"
                       name="room"
@@ -85,30 +288,31 @@ const Hero = () => {
                       setChecked={setCheckedTaxi}
                       label="Airport Taxi"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <h2 className="text-sm mt-6 text-gray-500 font-medium lg:hidden ">
                 Sort:
               </h2>
-              <div className="pt-2 lg:pt-8 flex items-center gap-2.5 flex-wrap ">
-                <div className="">
-                  <form className="max-w-[580px]">
+              <div className="pt-2 lg:pt-8 flex items-center w-full gap-2.5 flex-wrap ">
+                <div className=" flex-1 min-w-[300px]">
+                  <form className="lllmax-w-[580px]">
                     <label
                       htmlFor="default-search"
                       className="mb-2 text-sm font-medium text-gray-900 sr-only "
                     >
                       Search
                     </label>
-                    {/* <div className="relative">
+                    <div className="relative">
                       <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <SearchIcon />
+                        <SearchIcon className="text-slate-500" />
                       </div>
 
                       <input
                         type="text"
                         id="default-search"
-                        className="block w-[280px] px-4 py-2 ps-10 text-sm text-gray-900 font-Inter border border-gray-300 rounded-md bg-white outline-none"
+                        // className="block w-full px-4 py-2 ps-10 text-sm text-gray-900 font-Inter border border-gray-300 rounded-md bg-white outline-none"
+                        className="block w-full px-4 py-3 ps-10 text-sm text-gray-900 border font-Inter border-gray-300 rounded-md bg-white outline-none"
                         placeholder="Search"
                         required
                         value={searchQuery}
@@ -121,40 +325,37 @@ const Hero = () => {
                         <div
                           onClick={() => {
                             setSearchQuery("");
-                            fetchTransactionsHandler(
-                              "/admin/transactions",
-                              "",
-                              "",
-                              "",
+                            fetchPropertySearchHandler(
+                              "/bookacrib-api-routes/v1/properties/list-properties-public?is_active=yes&status=approved&limit=100&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category&country_id=b36557cb-a672-4422-8d92-3b0fcbaa8143",
                               "",
                               ""
                             );
                           }}
                           className="absolute inset-y-0 end-2 flex items-center ps-3 cursor-pointer"
                         >
-                          <XIconSmal />
+                          <XIconSmall />
                         </div>
                       )}
-                    </div>  */}
-                    <div className="relative">
+                    </div>
+                    {/* <div className="relative">
                       <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none text-gray-500">
                         <SearchIcon />
                       </div>
                       <input
                         type="search"
-                        className="block w-[320px] px-4 py-3 ps-10 text-sm text-gray-900 border font-Inter border-gray-300 rounded-md bg-white outline-none  "
+                        className="block w-full px-4 py-3 ps-10 text-sm text-gray-900 border font-Inter border-gray-300 rounded-md bg-white outline-none  "
                         placeholder="Enter location or Search"
                         required
                       />
-                    </div>
+                    </div> */}
                   </form>
                 </div>
-
+                <br className="lg:hidden" />
                 <h2 className="text-sm text-gray-500 font-medium hidden lg:flex">
                   Sort:
                 </h2>
 
-                <Dropdown
+                {/* <Dropdown
                   dismissOnClick={false}
                   inline
                   arrowIcon={false}
@@ -252,7 +453,7 @@ const Hero = () => {
                       />
                     </div>
                   </DropdownItem>
-                </Dropdown>
+                </Dropdown> */}
 
                 <Dropdown
                   dismissOnClick={false}
@@ -260,7 +461,7 @@ const Hero = () => {
                   arrowIcon={false}
                   placement="bottom"
                   label={
-                    <div className="flex items-center gap-10 lg:gap-20 bg-white border border-gray-300 text-gray-700 font-medium font-Inter text-sm rounded-md py-3 px-2.5 pr-3">
+                    <div className="flex items-center gap-x-4 lg:gap-x-8 bg-white border border-gray-300 text-gray-700 font-medium font-Inter text-sm rounded-md py-3 px-2.5 pr-3">
                       <span>Room Type</span>
                       <span>
                         <FilterIcon className="text-gray-800" />
@@ -268,90 +469,12 @@ const Hero = () => {
                     </div>
                   }
                 >
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        Guest Room
-                      </p>
-                      <Checkbox
-                        id="free-wifi"
-                        name="free-wifi"
-                        checked={checkedWifi}
-                        setChecked={setCheckedWifi}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        Two Bedroom
-                      </p>
-                      <Checkbox
-                        id="air-condition"
-                        name="air-condition"
-                        checked={checkedAirCondition}
-                        setChecked={setCheckedAirCondition}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        Apartments
-                      </p>
-                      <Checkbox
-                        id="mealPlus"
-                        name="mealPlus"
-                        checked={checkedMealPlus}
-                        setChecked={setCheckedMealPlus}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        Hotel
-                      </p>
-                      <Checkbox
-                        id="room-service"
-                        name="room-service"
-                        checked={checkedRoomServices}
-                        setChecked={setCheckedRoomServices}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        Excutives
-                      </p>
-                      <Checkbox
-                        id="parking"
-                        name="parking"
-                        checked={checkedParking}
-                        setChecked={setCheckedParking}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        Family Room
-                      </p>
-                      <Checkbox
-                        id="free-cancellation"
-                        name="free-cancellation"
-                        checked={checkedFreeCancellation}
-                        setChecked={setCheckedFreeCancellation}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
+                  <SelectCustomCheckboxGroup
+                    items={roomTypeFilter}
+                    selectedItems={selectedRoomType}
+                    setSelectedItems={setSelectedRoomType}
+                    containerClassName=" flex-col"
+                  />
                 </Dropdown>
 
                 <Dropdown
@@ -360,7 +483,7 @@ const Hero = () => {
                   arrowIcon={false}
                   placement="bottom"
                   label={
-                    <div className="flex items-center gap-8 bg-white border border-gray-300 text-gray-700 font-medium font-Inter text-sm rounded-md py-3 px-3">
+                    <div className="flex items-center gap-x-4 lg:gap-x-8 bg-white border border-gray-300 text-gray-700 font-medium font-Inter text-sm rounded-md py-3 px-3">
                       <span>Price range (NGN)</span>
                       <span>
                         <ArrowDownIcon className="text-gray-800" />
@@ -368,77 +491,14 @@ const Hero = () => {
                     </div>
                   }
                 >
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        Less than - 20k
-                      </p>
-                      <Checkbox
-                        id="free-wifi"
-                        name="free-wifi"
-                        checked={checkedWifi}
-                        setChecked={setCheckedWifi}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        21k - 50k
-                      </p>
-                      <Checkbox
-                        id="air-condition"
-                        name="air-condition"
-                        checked={checkedAirCondition}
-                        setChecked={setCheckedAirCondition}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        51k - 100k
-                      </p>
-                      <Checkbox
-                        id="mealPlus"
-                        name="mealPlus"
-                        checked={checkedMealPlus}
-                        setChecked={setCheckedMealPlus}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        101k - 200k
-                      </p>
-                      <Checkbox
-                        id="room-service"
-                        name="room-service"
-                        checked={checkedRoomServices}
-                        setChecked={setCheckedRoomServices}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <div className="flex items-center w-full gap-4 justify-between">
-                      <p className="!text-sm !text-gray-600 font-normal">
-                        201k - 300k
-                      </p>
-                      <Checkbox
-                        id="parking"
-                        name="parking"
-                        checked={checkedParking}
-                        setChecked={setCheckedParking}
-                        // label="Resturant"
-                      />
-                    </div>
-                  </DropdownItem>
-                  <DropdownItem>
+                  <SelectCustomCheckboxGroup
+                    items={priceRangeData}
+                    selectedItems={selectedPriceRange}
+                    setSelectedItems={setSelectedPriceRange}
+                    containerClassName=" flex-col"
+                  />
+
+                  {/* <DropdownItem>
                     <div className="flex items-center w-full gap-4 justify-between">
                       <p className="!text-sm !text-gray-600 font-normal">
                         300k and Above
@@ -451,10 +511,10 @@ const Hero = () => {
                         // label="Resturant"
                       />
                     </div>
-                  </DropdownItem>
+                  </DropdownItem> */}
                 </Dropdown>
 
-                <Dropdown
+                {/* <Dropdown
                   dismissOnClick={false}
                   inline
                   arrowIcon={false}
@@ -550,10 +610,20 @@ const Hero = () => {
                       />
                     </div>
                   </DropdownItem>
-                </Dropdown>
+                </Dropdown> */}
               </div>
               <div className="flex items-center justify-center gap-2 pt-6">
-                <Button>Search Rooms</Button>
+                <Button
+                  onClick={() =>
+                    fetchPropertySearchHandler(
+                      "/bookacrib-api-routes/v1/properties/list-properties-public?is_active=yes&status=approved&limit=100&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category&country_id=b36557cb-a672-4422-8d92-3b0fcbaa8143",
+                      "",
+                      ""
+                    )
+                  }
+                >
+                  Search Rooms
+                </Button>
                 <Button outline>Explore</Button>
               </div>
             </div>
