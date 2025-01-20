@@ -18,6 +18,7 @@ const Hero = () => {
   const [checkedParking, setCheckedParking] = useState(false);
   const [checkedFreeCancellation, setCheckedFreeCancellation] = useState(false);
 
+  console.log("first check:", checked);
   return (
     <div className=" bg-[#E8EDF6]">
       <div className="relative">
