@@ -186,3 +186,7 @@ export const getErrormessage = (errorMsg) => {
     //  toast.error(error?.response?.data?.message, { duration: 6000 });
   }
 };
+
+export function capitalizeFirstLetter(str) {
+  return str.replace(/^./, (match) => match.toUpperCase());
+}
