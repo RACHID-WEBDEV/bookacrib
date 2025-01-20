@@ -6,8 +6,8 @@ const Cta = () => {
     <div className="pt-20 max-w-6xl mx-auto">
       <div className="bg-blue-50 dark:bg-green-900/10 py-16">
         <div className="container m-auto space-y-8 px-6 md:px-12 lg:px-20">
-          <div className="items-center justify-center gap-6 lg:gap-16 text-center flex flex-col lg:flex-row md:text-left">
-            <div className=" mb-6 space-y-6 md:mb-0 md:w-7/12 lg:w-6/12">
+          <div className="items-center justify-center gap-6 lg:gap-16 text-center flex flex-col md:flex-row md:text-left">
+            <div className=" mb-6 space-y-6 md:mb-0 w-full md:w-7/12 lg:w-6/12">
               <h1 className="text-3xl font-bold text-gray-900 md:text-4xl dark:text-white">
                 Time Square Mall
               </h1>
@@ -21,12 +21,12 @@ const Cta = () => {
                 </Button>
               </div>
             </div>
-            <div className="order-first lg:order-last">
+            <div className="order-first md:order-last w-full md:w-5/12">
               <img
                 src={BusinessAds}
-                width={832}
-                height={608}
-                className="m-auto md:w-5/12 "
+                // width={832}
+                // height={608}
+                className=" min-w-[200px] "
                 loading="lazy"
                 alt="mobility_illustration"
               />
