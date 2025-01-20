@@ -162,12 +162,12 @@ const ProductCard = ({
           </button>
         </div>
       </div>
-      <div className="w-[65%] lg:w-full space-y-7 lg:space-y-4 px-2.5 py-2.5 lg:pt-5 lg:pb-6">
+      <div className="w-[65%] lg:w-full space-y-4 lg:space-y-4 px-2.5 py-2.5 lg:pt-5 lg:pb-6">
         <div>
           <div className=" flex items-center w-full justify-between gap-2">
             <div>
               <Link to={`/view-property/details/${property_id?.uuid}`}>
-                <h2 className="text-base font-semibold transition-colors w-full">
+                <h2 className="text-base font-semibold transition-colors w-full max-w-[156px] truncate">
                   {title}
                 </h2>
               </Link>
@@ -206,14 +206,14 @@ const ProductCard = ({
             {category}
           </p>
         </div>
-        <div className="flex justify-between items-end ">
+        <div className="flex justify-between items-center lg:items-end ">
           <div className="">
             <div className="flex flex-col lg:flex-row lg:items-center gap-1.5 text-sm text-gray-500 ">
               <span className="text-gray-800 font-semibold text-base !leading-none">
                 NGN{formatNumber(price)}
               </span>
-              <span className="">|</span>
-              <span className=" capitalize">{cate} </span>
+              <span className=" hidden lg:flex">|</span>
+              <span className=" hidden lg:flex capitalize">{cate} </span>
             </div>
           </div>
           <div className="flex items-center">
@@ -227,6 +227,9 @@ const ProductCard = ({
             {/* </Link> */}
           </div>
         </div>
+        <span className=" text-xs text-gray-500 capitalize lg:hidden">
+          {cate}{" "}
+        </span>
       </div>
     </div>
   );
