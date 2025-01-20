@@ -66,7 +66,7 @@ import UserNotications from "./pages/User/UserNotifications";
 import AccountDeactivation from "./pages/User/AccountDeactivation";
 import UserUpdatePassword from "./pages/User/UserUpdatePassword";
 import UserUpdateProfile from "./pages/User/UserUpdateProfile";
-import CribPrivate from "./Routes/cribPrivate";
+import CribPrivate from "./Routes/CribPrivate";
 import CribDashboardLayout from "./layout/CribDashboardLayout";
 import CribDashboard from "./pages/Company/CribDashboard";
 import CribTransactionLayout from "./pages/Company/CribListBookings/CribTransactionLayout";
