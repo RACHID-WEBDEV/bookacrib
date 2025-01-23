@@ -45,7 +45,7 @@ const Home = () => {
     <>
       <Hero />
 
-      <div>
+      {/* <div>
         {loadingProperty ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 max-w-7xl mx-auto pt-6">
             {[...Array(6)].map((_, index) => (
@@ -55,7 +55,6 @@ const Home = () => {
                 className="max-w-sm p-4 border border-gray-200 rounded shadow  md:p-6 dark:border-gray-700"
               >
                 <div className="">
-                  {/* <div className="fadeloader"></div> */}
                   <div className="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700">
                     <svg
                       className="w-10 h-10 text-gray-200 dark:text-gray-600"
@@ -69,7 +68,7 @@ const Home = () => {
                     </svg>
                   </div>
                 </div>
-                {/* <div className="fadeloader h-2.5"></div> */}
+
                 <div className="h-2.5 fadeloader bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4" />
                 <div className="h-2 fadeloader2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
                 <div className="h-2  bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
@@ -96,7 +95,7 @@ const Home = () => {
         ) : (
           <TopSelling data={IN_APP_PROPERTY} />
         )}
-      </div>
+      </div> */}
       <CitiesFeatures />
       <Features />
       <Cta />
