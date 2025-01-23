@@ -29,3 +29,81 @@ const adultData =[]
       alert("Place your phone in landscape mode for the best experience");
     }
   }, [width]);
+
+
+
+
+
+
+NEW SUBMIT CODE
+
+
+  const onSubmit = async (data: any) => {
+  setLoadingSubmit(true);
+
+  const filteredFormData = {
+    pickup_address: pickupLocation,
+    delivery_address: dropOffLocation,
+    receiver_name: data?.receiver_name,
+    receiver_phone: `${newPhone?.countryCode === 234 ? "0" : ""}${
+      newPhone?.nationalNumber
+    }`,
+    vehicle_type_id: activeId?.id,
+    payment_method: activePay,
+  };
+
+  console.log("Filtered Form Data:", filteredFormData);
+
+  try {
+    const result = await postData(
+      `customer/schedule-pickup/create-local-shipment`,
+      filteredFormData
+    );
+
+    console.log("Local shipment result:", result);
+
+    // Store result in cookies
+    Cookies.set("afroshipper_local_shipment", JSON.stringify(result), {
+      expires: 7,
+      sameSite: "None",
+      secure: true,
+    });
+
+    // Handle success response
+    if (isSuccessfulResponse(result)) {
+      toast.success(result?.message || "Shipment created successfully!");
+      navigate("/user/shipments/local-shipment/summary");
+    }
+  } catch (error) {
+    handleSubmissionError(error);
+  } finally {
+    setLoadingSubmit(false);
+  }
+};
+
+const isSuccessfulResponse = (response: any) => {
+  const status = response?.status || response?.status_code;
+  return status >= 200 && status < 300;
+};
+
+const handleSubmissionError = (error: any) => {
+  console.error("Error while creating shipment:", error);
+
+  const errorData = error?.response?.data;
+  const status = errorData?.status || errorData?.status_code;
+  const message = errorData?.message;
+
+  if (status >= 400 && status < 500) {
+    if (typeof message === "object") {
+      // Extract error messages if `message` is an object
+      const errorMessages = Object.values(message).flat().join(", ");
+      toast.error(errorMessages, { duration: 6000 });
+    } else if (message) {
+      toast.error(message, { duration: 6000 });
+    }
+  } else {
+    toast.error("An unexpected error occurred. Please try again.", {
+      duration: 6000,
+    });
+  }
+};
