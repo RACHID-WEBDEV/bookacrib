@@ -37,11 +37,13 @@ export const FetchLocations = () => {
   }, []);
 
   const fetchStates = async () => {
-    if (!selectedCountry) return;
+    // if (!selectedCountry) return;
+    if (!countries) return;
     setLoading(true);
     try {
       const response = await getData(
-        `/v1/public/countries/view-single-country?id=${selectedCountry.uuid}&with[]=states`
+        // `/v1/public/countries/view-single-country?id=${selectedCountry.uuid}&with[]=states`
+        `/v1/public/countries/view-single-country?id=${countries.uuid}&with[]=states`
       );
       setStates(response);
     } catch (error) {
@@ -54,7 +56,7 @@ export const FetchLocations = () => {
   useEffect(() => {
     fetchStates();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCountry]);
+  }, [countries]);
 
   // const fetchCities = async () => {
   //   if (!selectedState) return;
