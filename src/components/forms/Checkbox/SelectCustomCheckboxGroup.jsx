@@ -39,7 +39,7 @@ const SelectCustomCheckboxGroup = ({
   // };
 
   return (
-    <div className={`flex ${containerClassName}`}>
+    <div className={`flex ${containerClassName} max-h-[400px] overflow-y-auto`}>
       {items?.map((item, itemIndex) => {
         const isChecked = selectedItems?.some(
           (selectedItem) => selectedItem?.id === item?.id
@@ -47,7 +47,7 @@ const SelectCustomCheckboxGroup = ({
 
         return (
           <DropdownItem key={itemIndex}>
-            <div className="flex items-center w-full gap-4 justify-between">
+            <div className="flex items-center w-full gap-10 lg:gap-4 justify-between">
               {item?.label && (
                 <label
                   htmlFor={item?.id}
