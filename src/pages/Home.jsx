@@ -9,6 +9,7 @@ import Features from "../components/Section/Features";
 import Hero from "../components/Section/Hero";
 import TopSelling from "../components/Section/TopSelling";
 import { getData } from "../utils/api";
+import NewHero from "../components/Section/NewHero";
 
 const Home = () => {
   const [loadingProperty, setLoadingProperty] = useState(false);
@@ -43,7 +44,8 @@ const Home = () => {
 
   return (
     <>
-      <Hero />
+      <NewHero />
+      {/* <Hero /> */}
 
       {/* <div>
         {loadingProperty ? (
