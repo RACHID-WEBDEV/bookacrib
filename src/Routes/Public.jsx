@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading/Loading";
 import Footer from "../components/ui/Footer";
 import Header from "../components/ui/Header";
+import HeaderNew from "../components/ui/HeaderNew";
 const Public = () => {
   // const navigate = useNavigate();
   // Explicitly define the type of 'state' using the RootState interface
@@ -54,7 +55,8 @@ const Public = () => {
   // return !isAuthenticated ? <Outlet /> : null;
   return (
     <>
-      <Header />
+      {/* <Header /> */}
+      <HeaderNew />
       <Outlet />
       <Footer />
     </>
