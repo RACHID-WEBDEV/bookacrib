@@ -770,5 +770,105 @@ input:-webkit-autofill:active {
 [id=":r5:"] {
   /* your styles here */
   /* width: 100%; */
-  @apply w-full lg:w-max;
+  @apply w-full lg:w-[32.5%];
 }
+
+/* RC SLIDER CSS */
+
+.custom-slider .rc-slider-track {
+  @apply bg-primary-800;
+  /* background-color: #ff69b4;  */
+}
+
+.custom-slider .rc-slider-handle {
+  border: solid 2px #c61a1a;
+}
+
+/* SLIDER CSS START HERE */
+.swiper-slide-active .tp-slide-item__sub-title,
+.swiper-slide-active .tp-slide-item__title,
+.swiper-slide-active .tp-slide-item__slide-btn,
+.swiper-slide-active .tpslidertwo__sub-title,
+.swiper-slide-active .tpslidertwo__title,
+.swiper-slide-active .tpslidertwo__content p,
+.swiper-slide-active .tpslidertwo__slide-btn {
+  animation-fill-mode: both;
+  animation-name: fadeInUp;
+}
+
+.swiper-slide-active .tpslidertwo__img {
+  animation-fill-mode: both;
+  animation-name: fadeInRight;
+}
+
+.swiper-slide-active .tp-slide-item__sub-title,
+.swiper-slide-active .tpslidertwo__sub-title {
+  animation-delay: 0.6s;
+  animation-duration: 0.8s;
+}
+
+.swiper-slide-active .tp-slide-item__title,
+.swiper-slide-active .tpslidertwo__title {
+  animation-delay: 0.8s;
+  animation-duration: 1s;
+}
+
+.swiper-slide-active .tp-slide-item__slide-btn {
+  animation-delay: 1s;
+  animation-duration: 1.2s;
+}
+
+.swiper-slide-active .tpslidertwo__content p {
+  animation-delay: 1s;
+  animation-duration: 1.2s;
+}
+
+.swiper-slide-active .tpslidertwo__slide-btn {
+  animation-delay: 1.4s;
+  animation-duration: 1.3s;
+}
+
+.swiper-slide-active .tpslidertwo__img {
+  animation-delay: 1s;
+  animation-duration: 1s;
+}
+
+.tp-slider-area .slider-pagination {
+  position: absolute;
+  bottom: 15px;
+  z-index: 9;
+  left: 0;
+  margin: 0 auto;
+  right: 0;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .tp-slider-area .slider-pagination {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 467px) {
+  .tp-slider-area .slider-pagination {
+    margin-bottom: -10px;
+  }
+}
+.tp-slider-area .slider-pagination .swiper-pagination-bullet {
+  width: 25px;
+  height: 5px;
+  display: inline-block;
+  border-radius: 5px;
+  /* background: var(--tp-common-black); */
+  @apply bg-black;
+  margin: 0 5px;
+  opacity: 0.1;
+}
+
+.tp-slider-area .slider-pagination .swiper-pagination-bullet-active {
+  /* background: var(--tp-text-primary); */
+  @apply bg-primary-800;
+  opacity: 1;
+}
+
+/* SLDER CODE END */
