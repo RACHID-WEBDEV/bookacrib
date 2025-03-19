@@ -25,7 +25,7 @@ import TopSelling from "./TopSelling";
 import { Link } from "react-router-dom";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import EmptyImage from "src/assets/images/EmptyRoomImage.svg";
+import EmptyImage from "src/assets/images/EmptyRoom.svg";
 import Slider1 from "src/assets/images/slider-1.png";
 import Slider2 from "src/assets/images/slider-2.png";
 import Slider3 from "src/assets/images/slider-3.png";
