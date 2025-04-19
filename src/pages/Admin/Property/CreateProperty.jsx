@@ -31,17 +31,18 @@ const CreateProperty = () => {
   const {
     countries,
     states,
-    // cities,
+    cities,
     selectedCountry,
     setSelectedCountry,
     selectedState,
     setSelectedState,
-    // selectedCities,
-    // setSelectedCities,
+    selectedCities,
+    setSelectedCities,
     // loading,
     // error,
   } = FetchLocations();
 
+  console.log("selectedState:", selectedState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -163,6 +164,7 @@ const CreateProperty = () => {
       country_id: selectedCountry?.uuid,
       state_id: selectedState?.uuid,
       category_id: selectedCategory?.uuid,
+      city_id: selectedCities?.uuid,
     };
 
     try {
@@ -409,6 +411,16 @@ const CreateProperty = () => {
                                 data={states?.data?.states}
                                 withImage={false}
                                 placeholder="Select your state"
+                              />
+                            </div>
+                            <div className="pb-4">
+                              <CustomSelect
+                                label="City"
+                                selected={selectedCities}
+                                setSelected={setSelectedCities}
+                                data={cities?.data?.cities}
+                                withImage={false}
+                                placeholder="Select your city.."
                               />
                             </div>
                           </div>
