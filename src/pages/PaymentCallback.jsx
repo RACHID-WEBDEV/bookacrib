@@ -60,9 +60,7 @@ const PaymentCallBack = () => {
           <div className="line line1"></div>
           <div className="line line2"></div>
         </div>
-        <div className="loader-text">
-          Please wait while payment verification is loading
-        </div>
+        <div className="loader-text">Verifying payment, please wait...</div>
       </div>
 
       {showModalSuccess && (
