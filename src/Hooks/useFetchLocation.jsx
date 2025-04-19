@@ -4,11 +4,11 @@ import { getData } from "../utils/api";
 export const FetchLocations = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
-  // const [cities, setCities] = useState([]);
+  const [cities, setCities] = useState([]);
 
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
-  // const [selectedCities, setSelectedCities] = useState(null);
+  const [selectedCities, setSelectedCities] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -36,26 +36,24 @@ export const FetchLocations = () => {
     fetchCountries();
   }, []);
 
-  const fetchStates = async () => {
-    // if (!selectedCountry) return;
-    if (!countries) return;
-    setLoading(true);
-    try {
-      const response = await getData(
-        // `/v1/public/countries/view-single-country?id=${selectedCountry.uuid}&with[]=states`
-        `/v1/public/countries/view-single-country?id=${countries.uuid}&with[]=states`
-      );
-      setStates(response);
-    } catch (error) {
-      setError(error.response.data.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchStates = async () => {
+      // if (!selectedCountry) return;
+      if (!countries) return;
+      setLoading(true);
+      try {
+        const response = await getData(
+          // `/v1/public/countries/view-single-country?id=${selectedCountry.uuid}&with[]=states`
+          `/v1/public/countries/view-single-country?id=${countries.uuid}&with[]=states`
+        );
+        setStates(response);
+      } catch (error) {
+        setError(error.response.data.message);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchStates();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countries]);
 
   // const fetchCities = async () => {
@@ -71,20 +69,35 @@ export const FetchLocations = () => {
   //   }
   // };
 
-  // useEffect(() => {
-  //   fetchCities();
-  // }, [selectedState]);
+  useEffect(() => {
+    const fetchCities = async () => {
+      if (!selectedState) return;
+      setLoading(true);
+      try {
+        const response = await getData(
+          `/v1/public/states/view-single-state?id=${selectedState.uuid}&with[]=country&with[]=cities`
+        );
+        setCities(response);
+      } catch (error) {
+        setError(error.response.data.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCities();
+  }, [selectedState]);
 
   return {
     countries,
     states,
-    // cities,
+    cities,
     selectedCountry,
     setSelectedCountry,
     selectedState,
     setSelectedState,
-    // selectedCities,
-    // setSelectedCities,
+    selectedCities,
+    setSelectedCities,
     loading,
     error,
   };
