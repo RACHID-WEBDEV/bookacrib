@@ -52,6 +52,18 @@ export function getNameInitials(name) {
   return initials.join("");
 }
 
+const statusBadges = {
+  pending: { color: "error" },
+  approved: { color: "success" },
+  suspended: { color: "gray" },
+  declined: { color: "warning" },
+};
+
+const defaultBadge = { color: "primary" };
+
+export const getBadgeColor = (status) => {
+  return (statusBadges[status] || defaultBadge).color;
+};
 export function getBasePath(url) {
   const path = url; // get the path part of the URL
   const segments = path.split("/"); // split the path into segments
