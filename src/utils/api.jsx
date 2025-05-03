@@ -96,3 +96,13 @@ export const removeData = async (url) => {
     throw error;
   }
 };
+
+export const deleteData = async (url, data) => {
+  try {
+    const response = await axiosInstance.delete(url, { data });
+    return response.data;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+};
