@@ -41,6 +41,7 @@ const CribDashboard = () => {
 
   useEffect(() => {
     fetchUserStatsHandler(
+      "/v1/customers/company/dashboards/company-dashboard-statistics?start_date=2025-01-01&end_date=2025-12-31",
       "/v1/customers/company/dashboards/company-dashboard-statistics?start_date=2025-01-01&end_date=2025-12-31"
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
