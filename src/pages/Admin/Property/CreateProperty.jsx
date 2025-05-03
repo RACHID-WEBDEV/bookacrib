@@ -12,19 +12,22 @@ import CustomSelect from "../../../components/forms/Select/CustomSelect";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoriess } from "../../../Redux/categories/categoriesThunk";
 import { fetchRoomTypes } from "../../../Redux/roomtypes/roomtypesThunk";
-import AsyncReactSelect from "../../../components/forms/Select/AsyncReactSelect";
-import { getData, postData } from "../../../utils/api";
+// import AsyncReactSelect from "../../../components/forms/Select/AsyncReactSelect";
+import { postData } from "../../../utils/api";
 import { PropertySchema } from "../../../schema/propertySchema";
 import toast from "react-hot-toast";
 import AnimateLoader from "../../../components/Loading/AnimateLoader";
 import { Link, useNavigate } from "react-router-dom";
+import { MinusIcon, PlusIcon } from "../../../assets/SvgIcons";
+import { Label } from "../../../components/forms/Label";
+import PropertyFeatures from "./PropertyFeatures";
 // import AnimateLoader from "../../../components/Loading/AnimateLoader";
 
 const CreateProperty = () => {
   const [imagesFile, setImagesFile] = useState([]);
   // const [loadingImages, setLoadingImages] = useState(false);
   const [allImagesFiles, setAllImgesFiles] = useState([]);
-  console.log("imagesFile: ", imagesFile);
+  // console.log("imagesFile: ", imagesFile);
   console.log("All Upload ImagesFile: ", allImagesFiles);
   // console.log("loadingImages: ", loadingImages);
 
@@ -42,7 +45,7 @@ const CreateProperty = () => {
     // error,
   } = FetchLocations();
 
-  console.log("selectedState:", selectedState);
+  // console.log("selectedState:", selectedState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -69,29 +72,29 @@ const CreateProperty = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  const [selectedValue, setSelectedValue] = useState(null);
+  // const [selectedValue, setSelectedValue] = useState(null);
 
-  const featureFilter = selectedValue?.map((feature) => ({
-    name: feature.name,
-    price: feature.price,
-  }));
+  // const featureFilter = selectedValue?.map((feature) => ({
+  //   name: feature.name,
+  //   price: feature.price,
+  // }));
   // console.log("setSelectedValue", selectedValue);
 
   // console.log("getPermissionsId", featureFilter);
 
-  const FEATURE_URL =
-    "/bookacrib-api-routes/v1/features/list-features?limit=100";
+  // const FEATURE_URL =
+  //   "/bookacrib-api-routes/v1/features/list-features?limit=100";
 
-  const fetchAllFeature = async () => {
-    try {
-      const response = await getData(FEATURE_URL);
-      return response?.data;
-    } catch (error) {
-      const errorMessage = error;
-      console.log(errorMessage);
-      // return rejectWithValue(errorMessage?.response?.data);
-    }
-  };
+  // const fetchAllFeature = async () => {
+  //   try {
+  //     const response = await getData(FEATURE_URL);
+  //     return response?.data;
+  //   } catch (error) {
+  //     const errorMessage = error;
+  //     console.log(errorMessage);
+  //     // return rejectWithValue(errorMessage?.response?.data);
+  //   }
+  // };
   const defaultFormValue = {
     name: "",
     address: "",
@@ -115,6 +118,47 @@ const CreateProperty = () => {
     }
   };
 
+  const [storeMainFeature, setStoreMainFeature] = useState([]);
+  console.log("FEATU:", storeMainFeature);
+
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [features, setFeatures] = useState([]);
+
+  // eslint-disable-next-line no-unused-vars
+  const handleSubmitFeature = (e) => {
+    e.preventDefault();
+    if (!name || !price) return; // simple validation
+
+    const newFeature = {
+      name: name.trim(),
+      price: parseInt(price),
+    };
+
+    setFeatures([...features, newFeature]);
+    setName("");
+    setPrice("");
+  };
+
+  const [adultCount, setAdultCount] = useState(1);
+  const [minorCount, setMinorCount] = useState(0);
+  const [discount, setDiscount] = useState(0); // default at 50
+  const [cautionFee, setCautionFee] = useState(0); // default at 50
+
+  const increaseAdult = () => setAdultCount(adultCount + 1);
+  const decreaseAdult = () => {
+    if (adultCount > 1) {
+      setAdultCount(adultCount - 1);
+    }
+  };
+
+  const increaseMinor = () => setMinorCount(minorCount + 1);
+  const decreaseMinor = () => {
+    if (minorCount > 0) {
+      setMinorCount(minorCount - 1);
+    }
+  };
+
   const [loading, setLoading] = useState(false); // Controls button loading state
 
   const handleSubmit = async (data) => {
@@ -133,24 +177,26 @@ const CreateProperty = () => {
       return;
     }
 
-    const uploadPromises = imagesFile.map((image) =>
-      uploadImageToCloudinary(image).catch((error) => {
-        console.error("Error uploading image:", error);
-        return null;
-      })
-    );
+    if (allImagesFiles?.length === 0) {
+      const uploadPromises = imagesFile.map((image) =>
+        uploadImageToCloudinary(image).catch((error) => {
+          console.error("Error uploading image:", error);
+          return null;
+        })
+      );
 
-    const uploadedFiles = await Promise.all(uploadPromises);
-    const successfulUploads = uploadedFiles.filter(Boolean);
+      const uploadedFiles = await Promise.all(uploadPromises);
 
-    if (successfulUploads.length === 0) {
-      toast.error("Image upload failed");
-      setLoading(false);
-      return;
+      const successfulUploads = uploadedFiles.filter(Boolean);
+
+      if (successfulUploads.length === 0) {
+        toast.error("Image upload failed");
+        setLoading(false);
+        const imageUrls = successfulUploads.map((file) => file.secure_url);
+        setAllImgesFiles(imageUrls);
+        return;
+      }
     }
-
-    const imageUrls = successfulUploads.map((file) => file.secure_url);
-    setAllImgesFiles(imageUrls);
 
     // Step 2: Submit Form Data
     const filteredFormData = {
@@ -158,13 +204,17 @@ const CreateProperty = () => {
       address: data.address,
       price: data?.price,
       description: data.description,
-      features: featureFilter,
+      features: storeMainFeature,
       room_type_id: selectedRoomType?.uuid,
-      images: imageUrls,
+      images: allImagesFiles,
       country_id: selectedCountry?.uuid,
       state_id: selectedState?.uuid,
       category_id: selectedCategory?.uuid,
       city_id: selectedCities?.uuid,
+      caution_fee: cautionFee,
+      adult_count: adultCount, // No. of adult it can accomodate
+      minor_count: minorCount, // No. of minor/children it can accomodate
+      discount: discount, // This is inform of percentage => 2%
     };
 
     try {
@@ -312,7 +362,57 @@ const CreateProperty = () => {
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div className="">
-              <ImageUpload images={imagesFile} setImages={setImagesFile} />
+              <PropertyFeatures
+                storeMainFeature={storeMainFeature}
+                setStoreMainFeature={setStoreMainFeature}
+              />
+              {/* <div className="max-w-md mx-auto p-6">
+                <form onSubmit={handleSubmitFeature} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Feature Name
+                    </label>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                      placeholder="Enter feature name"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Feature Price
+                    </label>
+                    <input
+                      type="number"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                      placeholder="Enter feature price"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                  >
+                    Add Feature
+                  </button>
+                </form>
+
+             
+                <div className="mt-6">
+                  <h2 className="text-lg font-semibold mb-4">Features:</h2>
+                  <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+                    {JSON.stringify(features, null, 2)}
+                  </pre>
+                </div>
+              </div> */}
+              <div className="pt-6">
+                <ImageUpload images={imagesFile} setImages={setImagesFile} />
+              </div>
 
               {/* <Button onClick={() => UploadImagesToCloud(imagesFile)}>
                 Upload Image
@@ -377,11 +477,142 @@ const CreateProperty = () => {
                           </div>
                           <Input
                             name="price"
-                            //   label="Model #"
+                            // label="Propery Price"
+                            type="number"
                             placeholder="Enter price"
                           />
 
-                          <div className="pb-6">
+                          {/* <Input
+                            name="caution_fee"
+                            label="Caution Fee"
+                            placeholder="Enter caution fee price"
+                            type="number"
+                          /> */}
+
+                          <div className="w-full max-w-lg relative mb-6">
+                            <label
+                              htmlFor="discount-range"
+                              className="block mb-8 text-sm font-medium text-gray-600 dark:text-white"
+                            >
+                              Caution Fee :{" "}
+                              <span className="font-bold">{cautionFee}%</span>
+                            </label>
+                            {/* Tooltip */}
+                            <div
+                              className="absolute left-0 transform -translate-x-[35%] -translate-y-6 bg-primary-600 text-white text-xs font-semibold px-2 py-1 rounded"
+                              style={{ left: `${cautionFee}%` }}
+                            >
+                              {cautionFee}%
+                            </div>
+                            <input
+                              id="cautionFee-range"
+                              type="range"
+                              min="0"
+                              max="100"
+                              value={cautionFee}
+                              onChange={(e) => setCautionFee(e.target.value)}
+                              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700
+                                [&::-webkit-slider-thumb]:appearance-none
+                               [&::-webkit-slider-thumb]:h-4
+                               [&::-webkit-slider-thumb]:w-4
+                               [&::-webkit-slider-thumb]:rounded-full
+                               [&::-webkit-slider-thumb]:bg-primary-600
+                          
+                              
+                               [&::-webkit-slider-runnable-track]:h-4
+                               transition-all duration-300 "
+                            />
+                          </div>
+                          <div className="flex flex-col items-center space-y-6 lg:p-8 my-6">
+                            {/* Adult Counter */}
+                            <div className="flex items-center space-x-4 ">
+                              {/* <h2 className="text-lg font-semibold">Adults</h2> */}
+                              <div className="hidden lg:flex">
+                                <Label text={"Number of Adults"} />
+                              </div>
+                              <div className="lg:hidden flex">
+                                <Label text={"Adults"} />
+                              </div>
+                              <Button
+                                onClick={decreaseAdult}
+                                disabled={adultCount === 1}
+                                type="button"
+                              >
+                                <MinusIcon />
+                              </Button>
+                              <span className="text-lg font-bold">
+                                {adultCount}
+                              </span>
+
+                              <Button onClick={increaseAdult} type="button">
+                                <PlusIcon />
+                              </Button>
+                            </div>
+
+                            {/* Minor Counter */}
+                            <div className="flex items-center space-x-4">
+                              <div className="hidden lg:flex">
+                                <Label text={"Number of Minors"} />
+                              </div>
+                              <div className="lg:hidden flex">
+                                <Label text={"Minors"} />
+                              </div>
+                              <Button
+                                onClick={decreaseMinor}
+                                disabled={minorCount === 0}
+                                type="button"
+                              >
+                                <MinusIcon />
+                              </Button>
+                              <span className="text-lg font-bold">
+                                {minorCount}
+                              </span>
+
+                              <Button
+                                onClick={increaseMinor}
+                                // disabled={adultCount === 1}
+                                type="button"
+                              >
+                                <PlusIcon />
+                              </Button>
+                            </div>
+                          </div>
+                          <div className="w-full max-w-lg relative mb-6">
+                            <label
+                              htmlFor="discount-range"
+                              className="block mb-8 text-sm font-medium text-gray-600 dark:text-white"
+                            >
+                              Property Discount :{" "}
+                              <span className="font-bold">{discount}%</span>
+                            </label>
+                            {/* Tooltip */}
+                            <div
+                              className="absolute left-0 transform -translate-x-[35%] -translate-y-6 bg-primary-600 text-white text-xs font-semibold px-2 py-1 rounded"
+                              style={{ left: `${discount}%` }}
+                            >
+                              {discount}%
+                            </div>
+                            <input
+                              id="discount-range"
+                              type="range"
+                              min="0"
+                              max="100"
+                              value={discount}
+                              onChange={(e) => setDiscount(e.target.value)}
+                              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700
+                                [&::-webkit-slider-thumb]:appearance-none
+                               [&::-webkit-slider-thumb]:h-4
+                               [&::-webkit-slider-thumb]:w-4
+                               [&::-webkit-slider-thumb]:rounded-full
+                               [&::-webkit-slider-thumb]:bg-primary-600
+                          
+                              
+                               [&::-webkit-slider-runnable-track]:h-4
+                               transition-all duration-300 "
+                            />
+                          </div>
+
+                          {/* <div className="pb-6">
                             <AsyncReactSelect
                               selectedValue={selectedValue}
                               setSelectedValue={setSelectedValue}
@@ -391,6 +622,8 @@ const CreateProperty = () => {
                               isMulti
                             />
                           </div>
+                          <p>{JSON.stringify(featureFilter)}</p> */}
+
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="pb-4">
                               <CustomSelect
