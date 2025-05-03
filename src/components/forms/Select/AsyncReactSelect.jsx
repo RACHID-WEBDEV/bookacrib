@@ -30,6 +30,7 @@ const AsyncReactSelect = ({
   fetchData,
   placeholder,
   label,
+  isMulti = false,
 }) => {
   // Handle selection changes
 
@@ -52,7 +53,7 @@ const AsyncReactSelect = ({
           cacheOptions
           defaultValue={selectedValue}
           defaultOptions
-          isMulti
+          isMulti={isMulti}
           styles={styles}
           value={selectedValue}
           getOptionLabel={(e) => e.display_name || e.name || e.title}
