@@ -76,6 +76,8 @@ import AdminTransactionLayout from "./pages/Admin/AdminListBookings/AdminTransac
 import AdminListBookings from "./pages/Admin/AdminListBookings/AdminListBookings";
 import AdminBookingsDetails from "./pages/Admin/AdminListBookings/AdminBookingsDetails";
 import CribUsers from "./pages/Company/CribUsers/CribUsers";
+import PropertyCrib from "./pages/Admin/Property/PropertyCrib";
+import CribPropertyOverview from "./pages/CribPropertyOverview";
 
 function App() {
   return (
@@ -219,10 +221,11 @@ function App() {
             </Route>
             <Route path="property" element={<PropertyLayout />}>
               <Route index element={<Navigate replace to="all-property" />} />
-              <Route path="all-property" element={<Property />} />
+              <Route path="all-property" element={<PropertyCrib />} />
               <Route
                 path="property-detail/:uuid"
-                element={<PropertyDetails />}
+                // element={<PropertyDetails />}
+                element={<CribPropertyOverview />}
               />
 
               <Route path="create-property" element={<CreateProperty />} />
