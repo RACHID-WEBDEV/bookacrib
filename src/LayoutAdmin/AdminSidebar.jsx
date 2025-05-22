@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 
 import { useState } from "react";
-import LogoWhite from "src/assets/images/bookacrib-logo.svg";
+import LogoWhite from "src/assets/images/bookacrib-logo-dark.svg";
 import DoubleArrown from "src/assets/images/left-double.svg";
 // import Avatar from "src/assets/images/Avatar.png";
 import classNames from "classnames";
@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { adminsidedata } from "../data/sideBarData";
 import { AvatarIcon, SettingsIcon } from "../assets/SvgIcons";
 import { getNameInitials } from "../lib/constants";
-import { persistor } from "../Redux/store";
+// import { persistor } from "../Redux/store";
 import { adminLogoutThunk } from "../Redux/adminAuth/adminAuthThunk";
 import toast from "react-hot-toast";
 
@@ -51,7 +51,7 @@ const AdminSidebar = ({
     // persistor.purge();
     try {
       const result = await dispatch(adminLogoutThunk()).unwrap();
-      persistor.purge();
+      // persistor.purge();
       // console.log("logged out: ", result);
 
       if (result.status >= 200 && result.status <= 300) {

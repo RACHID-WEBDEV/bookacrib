@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 
 import { useState } from "react";
-import LogoWhite from "src/assets/images/bookacrib-logo.svg";
+import LogoWhite from "src/assets/images/bookacrib-logo-dark.svg";
 import DoubleArrown from "src/assets/images/left-double.svg";
 // import Avatar from "src/assets/images/Avatar.png";
 import classNames from "classnames";
@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usersidedata } from "../data/sideBarData";
 import { AvatarIcon, SettingsIcon } from "../assets/SvgIcons";
 import { getNameInitials } from "../lib/constants";
-import { persistor } from "../Redux/store";
+// import { persistor } from "../Redux/store";
 
 const UserSidebar = ({
   openSideMenu,
@@ -44,7 +44,7 @@ const UserSidebar = ({
 
   const handleLogout = () => {
     dispatch(logoutThunk());
-    persistor.purge();
+    // persistor.purge();
   };
 
   const [activeSubmenu, setActiveSubmenu] = useState(null);

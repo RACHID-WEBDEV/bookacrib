@@ -41,9 +41,11 @@ const PaymentCallBack = () => {
           const errorMessages = Object.values(error?.response?.data?.errors)
             .flat()
             .join(", ");
-          toast.error(errorMessages, { duration: 6000 });
+          // toast.error(errorMessages, { duration: 6000 });
+          console.log("Payment Error", errorMessages);
         } else {
-          toast.error(error?.response?.data?.message, { duration: 6000 });
+          // toast.error(error?.response?.data?.message, { duration: 6000 });
+          console.log("Payment Error:", error?.response?.data?.message);
         }
       }
     };

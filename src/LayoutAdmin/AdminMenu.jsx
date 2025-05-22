@@ -12,7 +12,7 @@ import { Button } from "../components/forms/Button";
 import { switchCompany } from "../Redux/auth/authThunk";
 import { Dropdown, DropdownItem } from "flowbite-react";
 import { ArrowDownIcon } from "../assets/SvgIcons";
-import { persistor } from "../Redux/store";
+// import { persistor } from "../Redux/store";
 import { Badge } from "../components/forms/Badge";
 import { adminLogoutThunk } from "../Redux/adminAuth/adminAuthThunk";
 import SmallSpinner from "../components/Loading/SmallSpinner";
@@ -28,7 +28,7 @@ const AdminMenu = ({ setShowUserMenu }) => {
 
     try {
       const result = await dispatch(adminLogoutThunk()).unwrap();
-      persistor.purge();
+      // persistor.purge();
       // console.log("logged out: ", result);
 
       if (result.status >= 200 && result.status <= 300) {

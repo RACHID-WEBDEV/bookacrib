@@ -91,7 +91,7 @@ const Header = () => {
     <header>
       <nav className="fixed z-50 w-full dark:bg-gray-900/70 bg-white  md:bg-[#fff] shadow">
         <div className="container m-auto px-2 md:px-12 lg:px-7">
-          <div className="flex flex-wrap items-center justify-between py-2 gap-6 md:py-4 md:gap-0 relative">
+          <div className="flex flex-wrap items-center justify-between py-2 gap-6 md:py-0 md:gap-0 relative">
             <input
               type="checkbox"
               name="toggle_nav"

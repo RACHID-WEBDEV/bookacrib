@@ -13,26 +13,6 @@ import {
 } from "./authThunk";
 
 import Cookies from "js-cookie";
-// Token validation function (implement according to your token structure)
-// const isValidToken = (token) => {
-//   // Example validation: check expiration
-//   const decoded = JSON.parse(atob(token.split(".")[1]));
-//   return decoded.exp > Date.now() / 1000;
-// };
-// const newAuth = Cookies.get("bookacrib_user_token");
-//    &&
-//   isValidToken(Cookies.get("bookacrib_user_token")
-// );
-
-// console.log("newAuth:", newAuth);
-
-// console.log("show token:", !!Cookies.get("bookacrib_user_token"));
-
-// const currentUser = Cookies.get("bookacrib_currentUser")
-//   ? JSON.parse(Cookies.get("bookacrib_currentUser"))
-//   : null;
-
-// console.log("Bookacrib_ user", currentUser);
 
 const initialState = {
   currentUser: Cookies.get("bookacrib_currentUser")
@@ -40,9 +20,6 @@ const initialState = {
     : null,
   isAuthenticated: !!Cookies.get("bookacrib_user_token"),
   hasCompany: null,
-  // hasCompany: Cookies.get("bookacrib_current_company_id")
-  //   ? JSON.parse(Cookies.get("bookacrib_current_company_id"))
-  //   : null,
   loading: false,
   error: null,
   registerUser: [],
@@ -50,9 +27,9 @@ const initialState = {
   resendverification: [],
   accountverification: [],
   passwordreset: [],
-  // switch company to user viceversa
-  companyId: null,
-  switchToCompany: false,
+  companyId: localStorage.getItem("bookacrib_current_company_id") || null,
+  switchToCompany:
+    localStorage.getItem("bookacrib_switch_to_company") === "true",
   isLoading: false,
   isError: false,
   errorMessage: "",

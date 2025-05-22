@@ -100,7 +100,7 @@ const ViewPermissionModal = ({ setOpenModal, permissionData }) => {
                       <Label text="Permissions" />
                     </div>
                     <div className="grid lg:grid-cols-2">
-                      {permissionData.permissions?.map((item, index) => (
+                      {permissionData?.permissions?.map((item, index) => (
                         <div key={index} className=" flex items-center gap-2">
                           <p>{index + 1}.</p>
                           <p className="text-gray-900 font-medium">

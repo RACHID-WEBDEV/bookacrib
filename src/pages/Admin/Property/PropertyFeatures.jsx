@@ -244,17 +244,6 @@ function PropertyFeatures({
                   text={" Create your own feature Multiple features is allowed"}
                 />
                 <div className=" flex items-center  flex-wrap lg:flex-nowrap justify-between w-full gap-4  mt-6">
-                  {/* <div className=" w-[45%]">
-                  <div className="pb-6">
-                    <AsyncReactSelect
-                      selectedValue={selectedAtrribute}
-                      setSelectedValue={setSelectedAtrribute}
-                      fetchData={fetchProductAttrinutes}
-                      placeholder="Select an attribute"
-                      label="Product Attributes"
-                    />
-                  </div>
-                </div> */}
                   <div className=" w-full">
                     <div className="lg:pb-4 w-full ">
                       <label

@@ -12,7 +12,8 @@ import { EmptySchema } from "../../schema/authSchema";
 import { useEffect, useState } from "react";
 import ErrorStatus from "../../components/forms/ErrorStatus";
 import { Link, useLocation } from "react-router-dom";
-import classNames from "classnames";
+
+import UserSettingSideBar from "./UserSettingSideBar";
 const ProfileSettings = () => {
   const location = useLocation();
   const currentPath = location.pathname;
@@ -121,134 +122,7 @@ const ProfileSettings = () => {
               <div className="grid grid-cols-12 gap-y-10 gap-x-6">
                 <div className="col-span-12">
                   <div className="mt-3.5 grid grid-cols-12 gap-y-10 gap-x-6">
-                    <div className="relative col-span-12 xl:col-span-3">
-                      <div className="sticky top-[104px]">
-                        <div className="flex flex-col px-5 pt-5 pb-6 box box--stacked">
-                          <Link
-                            className={classNames(
-                              "flex items-center py-3 first:-mt-3 last:-mb-3  hover:text-primary-900 text-sm",
-                              {
-                                "text-primary-900":
-                                  "/user/settings/profile-settings" ===
-                                  currentPath,
-                              }
-                            )}
-                            to="/user/settings"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width={24}
-                              height={24}
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="lucide lucide-app-window stroke-[1.3] w-4 h-4 mr-3"
-                            >
-                              <rect x={2} y={4} width={20} height={16} rx={2} />
-                              <path d="M10 4v4" />
-                              <path d="M2 8h20" />
-                              <path d="M6 4v4" />
-                            </svg>{" "}
-                            Profile Info
-                          </Link>
-
-                          <Link
-                            className={classNames(
-                              "flex items-center py-3 first:-mt-3 last:-mb-3  hover:text-primary-900 text-sm",
-                              {
-                                "text-primary-900":
-                                  "/user/settings/update-password" ===
-                                  currentPath,
-                              }
-                            )}
-                            to="/user/settings/update-password"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width={24}
-                              height={24}
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="lucide lucide-key-round stroke-[1.3] w-4 h-4 mr-3"
-                            >
-                              <path d="M2 18v3c0 .6.4 1 1 1h4v-3h3v-3h2l1.4-1.4a6.5 6.5 0 1 0-4-4Z" />
-                              <circle cx="16.5" cy="7.5" r=".5" />
-                            </svg>{" "}
-                            Change Password
-                          </Link>
-                          <Link
-                            className={classNames(
-                              "flex items-center py-3 first:-mt-3 last:-mb-3  hover:text-primary-900 text-sm",
-                              {
-                                "text-primary-900":
-                                  "/user/settings/update-profile" ===
-                                  currentPath,
-                              }
-                            )}
-                            to="/user/settings/update-profile"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width={24}
-                              height={24}
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="lucide lucide-package-check stroke-[1.3] w-4 h-4 mr-3"
-                            >
-                              <path d="m16 16 2 2 4-4" />
-                              <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
-                              <path d="m7.5 4.27 9 5.15" />
-                              <polyline points="3.29 7 12 12 20.71 7" />
-                              <line x1={12} x2={12} y1={22} y2={12} />
-                            </svg>{" "}
-                            Update Profile
-                          </Link>
-
-                          <Link
-                            className={classNames(
-                              "flex items-center py-3 first:-mt-3 last:-mb-3  hover:text-primary-900 text-sm",
-                              {
-                                "text-primary-900":
-                                  "/user/settings/account-deactivation" ===
-                                  currentPath,
-                              }
-                            )}
-                            to="/user/settings/account-deactivation"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width={24}
-                              height={24}
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="lucide lucide-trash2 stroke-[1.3] w-4 h-4 mr-3"
-                            >
-                              <path d="M3 6h18" />
-                              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                              <line x1={10} x2={10} y1={11} y2={17} />
-                              <line x1={14} x2={14} y1={11} y2={17} />
-                            </svg>{" "}
-                            Account Deactivation
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
+                    <UserSettingSideBar />
                     <div className="flex flex-col col-span-12 xl:col-span-9 gap-y-7">
                       <div className="p-1.5 box flex flex-col box--stacked">
                         <div className="h-60 relative w-full rounded-[0.6rem] bg-gradient-to-b from-primary-800/95 to-primary-600/95">

@@ -12,7 +12,7 @@ import { Button } from "../components/forms/Button";
 import { switchCompany } from "../Redux/auth/authThunk";
 import { Dropdown, DropdownItem } from "flowbite-react";
 import { ArrowDownIcon } from "../assets/SvgIcons";
-import { persistor } from "../Redux/store";
+// import { persistor } from "../Redux/store";
 import SmallSpinner from "../components/Loading/SmallSpinner";
 
 // eslint-disable-next-line react/prop-types
@@ -22,14 +22,11 @@ const UserMenu = ({ setShowUserMenu }) => {
 
   const handleLogout = () => {
     dispatch(logoutThunk());
-    persistor.purge();
+    // persistor.purge();
   };
   const { currentUser, companyId, switchToCompany, loading } = useSelector(
     (state) => state.auth
   );
-
-  // console.log("currentUser", currentUser);
-  // console.log("companyId: ", companyId);
 
   const newCompanyId = currentUser?.companies[0]?.uuid;
   // console.log("newCompanyId: ", newCompanyId);
@@ -40,64 +37,22 @@ const UserMenu = ({ setShowUserMenu }) => {
         switchCompany({ companyId: newCompanyId, switchToCompany: true })
       )
         .unwrap()
-        .then(() => toast.success("Switched to company successfully"))
+        .then(() => {
+          toast.success("Switched to company successfully");
+          navigate("/crib-owner/dashboard");
+        })
         .catch((error) => toast.error(`Error switching company: ${error}`));
-      navigate("/crib-owner/dashboard");
     } else {
       dispatch(switchCompany({ companyId: null, switchToCompany: false }))
         .unwrap()
-        .then(() => toast.success("Switched to user successfully"))
+        .then(() => {
+          toast.success("Switched to user successfully");
+          navigate("/user/dashboard"); // You might want this line here
+        })
         .catch((error) => toast.error(`Error switching to user: ${error}`));
     }
   };
 
-  // const handleSwitchCompany = async () => {
-  //   try {
-  //     if (!isActive) {
-  //       if (currentUser?.companies.length > 0) {
-  //         const newCompanyId = currentUser.companies[0].uuid;
-  //         Cookies.set("bookacrib_current_company_id", newCompanyId, {
-  //           expires: 7,
-  //           sameSite: "None",
-  //           secure: true,
-  //         });
-  //         setCompanyId(newCompanyId);
-  //         setIsActive(true);
-  //         toast.success("Switched to company successfully");
-  //       }
-  //     } else {
-  //       Cookies.remove("bookacrib_current_company_id");
-  //       setCompanyId(null);
-  //       setIsActive(false);
-  //       toast.success("Switched to user successfully");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error switching company:", error);
-  //   }
-  // };
-
-  // const handleSwitchCompany = async () => {
-  //   try {
-  //     const companies = currentUser?.companies;
-
-  //     if (companies?.length > 0) {
-  //       const companyId = companies[0].uuid;
-  //       Cookies.set("bookacrib_current_company_id", companyId, {
-  //         expires: 7,
-  //         sameSite: "None",
-  //         secure: true,
-  //       });
-  //       toast.success("Switched to company successfully");
-  //     } else {
-  //       Cookies.remove("bookacrib_current_company_id");
-  //       toast.success("Switched to user successfully");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error switching company:", error);
-  //   }
-  // };
-
-  // console.log("currentUser", currentUser);
   return (
     <div className="absolute top-10 right-3 transition-all duration-300 ease-in">
       <div className="z-50 my-4 text-base text-left list-none bg-gray-50  rounded shadow ">

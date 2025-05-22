@@ -98,7 +98,7 @@ const fetchProperty = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await getData(
-        `/bookacrib-api-routes/v1/admin/properties/view-single-property?id=${id}&with[]=company&with[]=initiator&with[]=country&with[]=state`
+        `/bookacrib-api-routes/v1/admin/properties/view-single-property?id=${id}&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=city&with[]=roomType`
         // `/bookacrib-api-routes/v1/properties/view-single-property?id=${id}&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category&with[]=roomType`
       );
       return response;

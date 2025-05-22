@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBasePath } from "src/lib/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import { sidedata } from "../data/sideBarData";
-import { persistor } from "../Redux/store";
+// import { persistor } from "../Redux/store";
 import { logoutThunk } from "../Redux/auth/authThunk";
 const AdminMobileSidebar = ({
   openSideMenu,
@@ -42,7 +42,7 @@ const AdminMobileSidebar = ({
 
   const handleLogout = () => {
     dispatch(logoutThunk());
-    persistor.purge();
+    // persistor.purge();
   };
 
   const [activeSubmenu, setActiveSubmenu] = useState(null);

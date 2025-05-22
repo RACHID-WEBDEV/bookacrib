@@ -10,7 +10,10 @@ import { TextArea } from "../../../components/forms/TextArea";
 import { Button } from "../../../components/forms/Button";
 import { EmptySchema } from "../../../schema/authSchema";
 import { useDispatch } from "react-redux";
-import { fetchPropertys } from "../../../Redux/property/propertyThunk";
+import {
+  fetchProperty,
+  // fetchPropertys,
+} from "../../../Redux/property/propertyThunk";
 import SmallSpinner from "../../../components/Loading/SmallSpinner";
 import classNames from "classnames";
 
@@ -56,11 +59,13 @@ const PropertyApproval = ({ setOpenModal, propertyId }) => {
         ) {
           console.log("Property Approved:", response);
           toast.success(response?.message);
-          dispatch(
-            fetchPropertys(
-              "/bookacrib-api-routes/v1/properties/list-properties?limit=10&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category"
-            )
-          );
+          dispatch(fetchProperty(propertyId));
+          // dispatch(
+          //   fetchPropertys(
+          //     // "/bookacrib-api-routes/v1/properties/list-properties?limit=10&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category"
+          //     "/bookacrib-api-routes/v1/admin/properties/list-properties?&with[]=company&with[]=initiator&with[]=country&with[]=state&with[]=category"
+          //   )
+          // );
           // navigate("/database/users/awaiting-kyc");
           // fetchManualKyc("admin/feature-toggles", "");
         }
@@ -69,7 +74,7 @@ const PropertyApproval = ({ setOpenModal, propertyId }) => {
     } catch (error) {
       console.log("ERROR:", error);
       toast.error(error?.response?.data?.message);
-      navigate("/admin/property/all-property");
+      navigate("/admin/property/all-properties");
     }
     // dispatch(addNewRole(filteredFormData));
     // alert(JSON.stringify(filteredFormData));

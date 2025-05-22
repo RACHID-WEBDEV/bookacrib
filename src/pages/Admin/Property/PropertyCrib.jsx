@@ -94,7 +94,7 @@ const PropertyCrib = () => {
   console.log("propertys IN:", IN_APP_PROPERTY);
 
   const categoryCounts = IN_APP_PROPERTY?.reduce((acc, property) => {
-    const categoryName = property.category.name;
+    const categoryName = property.category?.name;
     acc[categoryName] = (acc[categoryName] || 0) + 1;
     return acc;
   }, {});

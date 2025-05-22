@@ -12,7 +12,9 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const adminToken = Cookies.get("bookacrib_admin_token");
     const userToken = Cookies.get("bookacrib_user_token");
-    const companyId = Cookies.get("bookacrib_current_company_id");
+    const companyId = localStorage.getItem("bookacrib_current_company_id");
+
+    // Cookies.get("bookacrib_current_company_id");
 
     // console.log("COMPanyID: ", companyId);
     // Add company ID to headers

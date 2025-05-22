@@ -7,89 +7,186 @@ import { Button } from "../../components/forms/Button";
 import LoadingSpinner from "../../components/Loading/LoadingSpinner";
 // import { UpdateUserSchema } from "../../schema/authSchema";
 // import { useSelector } from "react-redux";
-import { getData, putData } from "../../utils/api";
+import { getData, postData, putData } from "../../utils/api";
 import toast from "react-hot-toast";
 import { EmptySchema } from "../../schema/authSchema";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ErrorStatus from "../../components/forms/ErrorStatus";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
+import UserSettingSideBar from "./UserSettingSideBar";
+import SmallSpinner from "../../components/Loading/SmallSpinner";
+import OtpInput from "../../components/forms/OtpInput";
+import { logoutThunk } from "../../Redux/auth/authThunk";
+import { useDispatch } from "react-redux";
 const AccountDeactivation = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-
   const [loadingUserData, setLoadingUserData] = useState(false);
-  const [errorUserData, setErrorUserData] = useState(null);
-  const [viewUserData, setViewUserData] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const dispatch = useDispatch();
+
+  let currentOTPIndex = 0;
+  const [otp, setOtp] = useState(new Array(6).fill("")); // Stores the actual OTP values
+  const [activeOTPIndex, setActiveOTPIndex] = useState(0);
   // const [loading, setLoading] = useState(false);
+  //   console.log("otp:", otp);
+  const inputRef = useRef();
 
-  // const [selectedOriginCountry, setSelectedOriginCountry] = useState(null);
+  const handleOnChange = ({ target }) => {
+    const { value } = target;
+    const newOTP = [...otp];
+    newOTP[currentOTPIndex] = value.substring(value.length - 1); // Only keep the last digit typed
 
-  const currentUser = viewUserData?.data;
-  console.log("viewUserData:", viewUserData);
-  console.log(loadingUserData, errorUserData);
+    if (!value) setActiveOTPIndex(currentOTPIndex - 1);
+    else setActiveOTPIndex(currentOTPIndex + 1);
 
-  // const bookData = viewUserData?.data?.cached_UserData_data;
-  // console.log("bookData:", bookData);
+    setOtp(newOTP);
+  };
 
-  const handleViewUserDatas = async () => {
-    setLoadingUserData(true);
-    try {
-      const response = await getData(
-        `/v1/users/view-user-profile?with[]=company&with[]=country&with[]=state&with[]=role`
-      );
-      setViewUserData(response);
-      // console.log(response);
-    } catch (error) {
-      setErrorUserData(error.response.data.message);
-    } finally {
-      setLoadingUserData(false);
+  const handleOnKeyDown = (e, index) => {
+    currentOTPIndex = index;
+    if (e.key === "Backspace") {
+      e.preventDefault(); // Prevent default backspace behavior
+      setOtp((prev) => {
+        const newOTP = [...prev];
+        newOTP[index] = ""; // Clear the current value
+        return newOTP;
+      });
+      setActiveOTPIndex(currentOTPIndex - 1); // Move focus to the previous index
     }
   };
 
   useEffect(() => {
-    handleViewUserDatas();
-  }, []);
+    inputRef.current?.focus();
+  }, [activeOTPIndex]);
 
-  const defaultFormValue = {
-    first_name: currentUser?.first_name || currentUser?.data?.user?.first_name,
+  // console.log("optNumber", token);
+  ////OTP IMPLEMENTATION ENDS//
 
-    last_name: currentUser?.last_name || currentUser?.data?.user?.last_name,
+  /// COUNT DOWN ////
 
-    phone: currentUser?.phone_number || currentUser?.data?.user?.phone_number,
-    email: currentUser?.email || currentUser?.data?.user?.email,
-  };
-  const onSubmit = async (data) => {
-    console.log("user data:", data);
+  const timeInterval = 2 * 60; //  minutes * seconds
+  const [seconds, setSeconds] = useState(timeInterval);
 
+  useEffect(() => {
+    let intervalId;
+
+    if (seconds > 0) {
+      intervalId = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [seconds]);
+
+  // const [seconds, setSeconds] = useState(60);
+
+  // useEffect(() => {
+  //   let intervalId: any;
+
+  //   if (seconds > 0) {
+  //     intervalId = setInterval(() => {
+  //       setSeconds((prevSeconds) => prevSeconds - 1);
+  //     }, 1000);
+  //   }
+
+  //   return () => clearInterval(intervalId);
+  // }, [seconds]);
+
+  const token = Number(otp.join(""));
+
+  const [loading, setLoading] = useState(false);
+
+  const onPressDeactivate = async () => {
+    setLoading(true);
     try {
-      const result = await putData(`user/update-user`, data);
-
-      if (
-        (result?.status >= 200 && result?.status <= 300) ||
-        (result?.status_code >= 200 && result?.status_code <= 300)
-      ) {
-        toast.success("User profile update successfully ");
-        // navigate("user/shipments/local-shipment/summary");
+      const result = await postData(
+        `/v1/users/accounts/deactivate-request`,
+        ""
+      );
+      // console.log("DEACTIVATE___::", result);
+      if (result.status >= 200 && result.status <= 300) {
+        toast.success(result.message);
       }
     } catch (error) {
-      console.error("User Update Error:", error);
+      const errorData = error?.response?.data;
+      const errorMessages =
+        errorData?.errors && Object.values(errorData.errors).flat().join(", ");
 
-      if (
-        (error?.response?.data?.status >= 400 &&
-          error?.response?.data?.status <= 499 &&
-          error?.response?.data?.errors) ||
-        (error?.response?.data?.status_code >= 400 &&
-          error?.response?.data?.status_code <= 499 &&
-          error?.response?.data?.errors)
-      ) {
-        const errorMessages = Object.values(error?.response?.data?.message)
-          .flat()
-          .join(", ");
-        toast.error(errorMessages, { duration: 6000 });
-      } else {
-        toast.error(error?.response?.data?.message, { duration: 6000 });
+      toast.error(
+        errorMessages || errorData?.message || "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+      // SheetRef?.current?.hide();
+    }
+  };
+
+  const onPressResendOtp = async () => {
+    setLoading(true);
+
+    setOtp("");
+
+    try {
+      const result = await postData(
+        `/v1/users/accounts/deactivate-request`,
+        ""
+      );
+
+      if (result.status >= 200 && result.status <= 300) {
+        toast.success(result.message);
+        setSeconds(5 * 60); //5 minutes
       }
+    } catch (error) {
+      const errorData = error?.response?.data;
+      const errorMessages =
+        errorData?.errors && Object.values(errorData.errors).flat().join(", ");
+      toast.error(
+        errorMessages || errorData?.message || "Something went wrong"
+      );
+      // Toast.show({
+      //   type: "error",
+      //   text1: "Deactivate Account Error",
+      //   text2: errorMessages || errorData?.message || "Something went wrong",
+      // });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const onPressVerifyOtp = async () => {
+    setLoading(true);
+    setOtp("");
+
+    const userOtp = {
+      otp: otp,
+      // email: userEmail,
+    };
+    try {
+      const result = await postData(
+        `/v1/users/accounts/deactivate-confirm`,
+        userOtp
+      );
+      console.log("Dactivate otp::", result);
+      if (result.status >= 200 && result.status <= 300) {
+        toast.success(result.message);
+        await dispatch(logoutThunk()).unwrap();
+        // await removeUserDetail(ACCESS_TOKEN);
+
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{ name: StackNav.Auth }],
+        // });
+      }
+    } catch (error) {
+      const errorData = error?.response?.data;
+      const errorMessages =
+        errorData?.errors && Object.values(errorData.errors).flat().join(", ");
+
+      toast.error(
+        errorMessages || errorData?.message || "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -100,7 +197,7 @@ const AccountDeactivation = () => {
             Account Deactivation
           </h1>
           <p className="text-slate-500 text-xs md:text-sm font-normal">
-            List of the paid and unpaid bookings available
+            Deactivate your account if you notice any suspicious activity.
           </p>
         </div>
         <div className="px-0 mt-0">
@@ -108,236 +205,122 @@ const AccountDeactivation = () => {
             <div className="grid grid-cols-12 gap-y-10 gap-x-6">
               <div className="col-span-12">
                 <div className="mt-3.5 grid grid-cols-12 gap-y-10 gap-x-6">
-                  <div className="relative col-span-12 xl:col-span-3">
-                    <div className="sticky top-[104px]">
-                      <div className="flex flex-col px-5 pt-5 pb-6 box box--stacked">
-                        <Link
-                          className={classNames(
-                            "flex items-center py-3 first:-mt-3 last:-mb-3  hover:text-primary-900 text-sm",
-                            {
-                              "text-primary-900":
-                                "/user/settings/profile-settings" ===
-                                currentPath,
-                            }
-                          )}
-                          to="/user/settings"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={24}
-                            height={24}
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-app-window stroke-[1.3] w-4 h-4 mr-3"
-                          >
-                            <rect x={2} y={4} width={20} height={16} rx={2} />
-                            <path d="M10 4v4" />
-                            <path d="M2 8h20" />
-                            <path d="M6 4v4" />
-                          </svg>{" "}
-                          Profile Info
-                        </Link>
-
-                        <Link
-                          className={classNames(
-                            "flex items-center py-3 first:-mt-3 last:-mb-3  hover:text-primary-900 text-sm",
-                            {
-                              "text-primary-900":
-                                "/user/settings/update-password" ===
-                                currentPath,
-                            }
-                          )}
-                          to="/user/settings/update-password"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={24}
-                            height={24}
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-key-round stroke-[1.3] w-4 h-4 mr-3"
-                          >
-                            <path d="M2 18v3c0 .6.4 1 1 1h4v-3h3v-3h2l1.4-1.4a6.5 6.5 0 1 0-4-4Z" />
-                            <circle cx="16.5" cy="7.5" r=".5" />
-                          </svg>{" "}
-                          Change Password
-                        </Link>
-                        <Link
-                          className={classNames(
-                            "flex items-center py-3 first:-mt-3 last:-mb-3  hover:text-primary-900 text-sm",
-                            {
-                              "text-primary-900":
-                                "/user/settings/update-profile" === currentPath,
-                            }
-                          )}
-                          to="/user/settings/update-profile"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={24}
-                            height={24}
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-package-check stroke-[1.3] w-4 h-4 mr-3"
-                          >
-                            <path d="m16 16 2 2 4-4" />
-                            <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
-                            <path d="m7.5 4.27 9 5.15" />
-                            <polyline points="3.29 7 12 12 20.71 7" />
-                            <line x1={12} x2={12} y1={22} y2={12} />
-                          </svg>{" "}
-                          Update Profile
-                        </Link>
-
-                        <Link
-                          className={classNames(
-                            "flex items-center py-3 first:-mt-3 last:-mb-3  hover:text-primary-900 text-sm",
-                            {
-                              "text-primary-900":
-                                "/user/settings/account-deactivation" ===
-                                currentPath,
-                            }
-                          )}
-                          to="/user/settings/account-deactivation"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={24}
-                            height={24}
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-trash2 stroke-[1.3] w-4 h-4 mr-3"
-                          >
-                            <path d="M3 6h18" />
-                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                            <line x1={10} x2={10} y1={11} y2={17} />
-                            <line x1={14} x2={14} y1={11} y2={17} />
-                          </svg>{" "}
-                          Account Deactivation
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
+                  <UserSettingSideBar />
                   <div className="flex relative flex-col col-span-12 xl:col-span-9 gap-y-7">
                     <div className="sticky top-[104px]">
                       <div className="p-1.5  flex flex-col  pb-6 box box--stacked">
-                        {/* <div className="h-60 relative w-full rounded-[0.6rem] bg-gradient-to-b from-primary-800/95 to-primary-600/95">
-                          <div className="w-full h-full relative overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-texture-white before:-mt-[50rem] after:content-[''] after:absolute after:inset-0 after:bg-texture-white after:-mt-[50rem]" />
-                          <div className="absolute inset-x-0 top-0 w-32 h-32 mx-auto mt-36">
-                            <div className="w-full h-full overflow-hidden border-[6px] boxx border-white rounded-full image-fit">
-                              <img alt="profile image" src={profilavatar} />
-                            </div>
-                            <div className="absolute bottom-0 right-0 w-5 h-5 mb-2.5 mr-2.5 border-2 border-white rounded-full bg-success-600 boxx" />
-                          </div>
-                        </div> */}
-                        {/* <div className="p-5 flex flex-col sm:flex-row gap-y-3 sm:items-end rounded-[0.6rem] bg-slate-50 pt-12 dark:bg-darkmode-500">
-                          <div>
-                            <label
-                              htmlFor="regular-form-1"
-                              className="mb-2 flex items-center text-slate-500 text-sm"
-                            >
-                              Who can see your profile photo?
-                              <div className="cursor-pointer ml-1.5">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth={2}
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  className="lucide lucide-info w-3.5 h-3.5 text-slate-500 stroke-[1.3]"
-                                >
-                                  <circle cx={12} cy={12} r={10} />
-                                  <path d="M12 16v-4" />
-                                  <path d="M12 8h.01" />
-                                </svg>
-                              </div>
-                            </label>
-                            <div className="relative mt-2.5">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="lucide lucide-globe absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 stroke-[1.3]"
-                              >
-                                <circle cx={12} cy={12} r={10} />
-                                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-                                <path d="M2 12h20" />
-                              </svg>
-                              <select className="bg-[length:20px_auto] disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-700/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-700/50 bg-chevron-black transition duration-200 ease-in-out w-full text-sm border-slate-300/60 shadow-sm py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:!bg-darkmode-700 dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:bg-chevron-white sm:w-44 mr-3 rounded-[0.5rem] pl-9">
-                                <option value="custom-date">Anyone</option>
-                                <option value="daily">Only you</option>
-                              </select>
-                            </div>
-                          </div>
-                          <button className=" text-sm transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed text-primary-600 dark:border-primary [&:hover:not(:disabled)]:bg-primary-600/10 sm:ml-auto border-primary/50">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width={24}
-                              height={24}
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="lucide lucide-image stroke-[1.3] w-4 h-4 mr-2.5"
-                            >
-                              <rect
-                                width={18}
-                                height={18}
-                                x={3}
-                                y={3}
-                                rx={2}
-                                ry={2}
-                              />
-                              <circle cx={9} cy={9} r={2} />
-                              <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                            </svg>{" "}
-                            Upload Cover
-                          </button>
-                        </div> */}
                         <div className=" md:px-3  mt-6 md:mt-0 mb-10">
                           <div className="p-6  bg-white dark:bg-slate-900 mt-6">
-                            <h5 className="text-lg font-bold mb-0 text-red-700">
-                              Delete Account:
+                            <h5 className="text-lg font-bold mb-0 text-primary-900">
+                              Account Deactivation:
                             </h5>
                             <p className="text-slate-500 mb-4">
-                              Do you want to delete your account/deactivate?
-                              Please press below &quot;Delete&quot; button
+                              Are you sure you want to deactivate your account?
+                              Please click the{" "}
+                              <span className=" font-semibold">
+                                &quot;Deactivate&quot;
+                              </span>{" "}
+                              button below to proceed.
+                              {/* Are you sure you want to deactivate your account?
+                              Please press below &quot;Deactivate&quot; button
+                              to get started */}
                             </p>
                             <div className="">
-                              <Button size="sm">Delete</Button>
+                              <Button size="sm">Deactivate</Button>
                             </div>
                           </div>
                         </div>
                       </div>
+                    </div>
+                    <div className="max-w-[400px] pt-4">
+                      <form onSubmit={onPressVerifyOtp} className="space-y-4">
+                        <div className=" relative">
+                          <OtpInput
+                            otp={otp}
+                            activeOTPIndex={activeOTPIndex}
+                            inputRef={inputRef}
+                            handleOnChange={handleOnChange}
+                            handleOnKeyDown={handleOnKeyDown}
+                            label="Enter Verification Code"
+                          />
+                          <div className=" absolute right-0 -bottom-9">
+                            <p className="text-right  text-primary-700 font-medium mt-1">
+                              <span
+                                className={classNames(
+                                  {
+                                    "opacity-50":
+                                      seconds >= 1 && seconds <= timeInterval,
+                                  },
+                                  { "opacity-0": seconds === 0 }
+                                )}
+                              >
+                                Resend Code in{" "}
+                              </span>
+                              <span
+                              //
+                              //onClick={handleResendVerification}
+                              >
+                                {seconds === 0 ? (
+                                  //   <Link to="/resend-verification">Resend Code</Link>
+                                  <span
+                                    className="cursor-pointer"
+                                    onClick={() => {
+                                      setOpenModal(true);
+                                    }}
+                                  >
+                                    Resend Code
+                                  </span>
+                                ) : (
+                                  <span>
+                                    {/* 00:
+                      {seconds <= 9 && "0"}
+                      {seconds} */}
+                                    {Math.floor(seconds / 60)
+                                      .toString()
+                                      .padStart(2, "0")}
+                                    :
+                                    {(seconds % 60).toString().padStart(2, "0")}
+                                  </span>
+                                )}
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="pt-10">
+                          <Button
+                            type="submit"
+                            size="md"
+                            disabled={loading}
+                            className="w-full justify-center "
+                          >
+                            {loading ? (
+                              <div className="inline-flex items-center gap-3">
+                                <SmallSpinner />
+                                <span>Loading...</span>
+                              </div>
+                            ) : (
+                              "Continue "
+                            )}
+                          </Button>
+                        </div>
+
+                        {/* <Button
+            type="submit"
+            size="md"
+            disabled={loading}
+            className="w-full justify-center"
+          >
+            {loading ? (
+              <div className="inline-flex items-center gap-3">
+                <SmallSpinner />
+                <span>Loading...</span>
+              </div>
+            ) : (
+              "Verify Account"
+            )}
+          </Button> */}
+                      </form>
                     </div>
                   </div>
                 </div>

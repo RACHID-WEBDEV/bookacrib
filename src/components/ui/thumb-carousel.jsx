@@ -8,7 +8,7 @@ import classNames from "classnames";
 
 import { productPlaceholder } from "../../utils/placeholders";
 
-// Product gallery breakpoints
+// Property gallery breakpoints
 const galleryCarouselBreakpoints = {
   320: {
     slidesPerView: 2,
@@ -62,14 +62,14 @@ export const ThumbsCarousel = ({
             >
               <img
                 src={item?.image ?? productPlaceholder}
-                alt={`Product gallery ${item?.id || imageIndex}`}
+                alt={`Property gallery ${item?.id || imageIndex}`}
                 // width={aspectRatio === "square" ? 450 : 420}
                 // height={aspectRatio === "square" ? 450 : 560}
                 className=" object-cover w-[100%]  lg:min-h-[450px] max-h-[450px] rounded-t-lg"
               />
               {/* <Image
                 src={item?.original ?? productPlaceholder}
-                alt={`Product gallery ${item.id || imageIndex}`}
+                alt={`Property gallery ${item.id || imageIndex}`}
                 width={aspectRatio === "square" ? 450 : 420}
                 height={aspectRatio === "square" ? 450 : 560}
               /> */}
@@ -133,12 +133,12 @@ export const ThumbsCarousel = ({
                 <div className="relative w-[100px] h-[100px] ">
                   <img
                     src={item?.image ?? productPlaceholder}
-                    alt={`Product thumb gallery ${item?.id || index}`}
+                    alt={`Property Image ${item?.id || index}`}
                     className="object-cover object-center h-[100px] min-w-[100px] min-h-[100px] "
                   />
                   {/* <Image
                   src={item?.thumbnail ?? productPlaceholder}
-                  alt={`Product thumb gallery ${item.id}`}
+                  alt={`Property Image ${item.id}`}
                   fill
                   className="object-contain"
                 /> */}

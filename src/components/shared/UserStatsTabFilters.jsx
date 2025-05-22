@@ -71,7 +71,7 @@ const UserStatsTabFilters = ({ handleFilters, cancelFilter }) => {
 
   const [paymentStatus, setPaymentStatus] = useState([]);
 
-  console.log("paymentStatus:", paymentStatus);
+  // console.log("paymentStatus:", paymentStatus);
 
   const statusUrl = (paymentStatus) => {
     if (paymentStatus.length === 0) {

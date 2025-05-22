@@ -233,17 +233,17 @@ const EditProperty = () => {
   const [userChanged, setUserChanged] = useState(false);
 
   useEffect(() => {
-    if (!userChanged && property?.data?.caution_fee != null) {
-      setCautionFee(Number(property.data.caution_fee));
+    if (!userChanged && property?.data?.caution_fee !== null) {
+      setCautionFee(Number(property?.data?.caution_fee));
     }
-    if (!userChanged && property?.data?.adult_count != null) {
-      setAdultCount(Number(property.data.adult_count));
+    if (!userChanged && property?.data?.adult_count !== null) {
+      setAdultCount(Number(property?.data?.adult_count));
     }
-    if (!userChanged && property?.data?.minor_count != null) {
-      setMinorCount(Number(property.data.minor_count));
+    if (!userChanged && property?.data?.minor_count !== null) {
+      setMinorCount(Number(property?.data?.minor_count));
     }
-    if (!userChanged && property?.data?.discount != null) {
-      setDiscount(Number(property.data.discount));
+    if (!userChanged && property?.data?.discount !== null) {
+      setDiscount(Number(property?.data?.discount));
     }
   }, [
     property?.data?.caution_fee,
@@ -290,8 +290,12 @@ const EditProperty = () => {
     }
   };
 
-  const increaseMinor = () => setMinorCount(minorCount + 1);
+  const increaseMinor = () => {
+    setUserChanged(true);
+    setMinorCount(minorCount + 1);
+  };
   const decreaseMinor = () => {
+    setUserChanged(true);
     if (minorCount > 0) {
       setMinorCount(minorCount - 1);
     }
@@ -516,7 +520,7 @@ const EditProperty = () => {
   //     setLoading(false);
   //   }
   // };
-
+  console.log("imagesFile", imagesFile);
   const handleSubmit = async (data) => {
     setLoading(true);
 
@@ -545,11 +549,11 @@ const EditProperty = () => {
       const uploadedFiles = await Promise.all(uploadPromises);
       const successfulUploads = uploadedFiles.filter(Boolean);
 
-      if (successfulUploads.length === 0) {
-        toast.error("All image uploads failed.");
-        setLoading(false);
-        return;
-      }
+      // if (successfulUploads.length === 0) {
+      //   toast.error("All image uploads failed.");
+      //   setLoading(false);
+      //   return;
+      // }
 
       if (uploadedFiles.includes(null)) {
         toast.error("Some images failed to upload. Please try again.");
@@ -561,6 +565,7 @@ const EditProperty = () => {
       // console.log("Uploaded Image URLs:", imageUrls);
 
       const imageUrls = successfulUploads.map((file) => file.secure_url);
+
       const combinedImageUrls = [...allImagesFiles, ...imageUrls];
       console.log("combinedImageUrls", combinedImageUrls);
       // Set state (for UI, future use)
@@ -580,7 +585,7 @@ const EditProperty = () => {
         price: data?.price,
         description: data.description,
         room_type_id: selectedRoomType?.uuid || property?.data?.roomType?.uuid,
-        images: allImagesFiles,
+        // images: allImagesFiles,
         country_id: selectedCountry?.uuid || property?.data?.country?.uuid,
         state_id: selectedState?.uuid || property?.data?.state?.uuid,
         city_id: selectedCities?.uuid || property?.data?.city?.uuid,
@@ -613,6 +618,7 @@ const EditProperty = () => {
       if (status >= 200 && status < 300) {
         toast.success(result?.message || "Property updated successfully!");
         // navigate("/crib-owner/property/all-property");
+        setImagesFile([]);
         handleViewPropery();
       } else {
         throw new Error("Unexpected response status");
@@ -1153,7 +1159,7 @@ const EditProperty = () => {
                 </button>
               </div>
               {/* Modal body */}
-              <div className="p-4 md:p-5 relative max-h-[350px] lg:max-h-[650px]">
+              <div className="p-4 md:p-5 relative max-h-[350px] lg:max-h-[650px] overflow-hidden">
                 {/* <img
                   className="rounded  max-w-full max-h-[350px] lg:max-h-[650px]"
                   // src={`${imagePreview}`}

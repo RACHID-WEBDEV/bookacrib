@@ -19,10 +19,6 @@ const loginThunk = createAsyncThunk(
       const loginResponse = response;
       console.log("loginResponse", loginResponse);
 
-      // if (loginResponse?.status === 200) {
-      //   toast.success(loginResponse?.message);
-      // }
-
       // Extract user data and access token from the response
       // eslint-disable-next-line no-unsafe-optional-chaining
       const { access_token } = loginResponse?.data;
@@ -52,16 +48,7 @@ const loginThunk = createAsyncThunk(
       const errorMessage = error.response.data.message;
 
       console.log("error", error);
-      // if (
-      //   error.status === 400 ||
-      //   error.status === 401 ||
-      //   error.status === 402 ||
-      //   error.status === 403 ||
-      //   error.status === 404
-      // ) {
-      //   toast.error(errorMessage);
-      // }
-      // Reject the promise with the error message
+
       return rejectWithValue(errorMessage);
     }
   }
@@ -76,7 +63,9 @@ const logoutThunk = createAsyncThunk(
       // Remove cookies related to auth
       Cookies.remove("bookacrib_user_token");
       Cookies.remove("bookacrib_currentUser");
-      Cookies.remove("bookacrib_current_company_id");
+      // Cookies.remove("bookacrib_current_company_id");
+      localStorage.removeItem("bookacrib_current_company_id");
+      localStorage.removeItem("bookacrib_switch_to_company");
 
       if (response.status >= 200 && response.status < 300) {
         toast.success(response.message);
@@ -90,35 +79,6 @@ const logoutThunk = createAsyncThunk(
     }
   }
 );
-// Create a logout thunk
-// const logoutThunk = createAsyncThunk("auth/logout", async (data, thunkAPI) => {
-
-//   try {
-//     // Make an HTTP POST request to the logout endpoint
-//     const response = await postData("/v1/users/logout", "");
-
-//     // Remove access token and user cookies
-//     Cookies.remove("bookacrib_user_token");
-//     Cookies.remove("bookacrib_currentUser");
-//     Cookies.remove("bookacrib_current_company_id");
-
-//     // Return success message
-//     // return "Logged out successfully";
-//     console.log("Logged out successfully");
-
-//     const { status, message } = response;
-//     if (status >= 200 && status < 300) {
-//       toast.success(message);
-//     }
-//     // persistor.purge();
-//     return response;
-//   } catch (error) {
-//     // Handle errors
-//     const errorMessage = error.response.data.message;
-//     // Reject the promise with the error message
-//     return thunkAPI.rejectWithValue(errorMessage);
-//   }
-// });
 
 const signupThunk = createAsyncThunk(
   "user_auth/signup",
@@ -228,17 +188,14 @@ const switchCompany = createAsyncThunk(
   async ({ companyId, switchToCompany }, { rejectWithValue }) => {
     try {
       if (switchToCompany) {
-        Cookies.set("bookacrib_current_company_id", companyId, {
-          expires: 7,
-          sameSite: "None",
-          secure: true,
-        });
+        localStorage.setItem("bookacrib_current_company_id", companyId);
+        localStorage.setItem("bookacrib_switch_to_company", "true");
       } else {
-        Cookies.remove("bookacrib_current_company_id");
+        localStorage.removeItem("bookacrib_current_company_id");
+        localStorage.removeItem("bookacrib_switch_to_company");
       }
       return { companyId, switchToCompany };
     } catch (error) {
-      // Handle errors and return a rejected value
       return rejectWithValue(error.message);
     }
   }

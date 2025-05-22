@@ -48,9 +48,6 @@ const CribBookingsDetails = () => {
   const [viewReceipt, setViewReceipt] = useState(false);
   const componentRef = useRef();
 
-  const [loadingBooking, setLoadingBooking] = useState(false);
-  const [errorBooking, setErrorBooking] = useState(null);
-  // const [listcribbooking, setlistcribbooking] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -58,28 +55,28 @@ const CribBookingsDetails = () => {
     (state) => state.listbooking
   );
 
-  // const [selectedOriginCountry, setSelectedOriginCountry] = useState(null);
-
-  // console.log("listcribbooking:", listcribbooking);
-
   const bookData = listcribbooking?.data?.cached_booking_data;
-  // console.log("bookData:", bookData);
+  // console.log("bookData:", bookData?.property?.images);
+  const rawImages = bookData?.property?.images;
+
+  const imagesslides = rawImages
+    ? Array.isArray(rawImages)
+      ? rawImages.map((img, index) => ({
+          image: `${img}`,
+          id: index + 1,
+        }))
+      : Object.values(rawImages).map((img, index) => ({
+          image: `${img}`,
+          id: index + 1,
+        }))
+    : [];
+
+  const imagesData = imagesslides;
+
+  console.log("imagesData", imagesData);
 
   const handlelistcribbookings = async () => {
     dispatch(fetchCribListBooking(uuid));
-    // setLoadingBooking(true);
-    // try {
-    //   const response = await getData(
-    //     `/bookacrib-api-routes/v1/bookings/view-company-single-booking?id=${uuid}&with[]=property&with[]=user
-    //     `
-    //   );
-    //   setlistcribbooking(response);
-    //   // console.log(response);
-    // } catch (error) {
-    //   setErrorBooking(error.response.data.message);
-    // } finally {
-    //   setLoadingBooking(false);
-    // }
   };
 
   useEffect(() => {
@@ -172,14 +169,8 @@ const CribBookingsDetails = () => {
 
   const calcTaxAmount = (tax_amount / 100) * priceAfterDiscount;
 
-  // console.log("Discount Amount:", calcDiscount);
-
   // Calculate the final price after applying the discount
   const finalPrice = priceAfterDiscount + calcTaxAmount;
-
-  // console.log("Final Price after Discount:", finalPrice);
-
-  // console.log("Check date:", selectedCheckInDate);
 
   const checkIn = formateCheckDate(selectedCheckInDate);
   const checkOut = formateCheckDate(selectedCheckOutDate);
@@ -190,16 +181,22 @@ const CribBookingsDetails = () => {
 
   const uniqueId = Cookies.get("bookacrib_uniqueId");
 
-  // console.log("currentUser:", currentUser?.uuid);
-  // console.log("uniqueId:", uniqueId);
+  // const imagesslides = bookData?.property?.images?.map((img, index) => ({
+  //   image: `${img}`,
+  //   id: index + 1,
+  // }));
 
-  // console.log("selectedMinor :", selectedMinor?.minor_count);
-  // console.log("checkOut :", checkOut);
+  // const rawImages = bookData?.property?.images;
+  // console.log("rawImages", rawImages);
+  // const imagesslides = Array.isArray(rawImages)
+  //   ? rawImages.map((img, index) => ({
+  //       image: `${img}`,
+  //       id: index + 1,
+  //     }))
+  //   : typeof rawImages === "string"
+  //   ? [{ image: rawImages, id: 1 }]
+  //   : [];
 
-  const imagesData = bookData?.property?.images?.map((img, index) => ({
-    image: `${img}`,
-    id: index + 1,
-  }));
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -257,7 +254,7 @@ const CribBookingsDetails = () => {
         <ErrorStatus
           message={JSON.stringify(errorcribbooking?.message)}
           statusCode={errorcribbooking?.status_code || errorcribbooking?.status}
-          link="/"
+          link="/crib-owner/dashboard"
           reload
         />
       ) : (
@@ -338,7 +335,8 @@ const CribBookingsDetails = () => {
             <div>
               <Button
                 disabled={
-                  listcribbooking?.data?.arrival_status === "checked out"
+                  listcribbooking?.data?.arrival_status === "checked out" ||
+                  listcribbooking?.data?.payment_status === "pending"
                 }
                 className=" capitalize"
                 onClick={() => setShowModal(true)}

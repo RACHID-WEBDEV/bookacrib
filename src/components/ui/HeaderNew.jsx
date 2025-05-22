@@ -120,7 +120,7 @@ const HeaderNew = () => {
         className={`fixed z-50 w-full ${backgroundColor} shadoww backdrop-blurr`}
       >
         <div className="container m-auto px-2 md:px-12 lg:px-7">
-          <div className="flex flex-wrap items-center justify-between py-2 gap-6 md:py-4 md:gap-0 relative">
+          <div className="flex flex-wrap items-center justify-between py-2 gap-6 md:py-2 md:gap-0 relative">
             <input
               type="checkbox"
               name="toggle_nav"
@@ -135,9 +135,9 @@ const HeaderNew = () => {
                 className="flex space-x-2 items-center"
               >
                 {position ? (
-                  <img src={LogoDark} alt="logo" className="w-[160px] " />
+                  <img src={LogoDark} alt="logo" className="w-[180px] " />
                 ) : (
-                  <img src={Logo} alt="logo" className="w-[160px] " />
+                  <img src={Logo} alt="logo" className="w-[180px] " />
                 )}
                 {/* <div aria-hidden="true" className="flex space-x-1">
                   <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-white" />

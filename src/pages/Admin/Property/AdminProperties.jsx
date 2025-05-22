@@ -328,6 +328,19 @@ const AdminProperties = () => {
                             Go Back
                           </Button>
                         </div>
+
+                        <div className=" flex flex-col items-center justify-center gap-24 pt-6 pb-20">
+                          <div className=" text-center">
+                            <p className="text-xl font-semibold text-dark-100">
+                              No Property Added yet
+                            </p>
+                            <p className="text- font-normal text-gray-500">
+                              Any property added would be saved here
+                              automatically{" "}
+                            </p>
+                          </div>
+                          <EmptyImage />
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -451,18 +464,18 @@ const AdminProperties = () => {
                             >
                               <EyeIconBold />
                             </div>
-                            <div
+                            {/* <div
                               className="cursor-pointer "
                               onClick={() => navigatePropertyEdit(item)}
                             >
                               <EditIcon />
-                            </div>
-                            <div
+                            </div> */}
+                            {/* <div
                               className="cursor-pointer "
                               // onClick={() => deleteFeatureData(item?.uuid)}
                             >
                               <DeleteIcon className="text-red-600 w-6 h-6" />
-                            </div>
+                            </div> */}
                           </div>
                         </td>
                       </tr>
@@ -481,17 +494,6 @@ const AdminProperties = () => {
               />
             )}
           </div>
-        </div>
-        <div className=" flex flex-col items-center justify-center gap-24 pt-6 pb-20">
-          <div className=" text-center">
-            <p className="text-xl font-semibold text-dark-100">
-              No Room Added yet
-            </p>
-            <p className="text- font-normal text-gray-500">
-              Any property added would be saved here automatically{" "}
-            </p>
-          </div>
-          <EmptyImage />
         </div>
       </div>
     </div>

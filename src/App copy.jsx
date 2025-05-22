@@ -4,10 +4,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import MainDashboardLayout from "./layout/MainDashboardLayout";
 import AdminDashboardLayout from "./LayoutAdmin/AdminDashboardLayout";
 
+// import Dashboard from "src/layout/Dashboard";
 import Login from "./pages/Login";
 import Public from "./Routes/Public";
-// import Private from "./Routes/Private";
+import Private from "./Routes/Private";
 import Register from "./pages/Register";
+// import Inventory from "./pages/Admin/Products/Inventory";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import ForgetPassword from "./pages/ForgetPassword";
@@ -44,7 +46,7 @@ import AdminResetPassword from "./pages/Admin/AdminResetPassword";
 import AdminRegisterSent from "./pages/Admin/AdminRegisterSent";
 import RegisterSent from "./pages/RegisterSent";
 import ForgetPasswordSent from "./pages/ForgetPasswordSent";
-// import UserPrivate from "./Routes/userPrivate";
+import UserPrivate from "./Routes/userPrivate";
 import BookacribUsers from "./pages/Admin/BookacribUsers/BookacribUsers";
 import ListCompany from "./pages/Admin/Company/ListCompany";
 import ViewCompany from "./pages/Admin/Company/ViewCompany";
@@ -64,7 +66,7 @@ import UserNotications from "./pages/User/UserNotifications";
 import AccountDeactivation from "./pages/User/AccountDeactivation";
 import UserUpdatePassword from "./pages/User/UserUpdatePassword";
 import UserUpdateProfile from "./pages/User/UserUpdateProfile";
-// import CribPrivate from "./Routes/CribPrivate";
+import CribPrivate from "./Routes/CribPrivate";
 import CribDashboardLayout from "./layout/CribDashboardLayout";
 import CribDashboard from "./pages/Company/CribDashboard";
 import CribTransactionLayout from "./pages/Company/CribListBookings/CribTransactionLayout";
@@ -77,14 +79,13 @@ import CribUsers from "./pages/Company/CribUsers/CribUsers";
 import PropertyCrib from "./pages/Admin/Property/PropertyCrib";
 import CribPropertyOverview from "./pages/CribPropertyOverview";
 import AccountDelete from "./pages/User/AccountDelete";
-import ProtectedRoute from "./Routes/ProtectedRoute";
-// import RequireRole from "./Routes/RequiredRole";
 
 function App() {
   return (
     <>
       <Routes>
-        {/* 🌐 Public Routes */}
+        {/* Routes for the public pages */}
+
         <Route element={<Public />}>
           <Route path="/" element={<Home />} />
           <Route path="view-property" element={<PropertyDetailsLayout />}>
@@ -105,15 +106,17 @@ function App() {
             path="/resend-verification-link"
             element={<ResendVerification />}
           />
+
           <Route path="payment/confirmation" element={<PaymentCallBack />} />
 
-          {/* Admin Public Routes */}
+          {/* ADMIN ROUTE PUBLIC */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/sign-up" element={<AdminRegister />} />
           <Route
             path="/admin/sign-up-success"
             element={<AdminRegisterSent />}
           />
+
           <Route path="/admin/account/verify" element={<VerifyAdmin />} />
           <Route
             path="/admin/forget-password"
@@ -133,10 +136,14 @@ function App() {
           />
         </Route>
 
-        {/* 🔐 Unified Protected Route (handles redirection based on role) */}
-        <Route element={<ProtectedRoute allowedRole="admin" />}>
-          {/* Admin Routes */}
-          <Route path="admin" element={<AdminDashboardLayout />}>
+        <Route element={<Private />}>
+          <Route
+            path="admin"
+            element={
+              <AdminDashboardLayout />
+              // <MainDashboardLayout />
+            }
+          >
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="customers" element={<BookacribUsers />} />
             <Route path="list-companies" element={<ListCompany />} />
@@ -148,8 +155,19 @@ function App() {
                 path="booking-details/:uuid"
                 element={<AdminBookingsDetails />}
               />
+
+              {/* <Route
+                path="property-detail/:uuid"
+                element={<PropertyDetails />}
+              />
+
+             
+              <Route path="property-edit/:uuid" element={<EditProperty />} />
+
+              */}
             </Route>
             <Route path="view-company/:uuid" element={<ViewCompany />} />
+
             <Route path="property" element={<PropertyLayout />}>
               <Route index element={<Navigate replace to="all-properties" />} />
               <Route path="all-properties" element={<AdminProperties />} />
@@ -160,9 +178,11 @@ function App() {
               <Route path="categories" element={<AdminCategories />} />
               <Route path="room-types" element={<AdminRoomType />} />
               <Route path="features" element={<AdminRoomFeatures />} />
+
               <Route path="create-property" element={<CreateProperty />} />
               <Route path="property-edit/:uuid" element={<EditProperty />} />
             </Route>
+
             <Route path="settings" element={<AdminSettingsLayout />}>
               <Route index element={<Navigate replace to="roles" />} />
               <Route path="roles" element={<BooksRoles />} />
@@ -171,12 +191,11 @@ function App() {
             </Route>
             <Route path="notifications" element={<UserNotications />} />
           </Route>
-          <Route />
         </Route>
-        {/* Crib Owner Routes */}
-        <Route element={<ProtectedRoute allowedRole="crib" />}>
+        <Route element={<CribPrivate />}>
           <Route path="crib-owner" element={<CribDashboardLayout />}>
             <Route path="dashboard" element={<CribDashboard />} />
+
             <Route path="create-company" element={<CreateCompany />} />
             <Route path="transactions" element={<CribTransactionLayout />}>
               <Route index element={<Navigate replace to="list-bookings" />} />
@@ -185,16 +204,30 @@ function App() {
                 path="booking-details/:uuid"
                 element={<CribBookingsDetails />}
               />
+              {/* <Route
+                path="property-detail/:uuid"
+                element={<PropertyDetails />}
+              />
+
+              <Route path="create-property" element={<CreateProperty />} />
+              <Route path="property-edit/:uuid" element={<EditProperty />} />
+
+              <Route path="features" element={<RoomFeatures />} />
+              <Route path="room-types" element={<RoomTypes />} />
+              <Route path="categories" element={<Categories />} /> */}
             </Route>
             <Route path="property" element={<PropertyLayout />}>
               <Route index element={<Navigate replace to="all-property" />} />
               <Route path="all-property" element={<PropertyCrib />} />
               <Route
                 path="property-detail/:uuid"
+                // element={<PropertyDetails />}
                 element={<CribPropertyOverview />}
               />
+
               <Route path="create-property" element={<CreateProperty />} />
               <Route path="property-edit/:uuid" element={<EditProperty />} />
+
               <Route path="features" element={<RoomFeatures />} />
               <Route path="room-types" element={<RoomTypes />} />
               <Route path="categories" element={<Categories />} />
@@ -207,13 +240,25 @@ function App() {
               <Route path="role-types" element={<RoleType />} />
               <Route path="permissions" element={<Permission />} />
             </Route>
+            {/* <Route path="settings" element={<AdminSettingsLayout />}>
+              <Route
+                index
+                element={<Navigate replace to="profile-settings" />}
+              />
+              <Route path="profile-settings" element={<ProfileSettings />} />
+              <Route
+                path="account-deactivation"
+                element={<AccountDeactivation />}
+              />
+              <Route path="update-profile" element={<UserUpdateProfile />} />
+              <Route path="update-password" element={<UserUpdatePassword />} />
+            </Route> */}
           </Route>
         </Route>
-
-        {/* User Routes */}
-        <Route element={<ProtectedRoute allowedRole="user" />}>
+        <Route element={<UserPrivate />}>
           <Route path="user" element={<MainDashboardLayout />}>
             <Route path="dashboard" element={<UserDashboard />} />
+
             <Route path="create-company" element={<CreateCompany />} />
             <Route path="transactions" element={<UserTransactionLayout />}>
               <Route index element={<Navigate replace to="list-bookings" />} />
@@ -222,6 +267,17 @@ function App() {
                 path="booking-details/:uuid"
                 element={<BookingsDetails />}
               />
+              {/* <Route
+                path="property-detail/:uuid"
+                element={<PropertyDetails />}
+              />
+
+              <Route path="create-property" element={<CreateProperty />} />
+              <Route path="property-edit/:uuid" element={<EditProperty />} />
+
+              <Route path="features" element={<RoomFeatures />} />
+              <Route path="room-types" element={<RoomTypes />} />
+              <Route path="categories" element={<Categories />} /> */}
             </Route>
             <Route path="property" element={<PropertyLayout />}>
               <Route index element={<Navigate replace to="all-property" />} />
@@ -230,13 +286,21 @@ function App() {
                 path="property-detail/:uuid"
                 element={<PropertyDetails />}
               />
+
               <Route path="create-property" element={<CreateProperty />} />
               <Route path="property-edit/:uuid" element={<EditProperty />} />
+
               <Route path="features" element={<RoomFeatures />} />
               <Route path="room-types" element={<RoomTypes />} />
               <Route path="categories" element={<Categories />} />
             </Route>
             <Route path="notifications" element={<UserNotications />} />
+            {/* <Route path="settings" element={<AdminSettingsLayout />}>
+              <Route index element={<Navigate replace to="roles" />} />
+              <Route path="roles" element={<Roles />} />
+              <Route path="role-types" element={<RoleType />} />
+              <Route path="permissions" element={<Permission />} />
+            </Route> */}
             <Route path="settings" element={<AdminSettingsLayout />}>
               <Route
                 index
@@ -253,8 +317,6 @@ function App() {
             </Route>
           </Route>
         </Route>
-
-        {/* 404 Route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

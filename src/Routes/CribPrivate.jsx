@@ -6,13 +6,14 @@ import Loading from "../components/Loading/Loading";
 const CribPrivate = () => {
   const navigate = useNavigate();
   // Explicitly define the type of 'state' using the RootState interface
-  const { isAuthenticated, switchToCompany } = useSelector(
+  const { isAuthenticated, switchToCompany, companyId } = useSelector(
     (state) => state.auth
   );
   // const isAuthorised = currentUser?.role.id;
 
   // console.log("isAuthenticated private", isAuthenticated);
 
+  console.log("Company companyId___:::", companyId);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const CribPrivate = () => {
     // Show outlet if authenticated, otherwise redirect to login
     // isAuthenticated && isAuthorised ? <Outlet /> : navigate("/login")
     <>
-      {isAuthenticated && switchToCompany ? (
+      {isAuthenticated && switchToCompany && companyId ? (
         <Outlet />
       ) : (
         navigate("/user/dashboard")

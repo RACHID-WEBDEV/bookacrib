@@ -9,6 +9,7 @@ import ErrorStatus from "../../../components/forms/ErrorStatus";
 import { Button } from "../../../components/forms/Button";
 import Checkbox from "src/components/forms/Checkbox/Checkbox.jsx";
 import PropertyApproval from "./PropertyApproval";
+import { formatNumber } from "../../../lib/constants";
 
 const PropertyDetails = () => {
   const [checked, setChecked] = useState(true);
@@ -283,6 +284,14 @@ const PropertyDetails = () => {
                       <div className=" relative space-y-2">
                         <div className="">
                           <label className="py-2 block leading-[18px] text-[#777] ">
+                            Status
+                          </label>
+                          <h4 className="  text-base text-gray-900 uppercase font-semibold px-3 py-3.5 rounded-md bg-white ">
+                            {property?.data?.status}
+                          </h4>
+                        </div>
+                        <div className="">
+                          <label className="py-2 block leading-[18px] text-[#777] ">
                             Applicant
                           </label>
                           <h4 className="  text-base text-gray-900 font-medium px-3 py-3.5 rounded-md bg-white ">
@@ -317,19 +326,69 @@ const PropertyDetails = () => {
                         </div>
                         <div className="">
                           <label className="py-2 block leading-[18px] text-[#777] ">
+                            Room Type
+                          </label>
+                          <h4 className="  text-base text-gray-900 font-medium px-3 py-3.5 rounded-md bg-white ">
+                            {property?.data?.roomType?.name}
+                          </h4>
+                        </div>
+                        <div className="">
+                          <label className="py-2 block leading-[18px] text-[#777] ">
                             Location
                           </label>
                           <h4 className="  text-base text-gray-900 font-medium px-3 py-3.5 rounded-md bg-white ">
                             {property?.data?.address}
                           </h4>
                         </div>
+                        <div className="">
+                          <label className="py-2 block leading-[18px] text-[#777] ">
+                            Country
+                          </label>
+                          <h4 className="  text-base text-gray-900 font-medium px-3 py-3.5 rounded-md bg-white ">
+                            {property?.data?.country?.name}
+                          </h4>
+                        </div>
+                        <div className=" grid lg:grid-cols-2 gap-4">
+                          <div className="">
+                            <label className="py-2 block leading-[18px] text-[#777] ">
+                              State
+                            </label>
+                            <h4 className="  text-base text-gray-900 font-medium px-3 py-3.5 rounded-md bg-white ">
+                              {property?.data?.state?.name}
+                            </h4>
+                          </div>
+                          <div className="">
+                            <label className="py-2 block leading-[18px] text-[#777] ">
+                              City
+                            </label>
+                            <h4 className="  text-base text-gray-900 font-medium px-3 py-3.5 rounded-md bg-white ">
+                              {property?.data?.city?.name}
+                            </h4>
+                          </div>
 
+                          <div className="">
+                            <label className="py-2 block leading-[18px] text-[#777] ">
+                              (Max) Adult Count
+                            </label>
+                            <h4 className="  text-base text-gray-900 font-medium px-3 py-3.5 rounded-md bg-white ">
+                              {property?.data?.adult_count}
+                            </h4>
+                          </div>
+                          <div className="">
+                            <label className="py-2 block leading-[18px] text-[#777] ">
+                              (Max) Minor Count
+                            </label>
+                            <h4 className="  text-base text-gray-900 font-medium px-3 py-3.5 rounded-md bg-white ">
+                              {property?.data?.minor_count}
+                            </h4>
+                          </div>
+                        </div>
                         <div className="">
                           <label className="py-2 block leading-[18px] text-[#777] ">
                             Price
                           </label>
                           <h4 className="  text-base text-gray-900 font-medium px-3 py-3.5 rounded-md bg-white ">
-                            {property?.data?.price}
+                            {formatNumber(Number(property?.data?.price))}
                           </h4>
                         </div>
                         {/* <div className="calendar" id="date_1">

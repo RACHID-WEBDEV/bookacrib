@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import logo from "src/assets/images/bookacrib-logo.svg";
+import logo from "src/assets/images/bookacrib-logo-dark.svg";
 
 import { Link } from "react-router-dom";
 
