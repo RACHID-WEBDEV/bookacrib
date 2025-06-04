@@ -71,6 +71,12 @@ export function getBasePath(url) {
   return basePath;
 }
 
+export function getPageFromUrl(url) {
+  const parsedUrl = new URL(url);
+  const page = parsedUrl.searchParams.get("page");
+  return page ? parseInt(page, 10) : null;
+}
+
 export function formatDateTime(dateString) {
   const date = new Date(dateString);
   const dayOfWeek = date.toLocaleString("en-US", { weekday: "short" });
