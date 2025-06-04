@@ -69,13 +69,13 @@ export const footer = {
       links: [
         {
           name: "Privacy & cookies",
-          link: "/",
+          link: "/privacy-policy",
           leavesWebsite: false,
         },
 
         {
           name: "Terms & Conditions",
-          link: "/",
+          link: "/terms-and-condition",
           leavesWebsite: false,
         },
         {
