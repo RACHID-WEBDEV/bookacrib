@@ -2,8 +2,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 // Define base URL
-// const OldbaseURL = "https://phplaravel-1332551-4877980.cloudwaysapps.com/api";
-const baseURL = "https://phplaravel-1431813-5346483.cloudwaysapps.com/api";
+
+// const baseURL = "https://phplaravel-1431813-5346483.cloudwaysapps.com/api";
+const baseURL = "https://api.bookacrib.com/api";
 // Create an Axios instance with default configurations
 
 const axiosInstance = axios.create({ baseURL });
