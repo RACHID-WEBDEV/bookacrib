@@ -230,7 +230,6 @@ const CityOverview = () => {
 
   const handlePaginate = (url) => {
     if (url) {
-      // fetchPermisssion(url);
       // console.log("URL::", getPageFromUrl(url));
       const newPageUrl = `${fetchUrl}&page=${getPageFromUrl(url)}`;
       handleViewPropery(newPageUrl);
@@ -239,7 +238,7 @@ const CityOverview = () => {
   const IN_APP_PROPERTY = viewPropery?.data?.filter(
     (data) => data?.create_source !== "SEEDER"
   );
-  // console.log("IN_APP_PROPERTY", IN_APP_PROPERTY[0]?.state?.name);
+
   return (
     <>
       <div className="pt-10 lg:pt-20 px-4 lg:px-20 2xl:px-40">
