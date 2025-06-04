@@ -78,6 +78,10 @@ import PropertyCrib from "./pages/Admin/Property/PropertyCrib";
 import CribPropertyOverview from "./pages/CribPropertyOverview";
 import AccountDelete from "./pages/User/AccountDelete";
 import ProtectedRoute from "./Routes/ProtectedRoute";
+import TermsCondition from "./pages/TermsCondition";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import DeleteAccount from "./pages/DeleteAccount";
+import CityOverview from "./pages/CityOverview";
 // import RequireRole from "./Routes/RequiredRole";
 
 function App() {
@@ -105,7 +109,13 @@ function App() {
             path="/resend-verification-link"
             element={<ResendVerification />}
           />
+          <Route path="/terms-and-condition" element={<TermsCondition />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="city" element={<PropertyDetailsLayout />}>
+            <Route path="category/:uuid" element={<CityOverview />} />
+          </Route>
           <Route path="payment/confirmation" element={<PaymentCallBack />} />
+          <Route path="/user/account/deletion" element={<DeleteAccount />} />
 
           {/* Admin Public Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
