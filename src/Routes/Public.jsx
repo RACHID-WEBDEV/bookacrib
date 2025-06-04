@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading/Loading";
 import Footer from "../components/ui/Footer";
 import Header from "../components/ui/Header";
@@ -53,10 +53,21 @@ const Public = () => {
 
   // Show outlet if authenticated, otherwise redirect to login
   // return !isAuthenticated ? <Outlet /> : null;
+  const location = useLocation();
+  const currentPath = location.pathname;
+  // console.log("currentPath", currentPath);
+  // // header start
+  let header;
+  if (currentPath === "/") {
+    header = <HeaderNew />;
+  } else {
+    header = <Header />;
+  }
   return (
     <>
       {/* <Header /> */}
-      <HeaderNew />
+      {/* <HeaderNew /> */}
+      {header}
       <Outlet />
       <Footer />
     </>
