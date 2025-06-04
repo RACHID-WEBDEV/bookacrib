@@ -114,9 +114,15 @@ const Footer = () => {
                 <span>All right reserved</span>
               </div>
               <div className=" flex items-center gap-2">
-                <span className="hidden lg:block"> Terms and Condition</span>
+                {/* <span className="hidden lg:block"> Terms and Condition</span> */}
+                <Link to="/terms-and-condition">
+                  <span className="hidden lg:block"> Terms and Condition</span>
+                </Link>
                 <span className="hidden lg:block"> |</span>
-                <span className="hidden lg:block">Privacy Policy</span>
+                {/* <span className="hidden lg:block">Privacy Policy</span> */}
+                <Link to="/privacy-policy">
+                  <span className="hidden lg:block">Privacy Policy</span>
+                </Link>
               </div>
             </div>
           </footer>
@@ -218,9 +224,13 @@ const Footer = () => {
                 <span>All right reserved</span>
               </div>
               <div className=" flex items-center gap-2">
-                <span className="hidden lg:block"> Terms and Condition</span>
+                <Link to="/terms-and-condition">
+                  <span className="hidden lg:block"> Terms and Condition</span>
+                </Link>
                 <span className="hidden lg:block"> |</span>
-                <span className="hidden lg:block">Privacy Policy</span>
+                <Link to="/privacy-policy">
+                  <span className="hidden lg:block">Privacy Policy</span>
+                </Link>
               </div>
             </div>
           </footer>
