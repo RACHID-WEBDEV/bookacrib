@@ -48,10 +48,10 @@ const HeaderNew = () => {
 
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { isAdminAuthenticated } = useSelector((state) => state.adminauth);
-  console.log("isAdminAuthenticated:", isAdminAuthenticated);
+  // console.log("isAdminAuthenticated:", isAdminAuthenticated);
   // const isAuthorised = currentUser?.role.id;
 
-  console.log("isAuthenticated now:", isAuthenticated);
+  // console.log("isAuthenticated now:", isAuthenticated);
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   // const { currentUser } = useSelector((state) => state.auth);
