@@ -872,3 +872,40 @@ input:-webkit-autofill:active {
 }
 
 /* SLDER CODE END */
+
+/* Article */
+.article-content > *:not(.article-content-wide) {
+  @apply mx-auto mt-6 max-w-[48.125rem];
+}
+
+.article-content > h1,
+.article-content > h2,
+.article-content > h3,
+.article-content > h4,
+.article-content > h5,
+.article-content > h6 {
+  @apply text-gray-800 font-Inter text-lg font-bold !mt-12 mb-4 dark:text-white;
+}
+
+.article-content > p {
+  @apply text-gray-600 dark:text-gray-300;
+}
+
+.article-content > h1,
+.article-content > h2,
+.article-content > h3,
+.article-content > h4,
+.article-content > h5,
+.article-content > h6 {
+  --tw-text-opacity: 1;
+  /* color: rgba(19, 23, 64, var(--tw-text-opacity)); */
+  font-family: Inter, sans-serif;
+  margin-bottom: 1rem;
+  margin-top: 3rem !important;
+}
+
+.article-content > ul,
+.article-content > ol {
+  list-style: initial;
+  @apply space-y-3 pl-8 text-gray-600 dark:text-gray-300;
+}
