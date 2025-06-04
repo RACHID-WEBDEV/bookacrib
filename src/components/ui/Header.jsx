@@ -1,6 +1,8 @@
 // import { Link } from "react-router-dom";
 // import { NAVIGATION } from "../../data/menu";
-import Logo from "src/assets/images/bookacrib-logo.svg";
+// import Logo from "src/assets/images/bookacrib-logo.svg";
+// import Logo from "src/assets/images/bookacrib-logo.svg";
+import LogoDark from "src/assets/images/bookacrib-logo-dark.svg";
 // import { CartsIcon, SearchIcon, UsersIcon } from "../../assets/SvgIcons";
 import classNames from "classnames";
 import { useState } from "react";
@@ -89,7 +91,7 @@ const Header = () => {
   }
   return (
     <header>
-      <nav className="fixed z-50 w-full dark:bg-gray-900/70 bg-white  md:bg-[#fff] shadow">
+      <nav className="fixed z-50 w-full dark:bg-gray-900/70 bg-white  md:bg-[#fff] shadow py-2">
         <div className="container m-auto px-2 md:px-12 lg:px-7">
           <div className="flex flex-wrap items-center justify-between py-2 gap-6 md:py-0 md:gap-0 relative">
             <input
@@ -101,11 +103,10 @@ const Header = () => {
             <div className="w-full px-4 lg:px-6 flex justify-between lg:w-max md:px-0">
               <Link
                 to="/"
-                href="#"
                 aria-label="logo"
                 className="flex space-x-2 items-center"
               >
-                <img src={Logo} alt="logo" className="w-[160px] lg:w-[220px]" />
+                <img src={LogoDark} alt="logo" className="w-[160px] " />
                 {/* <div aria-hidden="true" className="flex space-x-1">
                   <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-white" />
                   <div className="h-6 w-2 bg-primary" />
