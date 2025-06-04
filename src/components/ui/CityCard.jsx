@@ -2,12 +2,12 @@
 
 import { Link } from "react-router-dom";
 
-const CityCard = ({ image, title, category }) => {
+const CityCard = ({ image, title, category, city }) => {
   return (
     <div className=" relative flex flex-col bg-transparent  border border-gray-100 rounded-lg ">
       {/* <a className="absolute inset-0" /> */}
       <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-t-xl overflow-hidden z-1 group">
-        <a className="block relative" href="#">
+        <Link className="block relative" to={`city/category/${city?.uuid}`}>
           <div className="flex overflow-hidden w-full h-64 lg:h-[330px]">
             <img
               alt="product"
@@ -16,7 +16,7 @@ const CityCard = ({ image, title, category }) => {
             />
           </div>
           <div className=" absolute w-full h-full inset-0  bg-black/20"></div>
-        </a>
+        </Link>
 
         <div className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
           <button className="nc-Button relative h-auto inline-flex items-center justify-center rounded-full  text-xs py-2 px-4  text-slate-700 dark:bg-slate-900 dark:text-slate-300  ms-1.5 bg-white hover:!bg-gray-100 hover:text-slate-900 transition-colors shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 ">
